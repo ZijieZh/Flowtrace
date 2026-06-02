@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/hero.png" width="440" alt="Flowtrace">
+
 # Flowtrace
 
 **让 agent 跑一个任务的方式：透明、可复用、会进化。**

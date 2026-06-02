@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/assets/hero.png" width="440" alt="Flowtrace">
+
 # Flowtrace
 
 **A transparent, reusable, evolving way to run a task with your agent.**
