@@ -1,0 +1,6 @@
+test,feature,statistic,p_value,pass
+Shapiro-Wilk,sepal_length,0.966,0.554,yes
+Shapiro-Wilk,sepal_width,0.967,0.487,yes
+Shapiro-Wilk,petal_length,0.977,0.322,yes
+Shapiro-Wilk,petal_width,0.957,0.182,yes
+Levene,all,2.258,0.213,yes

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/App.tsx",
+    "src/i18n/init.ts"
+  ],
+  "project": [
+    "src/**/*.{ts,tsx}"
+  ],
+  "ignore": [
+    "src/shared/components/ui/**"
+  ],
+  "ignoreDependencies": [
+    "json-schema-to-typescript"
+  ]
+}

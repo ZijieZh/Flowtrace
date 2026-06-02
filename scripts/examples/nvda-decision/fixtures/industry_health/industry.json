@@ -1,0 +1,17 @@
+{
+  "industry": "Semiconductors \u2014 AI accelerators",
+  "cycle_stage": "mid-to-late expansion; demand strong, watch for capex digestion",
+  "demand_read": "datacenter/GPU demand led by hyperscaler + sovereign AI buildout",
+  "nvda_share": "~dominant share of merchant AI training accelerators",
+  "tailwinds": [
+    "AI capex supercycle",
+    "platform refresh cadence",
+    "software/ecosystem lock-in"
+  ],
+  "headwinds": [
+    "capex digestion / air-pocket risk",
+    "custom ASIC substitution",
+    "export-control policy"
+  ],
+  "source": "sector-analyst framework"
+}

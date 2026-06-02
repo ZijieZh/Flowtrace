@@ -1,0 +1,9 @@
+{
+  "heading": "Traces",
+  "openMenu": "메뉴 열기",
+  "oneMoment": "잠시만 기다려 주세요…",
+  "failedToLoad": "trace를 불러오지 못했습니다",
+  "retry": "다시 시도",
+  "noTraces": "표시할 trace가 없습니다",
+  "noTracesDescription": "scope 디렉터리에 trace.json을 추가하면 여기에 표시됩니다."
+}

@@ -1,0 +1,27 @@
+{
+  "role": {
+    "title": "Backend Engineer",
+    "seniority": "mid",
+    "domain": "Payments Platform (fintech)"
+  },
+  "responsibilities": [
+    "Design and build high-throughput backend services for payment processing",
+    "Work with distributed systems and message queues (Kafka)",
+    "Optimize PostgreSQL performance at scale",
+    "Ensure reliability, observability, and PCI-compliant handling of sensitive data",
+    "Participate in the on-call rotation"
+  ],
+  "must_have": [
+    "3+ years backend engineering experience",
+    "Strong in Go or Java (Python acceptable)",
+    "Distributed systems and high-throughput services",
+    "Proficient with PostgreSQL",
+    "Message queues (Kafka, RabbitMQ)",
+    "Observability / monitoring"
+  ],
+  "nice_to_have": [
+    "PCI DSS / payments compliance awareness",
+    "Scaling to high transaction volumes",
+    "Payment systems or financial data background"
+  ]
+}

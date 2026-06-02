@@ -1,0 +1,86 @@
+{
+  "error": {
+    "connectionError": "Error de conexión",
+    "agentNotFound": "Agente no encontrado",
+    "agentNotFoundDesc": "Este agente no existe o ha sido eliminado.",
+    "sessionExpired": "Sesión expirada",
+    "sessionExpiredDesc": "Tu sesión ha expirado. Por favor, inicia sesión de nuevo.",
+    "accessDenied": "Acceso denegado",
+    "accessDeniedDesc": "No tienes permiso para acceder a este agente.",
+    "serverError": "Error del servidor",
+    "somethingWentWrong": "Algo salió mal",
+    "unexpectedError": "Ocurrió un error inesperado.",
+    "unableToLoad": "No se pudo cargar la información del agente.",
+    "retry": "Reintentar",
+    "retryWithCount": "Reintentar ({{count}}/5)",
+    "retryNowWithCount": "Reintentar ahora ({{count}}/5)",
+    "retrying": "Reintentando... ({{count}}/5)",
+    "autoRetrying": "Reintentando automáticamente en {{seconds}}s... ({{count}}/5)",
+    "backToAgents": "← Volver a Agentes",
+    "logIn": "Iniciar sesión",
+    "oneMoment": "Un momento..."
+  },
+  "floatingActions": {
+    "pause": "Pausar",
+    "runAll": "Ejecutar todo"
+  },
+  "output": {
+    "viewFinal": "Ver resultado final"
+  },
+  "nodeMap": {
+    "emptyState": "Esta receta aún no tiene pasos",
+    "uploadMissingProject": "No se puede subir: falta el ID del proyecto",
+    "fileUploaded": "Archivo subido",
+    "uploadFailed": "Error al subir",
+    "finalOutputs": "Resultados finales",
+    "stepCard": {
+      "stop": "Detener",
+      "noDescription": "Sin descripción",
+      "inputs": "Entradas",
+      "loadingInputs": "Cargando entradas...",
+      "noUserInputs": "Sin entradas del usuario",
+      "moreOutputs": "+{{count}} más",
+      "output": "Resultado",
+      "notGeneratedYet": "Aún no generado",
+      "assetCategoryCount": "{{count}} {{category}}",
+      "assetCategory": {
+        "folder": "Carpeta",
+        "slideshow": "Presentación",
+        "graph": "Gráfico",
+        "pdf": "PDF",
+        "spreadsheet": "Hoja de cálculo",
+        "video": "Video",
+        "audio": "Audio",
+        "data": "Datos",
+        "document": "Documento",
+        "file": "Archivo"
+      },
+      "assetCategoryPlural": {
+        "folder": "Carpetas",
+        "slideshow": "Presentaciones",
+        "graph": "Gráficos",
+        "pdf": "PDFs",
+        "spreadsheet": "Hojas de cálculo",
+        "video": "Videos",
+        "audio": "Archivos de audio",
+        "data": "Archivos de datos",
+        "document": "Documentos",
+        "file": "Archivos"
+      }
+    }
+  },
+  "structuredResponse": {
+    "needYourInput": "Necesitamos tu opinión",
+    "suggestions": {
+      "title": "Sugerencias"
+    },
+    "files": "Archivos",
+    "showLess": "Mostrar menos",
+    "showMore": "Mostrar {{count}} más",
+    "inProgress": "En progreso",
+    "progressWithDetail": "En progreso · {{progress}}",
+    "awaitingApproval": "En espera de aprobación",
+    "proposal": "Propuesta",
+    "beforeContinue": "Antes de continuar"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "contact": {
+    "name": "Jordan Lee",
+    "email": "jordan.lee@email.com",
+    "links": ["linkedin.com/in/jordanlee"]
+  },
+  "summary": "Passionate software engineer with experience building web applications and a love for clean code. Eager to take on new challenges and grow as a developer.",
+  "experience": [
+    {
+      "company": "Brightwave Apps",
+      "title": "Software Engineer",
+      "dates": "2021 - present",
+      "bullets": [
+        { "id": "exp1_b1", "text": "Worked on various features for the company's web platform" },
+        { "id": "exp1_b2", "text": "Built React components for the user dashboard" },
+        { "id": "exp1_b3", "text": "Helped improve API response times" },
+        { "id": "exp1_b4", "text": "Participated in code reviews and agile ceremonies" },
+        { "id": "exp1_b5", "text": "Fixed bugs reported by customers" }
+      ]
+    },
+    {
+      "company": "NovaSoft",
+      "title": "Junior Developer",
+      "dates": "2019 - 2021",
+      "bullets": [
+        { "id": "exp2_b1", "text": "Developed internal tools using Python" },
+        { "id": "exp2_b2", "text": "Wrote scripts to automate data processing" },
+        { "id": "exp2_b3", "text": "Maintained a MySQL database" },
+        { "id": "exp2_b4", "text": "Assisted senior engineers with backend tasks" }
+      ]
+    }
+  ],
+  "education": [
+    { "degree": "B.S. in Computer Science", "school": "State University", "year": "2019" }
+  ],
+  "skills": ["JavaScript", "React", "Python", "HTML/CSS", "Git", "MySQL", "problem-solving", "teamwork"],
+  "certifications": []
+}

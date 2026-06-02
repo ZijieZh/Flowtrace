@@ -1,0 +1,38 @@
+{
+  "as_of": "2026-06-01",
+  "account_size": 100000.0,
+  "entry_reference": 220.0,
+  "stop": 204.79,
+  "per_share_risk": 15.21,
+  "methods": {
+    "fixed_fractional_1pct": {
+      "shares": 65,
+      "value": 14300.0,
+      "dollar_risk": 988.65,
+      "risk_pct": 0.99
+    },
+    "atr_based_2x": {
+      "shares": 65,
+      "note": "stop already 2\u00d7 ATR \u2192 same as fixed-fractional"
+    },
+    "half_kelly": {
+      "shares": 135,
+      "f_half_pct": 2.06,
+      "W": 0.5,
+      "R": 1.09,
+      "note": "uses tactical R:R; exceeds the 1% rule and is capped out"
+    }
+  },
+  "constraints": {
+    "risk_per_trade_pct": 1.0,
+    "max_position_pct": 10.0,
+    "portfolio_heat_budget_pct": "6-8"
+  },
+  "binding_constraint": "max_position_10pct",
+  "final_recommended_shares": 45,
+  "final_position_value": 9900.0,
+  "final_dollar_risk": 684.45,
+  "final_risk_pct": 0.68,
+  "rationale": "1% rule allows 65 sh ($14300.0, 14.3% \u2014 over the 10% cap); the max-position 10% rule is the strictest, holding the position to 45 sh ($9900.0). Round down. Final open risk $684.45 = 0.68% of equity.",
+  "source": "position-sizer (fixed-fractional / ATR / half-Kelly, strictest-constraint-wins, round down)"
+}

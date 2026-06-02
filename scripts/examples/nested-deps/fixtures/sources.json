@@ -1,0 +1,16 @@
+{
+  "sources": [
+    {"id":"s1","title":"The Structure of Scientific Revolutions","author":"Kuhn 1962","domain":"philosophy"},
+    {"id":"s2","title":"Personal Knowledge","author":"Polanyi 1958","domain":"epistemology"},
+    {"id":"s3","title":"Against Method","author":"Feyerabend 1975","domain":"philosophy"},
+    {"id":"s4","title":"Knowing and the Known","author":"Dewey 1949","domain":"pragmatism"},
+    {"id":"s5","title":"The Tacit Dimension","author":"Polanyi 1966","domain":"epistemology"},
+    {"id":"s6","title":"The Aim and Structure of Physical Theory","author":"Duhem 1914","domain":"philosophy"},
+    {"id":"s7","title":"Studies in the Logic of Explanation","author":"Hempel 1948","domain":"philosophy"},
+    {"id":"s8","title":"Two Dogmas of Empiricism","author":"Quine 1951","domain":"philosophy"},
+    {"id":"s9","title":"The Logic of Scientific Discovery","author":"Popper 1934","domain":"philosophy"},
+    {"id":"s10","title":"On the Plurality of Worlds","author":"Lewis 1986","domain":"metaphysics"},
+    {"id":"s11","title":"The Web of Belief","author":"Quine & Ullian 1970","domain":"epistemology"},
+    {"id":"s12","title":"Word and Object","author":"Quine 1960","domain":"philosophy"}
+  ]
+}

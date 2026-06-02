@@ -1,0 +1,91 @@
+{
+  "id": "nested-deps",
+  "title": "Research Synthesis",
+  "description": "Given a research topic, gather sources, extract facts and quotes in parallel, synthesize them into a coherent narrative, and format a final report.",
+  "version": "0.1.0",
+  "steps": {
+    "gather_sources": {
+      "name": "Gather Sources",
+      "does": "Find and collect candidate sources for the topic",
+      "from_inputs": [
+        "topic",
+        "depth"
+      ],
+      "from_steps": [],
+      "assets": [
+        "sources.json"
+      ],
+      "asset_title": "Source List"
+    },
+    "extract_facts": {
+      "name": "Extract Facts",
+      "does": "Pull factual claims with attributions from sources",
+      "from_inputs": [],
+      "from_steps": [
+        "gather_sources"
+      ],
+      "assets": [
+        "facts.json"
+      ],
+      "asset_title": "Extracted Facts"
+    },
+    "extract_quotes": {
+      "name": "Extract Quotes",
+      "does": "Pull direct quotes worth citing from sources",
+      "from_inputs": [],
+      "from_steps": [
+        "gather_sources"
+      ],
+      "assets": [
+        "quotes.json"
+      ],
+      "asset_title": "Extracted Quotes"
+    },
+    "synthesize": {
+      "name": "Synthesize",
+      "does": "Weave facts and quotes into a coherent narrative",
+      "from_inputs": [
+        "topic"
+      ],
+      "from_steps": [
+        "extract_facts",
+        "extract_quotes"
+      ],
+      "assets": [
+        "synthesis.md"
+      ],
+      "asset_title": "Synthesis Draft"
+    },
+    "format_report": {
+      "name": "Format Report",
+      "does": "Render synthesis into a polished PDF with citations",
+      "from_inputs": [],
+      "from_steps": [
+        "synthesize"
+      ],
+      "assets": [
+        "report.pdf",
+        "report.md"
+      ],
+      "asset_title": "Final Report"
+    }
+  },
+  "deliverable": {
+    "description": "Research report (PDF + Markdown) with source-level provenance.",
+    "assets": [
+      "report.pdf",
+      "report.md",
+      "sources.json",
+      "facts.json",
+      "quotes.json"
+    ]
+  },
+  "environment": {
+    "python": [
+      "weasyprint",
+      "jinja2",
+      "markdown"
+    ],
+    "r": []
+  }
+}

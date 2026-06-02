@@ -1,0 +1,19 @@
+{
+  "ticker": "NVDA",
+  "as_of": "2026-06-01",
+  "sector": "Technology",
+  "industry": "Semiconductors",
+  "market_cap": 5434223624192,
+  "market_cap_str": "$5.43T",
+  "pe_ttm": 34.41104,
+  "forward_pe": 17.725458,
+  "pb_ratio": 34.666256,
+  "eps_ttm": 6.52,
+  "implied_forward_eps": 12.66,
+  "implied_eps_growth_pct": 94.0,
+  "dividend_yield_pct": 0.02,
+  "dividend_note": "negligible \u2014 NVDA is a growth name, ~$0.04/yr",
+  "beta": 2.244,
+  "analyst_view": "Street consensus skews Buy/Overweight; targets cluster in the high-$200s to low-$300s (estimate, not live-fetched).",
+  "source": "yfinance .info snapshot 2026-06-01; dividend yield corrected from raw 0.47 feed artifact"
+}

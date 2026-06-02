@@ -1,0 +1,40 @@
+{
+  "as_of": "2026-06-01",
+  "catalysts": [
+    {
+      "item": "Q2 FY27 earnings",
+      "timing": "~late Aug 2026",
+      "direction": "up/down",
+      "note": "biggest single near-term variable"
+    },
+    {
+      "item": "next-gen GPU ramp",
+      "timing": "ongoing",
+      "direction": "up"
+    },
+    {
+      "item": "breakout above $236.54 52w high",
+      "timing": "technical",
+      "direction": "up"
+    }
+  ],
+  "risks": [
+    {
+      "item": "China export-control headlines",
+      "timing": "unscheduled",
+      "direction": "down"
+    },
+    {
+      "item": "hyperscaler capex guidance cut",
+      "timing": "earnings season",
+      "direction": "down"
+    },
+    {
+      "item": "MA50 (~$200) break",
+      "timing": "technical",
+      "direction": "down",
+      "note": "stop / thesis-invalidation level"
+    }
+  ],
+  "source": "market-news-analyst interpretation"
+}

@@ -1,0 +1,108 @@
+{
+  "id": "tailored-resume",
+  "title": "Tailored Resume Generator",
+  "description": "Tailor an existing resume to one specific job description. Faithful lift of the 'tailored-resume-generator' SKILL.md (by ComposioHQ, awesome-claude-skills, Apache-2.0): the six Key Process Steps become a fan-in/fan-out DAG \u2014 JD analysis and resume parsing run in parallel and fan into scoring; ATS formatting re-consumes the keywords; strategic recommendations branch off in parallel. Best Practices + Special Guidance are folded into the relevant steps' contracts.",
+  "version": "0.1.0",
+  "steps": {
+    "read_jd": {
+      "name": "Read JD",
+      "does": "Parse the JD into role, responsibilities, and requirements.",
+      "from_inputs": [
+        "job_description"
+      ],
+      "from_steps": [],
+      "assets": [
+        "jd_parsed.json"
+      ],
+      "asset_title": "Parsed JD"
+    },
+    "parse_resume": {
+      "name": "Parse Resume",
+      "does": "Parse the existing resume into structured history, skills, and bullets.",
+      "from_inputs": [
+        "resume_before"
+      ],
+      "from_steps": [],
+      "assets": [
+        "resume_parsed.json"
+      ],
+      "asset_title": "Parsed Resume"
+    },
+    "extract_keywords": {
+      "name": "Extract Keywords",
+      "does": "Rank the JD's skills and ATS keywords by priority.",
+      "from_inputs": [],
+      "from_steps": [
+        "read_jd"
+      ],
+      "assets": [
+        "keywords.json"
+      ],
+      "asset_title": "Weighted Keywords"
+    },
+    "score_bullets": {
+      "name": "Score Bullets",
+      "does": "Score each resume bullet against the keywords; flag gaps.",
+      "from_inputs": [],
+      "from_steps": [
+        "extract_keywords",
+        "parse_resume"
+      ],
+      "assets": [
+        "bullet_scores.json"
+      ],
+      "asset_title": "Bullet Match Scores"
+    },
+    "rewrite_bullets": {
+      "name": "Rewrite Bullets",
+      "does": "Rewrite weak bullets with quantified impact \u2014 no fabrication.",
+      "from_inputs": [],
+      "from_steps": [
+        "score_bullets"
+      ],
+      "assets": [
+        "bullets_rewritten.json"
+      ],
+      "asset_title": "Rewritten Bullets"
+    },
+    "reorder_format": {
+      "name": "Reorder & Format",
+      "does": "Reorder by relevance and format ATS-safe.",
+      "from_inputs": [],
+      "from_steps": [
+        "rewrite_bullets",
+        "extract_keywords"
+      ],
+      "assets": [
+        "resume_after.md"
+      ],
+      "asset_title": "Tailored Resume"
+    },
+    "strategic_recommendations": {
+      "name": "Strategic Recommendations",
+      "does": "Strengths, gap plan, interview points, and cover-letter hooks.",
+      "from_inputs": [],
+      "from_steps": [
+        "extract_keywords",
+        "score_bullets"
+      ],
+      "assets": [
+        "recommendations.md"
+      ],
+      "asset_title": "Strategic Recommendations"
+    }
+  },
+  "deliverable": {
+    "description": "A resume tailored to the target JD (resume_after.md), strategic interview-prep recommendations, plus the scoring trace that shows what changed and why.",
+    "assets": [
+      "reorder_format/resume_after.md",
+      "strategic_recommendations/recommendations.md",
+      "score_bullets/bullet_scores.json",
+      "extract_keywords/keywords.json"
+    ]
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

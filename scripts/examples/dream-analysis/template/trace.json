@@ -1,0 +1,87 @@
+{
+  "id": "dream-analysis",
+  "title": "Dream Analysis",
+  "description": "Receive a dream description, gather personal context, produce a three-framework symbolic analysis (Jungian, Freudian, Eastern), generate an imagery illustration, and compose a PDF report.",
+  "version": "0.1.0",
+  "steps": {
+    "analyze_dream": {
+      "name": "Analyze Dream",
+      "does": "Produce three-framework symbolic analysis",
+      "from_inputs": [
+        "dream_description"
+      ],
+      "from_steps": [],
+      "assets": [
+        "dream_analysis.json"
+      ],
+      "asset_title": "Symbolic Analysis"
+    },
+    "analyze_patterns": {
+      "name": "Analyze Patterns",
+      "does": "Find repeating symbols and emotion trends across history",
+      "from_inputs": [],
+      "from_steps": [],
+      "assets": [
+        "pattern_analysis.json",
+        "dream_patterns_report.pdf"
+      ],
+      "asset_title": "Pattern Analysis"
+    },
+    "gather_context": {
+      "name": "Gather Context",
+      "does": "Ask 4 personal-context questions to ground analysis",
+      "from_inputs": [
+        "dream_description"
+      ],
+      "from_steps": [],
+      "assets": [
+        "dream_context.json"
+      ],
+      "asset_title": "Personal Context"
+    },
+    "generate_dream_image": {
+      "name": "Generate Imagery",
+      "does": "Render dream imagery from analysis prompt",
+      "from_inputs": [],
+      "from_steps": [
+        "analyze_dream"
+      ],
+      "assets": [
+        "dream_image.png"
+      ],
+      "asset_title": "Dream Imagery"
+    },
+    "generate_report": {
+      "name": "Compose Report",
+      "does": "Compose Markdown report and render to PDF",
+      "from_inputs": [],
+      "from_steps": [
+        "analyze_dream",
+        "generate_dream_image"
+      ],
+      "assets": [
+        "dream_report.pdf",
+        "dream_report.md",
+        "dream_history.json"
+      ],
+      "asset_title": "Dream Report"
+    }
+  },
+  "deliverable": {
+    "description": "Dream analysis report (PDF + Markdown) with image and structured trace.",
+    "assets": [
+      "dream_report.pdf",
+      "dream_report.md",
+      "dream_analysis.json",
+      "dream_image.png",
+      "dream_history.json"
+    ]
+  },
+  "environment": {
+    "python": [
+      "pillow",
+      "weasyprint"
+    ],
+    "r": []
+  }
+}

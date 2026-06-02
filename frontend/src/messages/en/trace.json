@@ -1,0 +1,86 @@
+{
+  "error": {
+    "connectionError": "Connection Error",
+    "agentNotFound": "Agent Not Found",
+    "agentNotFoundDesc": "This agent doesn't exist or has been deleted.",
+    "sessionExpired": "Session Expired",
+    "sessionExpiredDesc": "Your session has expired. Please log in again.",
+    "accessDenied": "Access Denied",
+    "accessDeniedDesc": "You don't have permission to access this agent.",
+    "serverError": "Server Error",
+    "somethingWentWrong": "Something Went Wrong",
+    "unexpectedError": "An unexpected error occurred.",
+    "unableToLoad": "Unable to load agent information.",
+    "retry": "Retry",
+    "retryWithCount": "Retry ({{count}}/5)",
+    "retryNowWithCount": "Retry Now ({{count}}/5)",
+    "retrying": "Retrying... ({{count}}/5)",
+    "autoRetrying": "Automatically retrying in {{seconds}}s... ({{count}}/5)",
+    "backToAgents": "← Back to Agents",
+    "logIn": "Log In",
+    "oneMoment": "One moment..."
+  },
+  "floatingActions": {
+    "pause": "Pause",
+    "runAll": "Run All"
+  },
+  "output": {
+    "viewFinal": "View Final Output"
+  },
+  "nodeMap": {
+    "emptyState": "This trace has no steps yet",
+    "uploadMissingProject": "Cannot upload: missing project ID",
+    "fileUploaded": "File uploaded",
+    "uploadFailed": "Upload failed",
+    "finalOutputs": "Final outputs",
+    "stepCard": {
+      "stop": "Stop",
+      "noDescription": "No description",
+      "inputs": "Inputs",
+      "loadingInputs": "Loading inputs...",
+      "noUserInputs": "No user inputs",
+      "moreOutputs": "+{{count}} more",
+      "output": "Output",
+      "notGeneratedYet": "Not generated yet",
+      "assetCategoryCount": "{{count}} {{category}}",
+      "assetCategory": {
+        "folder": "Folder",
+        "slideshow": "Slideshow",
+        "graph": "Graph",
+        "pdf": "PDF",
+        "spreadsheet": "Spreadsheet",
+        "video": "Video",
+        "audio": "Audio",
+        "data": "Data",
+        "document": "Document",
+        "file": "File"
+      },
+      "assetCategoryPlural": {
+        "folder": "Folders",
+        "slideshow": "Slideshows",
+        "graph": "Graphs",
+        "pdf": "PDFs",
+        "spreadsheet": "Spreadsheets",
+        "video": "Videos",
+        "audio": "Audio files",
+        "data": "Data files",
+        "document": "Documents",
+        "file": "Files"
+      }
+    }
+  },
+  "structuredResponse": {
+    "needYourInput": "Need your input",
+    "suggestions": {
+      "title": "Suggestions"
+    },
+    "files": "Files",
+    "showLess": "Show less",
+    "showMore": "Show {{count}} more",
+    "inProgress": "In progress",
+    "progressWithDetail": "In progress · {{progress}}",
+    "awaitingApproval": "Awaiting approval",
+    "proposal": "Proposal",
+    "beforeContinue": "Before I continue"
+  }
+}

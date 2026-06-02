@@ -1,0 +1,38 @@
+{
+  "ticker": "NVDA",
+  "as_of": "2026-06-01",
+  "lookback": "1y",
+  "bars": 251,
+  "last_close": 224.36,
+  "week52_high": 236.54,
+  "week52_low": 135.37,
+  "pct_off_52w_high": -5.1,
+  "avg_volume": 177106260,
+  "indicators": {
+    "ma_20": 216.7535,
+    "ma_50": 200.2648,
+    "ma_200": 187.855,
+    "rsi_14": 60.39,
+    "macd": 4.2042,
+    "macd_signal": 5.6203,
+    "macd_hist": -1.416,
+    "bb_upper": 235.167,
+    "bb_lower": 198.34,
+    "atr_14": 7.6058,
+    "atr_pct": 3.39
+  },
+  "support_levels": [
+    194.74,
+    177.64,
+    170.66
+  ],
+  "resistance_levels": [
+    236.54
+  ],
+  "max_drawdown_1y_pct": -20.2,
+  "max_drawdown_window": [
+    "2025-10-29",
+    "2026-03-30"
+  ],
+  "source": "yfinance daily OHLCV (auto-adjusted), 1y; indicators computed locally"
+}

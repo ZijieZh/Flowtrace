@@ -1,0 +1,370 @@
+{
+  "id": "iris-analysis",
+  "title": "Deep Iris Analysis",
+  "description": "Branched 22-step statistical exploration of Fisher's Iris dataset: descriptive stats, distribution diagnostics, three-method outlier consensus, conditional parametric/non-parametric hypothesis testing, classification baseline, and a sensitivity rerun on the cleaned data.",
+  "version": "0.3.0",
+  "steps": {
+    "load_data": {
+      "name": "Load Dataset",
+      "does": "Read iris.csv and report row count, column types, and first-5 preview.",
+      "from_inputs": [
+        "dataset_path"
+      ],
+      "from_steps": [],
+      "assets": [
+        "data_preview.json"
+      ],
+      "asset_title": "Dataset preview"
+    },
+    "schema_validate": {
+      "name": "Validate Schema",
+      "does": "Confirm 5 columns with expected types and zero nulls; flag any drift from the documented schema.",
+      "from_inputs": [],
+      "from_steps": [
+        "load_data"
+      ],
+      "assets": [
+        "schema_report.json",
+        "data_dictionary.md"
+      ],
+      "asset_title": "Schema + data dictionary"
+    },
+    "data_quality": {
+      "name": "Data Quality Checks",
+      "does": "Run row-level checks: null counts, duplicate rows, value-range sanity, class balance per species.",
+      "from_inputs": [],
+      "from_steps": [
+        "load_data"
+      ],
+      "assets": [
+        "quality_report.json"
+      ],
+      "asset_title": "Quality report"
+    },
+    "descriptive_stats": {
+      "name": "Descriptive Statistics",
+      "does": "Compute mean, sd, median, IQR per feature x species; produce summary table.",
+      "from_inputs": [],
+      "from_steps": [
+        "load_data"
+      ],
+      "assets": [
+        "summary_table.csv"
+      ],
+      "asset_title": "Summary statistics"
+    },
+    "feature_distributions": {
+      "name": "Feature Distributions",
+      "does": "Render KDE per feature (4 facets, colored by species) for shape inspection.",
+      "from_inputs": [],
+      "from_steps": [
+        "descriptive_stats"
+      ],
+      "assets": [
+        "dist_kde.png"
+      ],
+      "asset_title": "KDE distributions"
+    },
+    "species_distributions": {
+      "name": "Per-Species Distributions",
+      "does": "Box + jittered scatter per feature x species; QQ grid for normality at a glance.",
+      "from_inputs": [],
+      "from_steps": [
+        "descriptive_stats"
+      ],
+      "assets": [
+        "dist_box.png",
+        "dist_qq.png"
+      ],
+      "asset_title": "Box + Q-Q grid"
+    },
+    "assumption_check": {
+      "name": "Assumption Checks",
+      "does": "Shapiro-Wilk per feature x species (normality), Levene's test per feature (homogeneity of variance), and an independence note.",
+      "from_inputs": [
+        "alpha"
+      ],
+      "from_steps": [
+        "feature_distributions",
+        "species_distributions"
+      ],
+      "assets": [
+        "assumption_table.csv"
+      ],
+      "asset_title": "Assumption results"
+    },
+    "outlier_iqr": {
+      "name": "Outliers - IQR Rule",
+      "does": "Flag rows with any feature outside [Q1 - 1.5*IQR, Q3 + 1.5*IQR].",
+      "from_inputs": [],
+      "from_steps": [
+        "data_quality"
+      ],
+      "assets": [
+        "outlier_iqr.csv",
+        "outlier_iqr_box.png"
+      ],
+      "asset_title": "IQR outliers"
+    },
+    "outlier_zscore": {
+      "name": "Outliers - Z-score",
+      "does": "Flag rows where |z| > 3 on any feature (univariate, ignores species).",
+      "from_inputs": [],
+      "from_steps": [
+        "data_quality"
+      ],
+      "assets": [
+        "outlier_zscore.csv"
+      ],
+      "asset_title": "Z-score outliers"
+    },
+    "outlier_mahalanobis": {
+      "name": "Outliers - Mahalanobis",
+      "does": "Compute Mahalanobis D^2 against the joint multivariate mean; flag rows above chi-square quantile.",
+      "from_inputs": [
+        "outlier_chi2_quantile"
+      ],
+      "from_steps": [
+        "data_quality"
+      ],
+      "assets": [
+        "outlier_mahalanobis.csv",
+        "outlier_mahalanobis.png"
+      ],
+      "asset_title": "Multivariate outliers"
+    },
+    "outlier_consensus": {
+      "name": "Outlier Consensus",
+      "does": "Cross-tag the three outlier sets; build a Venn diagram of agreement.",
+      "from_inputs": [],
+      "from_steps": [
+        "outlier_iqr",
+        "outlier_zscore",
+        "outlier_mahalanobis"
+      ],
+      "assets": [
+        "outlier_consensus.csv",
+        "outlier_consensus_venn.png"
+      ],
+      "asset_title": "Three-method consensus"
+    },
+    "method_select": {
+      "name": "Select Hypothesis-Test Method",
+      "does": "Decide parametric vs non-parametric per feature based on the assumption checks; emit a decision diagram.",
+      "from_inputs": [],
+      "from_steps": [
+        "assumption_check"
+      ],
+      "assets": [
+        "method_decision.json"
+      ],
+      "asset_title": "Decision tree"
+    },
+    "anova_oneway": {
+      "name": "One-way ANOVA (parametric)",
+      "does": "Run one-way ANOVA per feature across species; report F, df, p-value.",
+      "from_inputs": [
+        "alpha"
+      ],
+      "from_steps": [
+        "method_select"
+      ],
+      "assets": [
+        "anova_table.csv"
+      ],
+      "asset_title": "ANOVA"
+    },
+    "tukey_hsd": {
+      "name": "Tukey HSD (parametric)",
+      "does": "Pairwise Tukey HSD with Bonferroni-adjusted CIs on the species means.",
+      "from_inputs": [],
+      "from_steps": [
+        "anova_oneway"
+      ],
+      "assets": [
+        "tukey_table.csv",
+        "tukey_hsd_forest.png"
+      ],
+      "asset_title": "Pairwise CIs"
+    },
+    "kruskal_wallis": {
+      "name": "Kruskal-Wallis (non-parametric)",
+      "does": "Rank-based test as a robust alternative when normality / variance assumptions wobble.",
+      "from_inputs": [
+        "alpha"
+      ],
+      "from_steps": [
+        "method_select"
+      ],
+      "assets": [
+        "kruskal_table.csv"
+      ],
+      "asset_title": "Kruskal-Wallis"
+    },
+    "method_compare": {
+      "name": "Compare Parametric vs Non-parametric",
+      "does": "Side-by-side ANOVA vs Kruskal-Wallis effect sizes (eta^2 vs epsilon^2) and p-values.",
+      "from_inputs": [],
+      "from_steps": [
+        "anova_oneway",
+        "kruskal_wallis"
+      ],
+      "assets": [
+        "method_compare.csv",
+        "effect_size_heatmap.png"
+      ],
+      "asset_title": "Method comparison"
+    },
+    "correlation_pca": {
+      "name": "Correlation + PCA",
+      "does": "Pearson + Spearman correlation matrices; PCA on standardised features; biplot + scree.",
+      "from_inputs": [],
+      "from_steps": [
+        "descriptive_stats"
+      ],
+      "assets": [
+        "corr_pearson.png",
+        "corr_spearman.png",
+        "pca_biplot.png",
+        "pca_screeplot.png",
+        "pca_loadings.csv"
+      ],
+      "asset_title": "Correlation + PCA"
+    },
+    "classification_lda": {
+      "name": "LDA Baseline",
+      "does": "Fit Linear Discriminant Analysis with 10-fold CV; render the 2-D decision boundary.",
+      "from_inputs": [],
+      "from_steps": [
+        "correlation_pca"
+      ],
+      "assets": [
+        "lda_cv.csv",
+        "lda_decision_boundary.png"
+      ],
+      "asset_title": "LDA"
+    },
+    "classification_knn": {
+      "name": "kNN Baseline",
+      "does": "k-Nearest-Neighbours (k=5) with 10-fold CV.",
+      "from_inputs": [],
+      "from_steps": [
+        "correlation_pca"
+      ],
+      "assets": [
+        "knn_cv.csv"
+      ],
+      "asset_title": "kNN"
+    },
+    "classification_logistic": {
+      "name": "Multinomial Logistic",
+      "does": "Multinomial logistic regression with 10-fold CV.",
+      "from_inputs": [],
+      "from_steps": [
+        "correlation_pca"
+      ],
+      "assets": [
+        "logistic_cv.csv"
+      ],
+      "asset_title": "Logistic"
+    },
+    "cv_compare": {
+      "name": "Cross-Validation Comparison",
+      "does": "Compare CV mean accuracy +/- SE across the three classifiers; pick a leader.",
+      "from_inputs": [],
+      "from_steps": [
+        "classification_lda",
+        "classification_knn",
+        "classification_logistic"
+      ],
+      "assets": [
+        "cv_compare.csv",
+        "model_cv_compare.png"
+      ],
+      "asset_title": "Model leaderboard"
+    },
+    "rerun_cleaned": {
+      "name": "Sensitivity - Rerun on Cleaned Data",
+      "does": "Drop union-of-three outlier rows and refit all three classifiers under identical CV.",
+      "from_inputs": [],
+      "from_steps": [
+        "cv_compare",
+        "outlier_consensus"
+      ],
+      "assets": [
+        "cv_compare_cleaned.csv"
+      ],
+      "asset_title": "Cleaned rerun"
+    },
+    "compare_full_vs_cleaned": {
+      "name": "Compare Full vs Cleaned",
+      "does": "Side-by-side accuracy on full vs outlier-removed data; quantify whether outliers materially hurt the model.",
+      "from_inputs": [],
+      "from_steps": [
+        "rerun_cleaned"
+      ],
+      "assets": [
+        "full_vs_cleaned.csv"
+      ],
+      "asset_title": "Sensitivity result"
+    },
+    "compose_report": {
+      "name": "Compose Report",
+      "does": "Assemble all figures, tables, and findings into report.md and finalize a PDF; await reviewer sign-off.",
+      "from_inputs": [],
+      "from_steps": [
+        "method_compare",
+        "compare_full_vs_cleaned"
+      ],
+      "assets": [
+        "report.md",
+        "report.pdf"
+      ],
+      "asset_title": "Final report"
+    }
+  },
+  "deliverable": {
+    "description": "Iris analysis report (PDF + Markdown) with figures and tables.",
+    "assets": [
+      "report.pdf",
+      "report.md",
+      "summary_table.csv",
+      "dist_kde.png",
+      "dist_box.png",
+      "dist_qq.png",
+      "corr_pearson.png",
+      "corr_spearman.png",
+      "pca_biplot.png",
+      "pca_screeplot.png",
+      "outlier_iqr_box.png",
+      "outlier_mahalanobis.png",
+      "outlier_consensus_venn.png",
+      "tukey_hsd_forest.png",
+      "effect_size_heatmap.png",
+      "lda_decision_boundary.png",
+      "model_cv_compare.png"
+    ]
+  },
+  "environment": {
+    "python": [
+      "pandas>=2.0",
+      "numpy>=1.25",
+      "scipy>=1.11",
+      "scikit-learn>=1.3"
+    ],
+    "r": [
+      "ggplot2",
+      "GGally",
+      "factoextra",
+      "ggcorrplot",
+      "MASS",
+      "class",
+      "nnet",
+      "VennDiagram",
+      "hrbrthemes",
+      "colorspace",
+      "dplyr",
+      "tidyr"
+    ]
+  }
+}

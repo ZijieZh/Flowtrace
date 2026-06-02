@@ -1,0 +1,23 @@
+{
+  "id": "minimal",
+  "title": "Hello",
+  "description": "Print a greeting. The smallest valid trace — one entry-point instruction step, no inputs, no assets.",
+  "version": "0.1.0",
+  "steps": {
+    "say_hello": {
+      "name": "Say Hello",
+      "does": "Print hello world",
+      "from_inputs": [],
+      "from_steps": [],
+      "assets": []
+    }
+  },
+  "deliverable": {
+    "description": "A greeting.",
+    "assets": []
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

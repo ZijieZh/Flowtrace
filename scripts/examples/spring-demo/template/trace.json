@@ -1,0 +1,72 @@
+{
+  "id": "spring-demo",
+  "title": "Spring Animation Demo",
+  "description": "A small DAG (load → clean+validate → analyze → model+viz → report) built one step per commit. Each commit is captured by the watcher and pushed to the UI via SSE, so the frontend can showcase the Spring entrance and edge-draw animations on a live trace. Each step declares assets so the StepCard asset tray renders.",
+  "version": "0.1.0",
+  "steps": {
+    "step_1": {
+      "name": "Load Data",
+      "does": "Read the raw dataset from source and stage it for downstream steps.",
+      "from_inputs": [],
+      "from_steps": [],
+      "assets": ["raw.csv"],
+      "asset_title": "Raw Data"
+    },
+    "step_2": {
+      "name": "Clean",
+      "does": "Drop missing values, normalise schema, write a small change log.",
+      "from_inputs": [],
+      "from_steps": ["step_1"],
+      "assets": ["clean.csv", "clean_log.txt"],
+      "asset_title": "Cleaned"
+    },
+    "step_3": {
+      "name": "Validate",
+      "does": "Sanity-check column types, ranges, and distribution shape.",
+      "from_inputs": [],
+      "from_steps": ["step_1"],
+      "assets": ["schema.json"],
+      "asset_title": "Schema"
+    },
+    "step_4": {
+      "name": "Analyze",
+      "does": "Compute descriptive statistics joining the cleaned data with the validated schema.",
+      "from_inputs": [],
+      "from_steps": ["step_2", "step_3"],
+      "assets": ["stats.json", "summary.md"],
+      "asset_title": "Stats"
+    },
+    "step_5": {
+      "name": "Model",
+      "does": "Train a baseline classifier and record cross-validated metrics.",
+      "from_inputs": [],
+      "from_steps": ["step_4"],
+      "assets": ["model.pkl", "metrics.json"],
+      "asset_title": "Model"
+    },
+    "step_6": {
+      "name": "Visualise",
+      "does": "Render a confusion matrix and per-feature distribution panels.",
+      "from_inputs": [],
+      "from_steps": ["step_4"],
+      "assets": ["confusion.png", "features.png"],
+      "asset_title": "Visuals"
+    },
+    "step_7": {
+      "name": "Report",
+      "does": "Compose the final report from the model metrics and visualisations.",
+      "from_inputs": [],
+      "from_steps": ["step_5", "step_6"],
+      "assets": ["report.html"],
+      "asset_title": "Report"
+    }
+  },
+  "deliverable": {
+    "description": "Final HTML report bundling model results and figures.",
+    "assets": ["report.html"]
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "as_of": "2026-06-01",
+  "hard_stop": 204.79,
+  "stop_pct_from_entry": -6.9,
+  "thesis_invalidation": "daily close below MA50 (~$200.26) / stop $204.79",
+  "position_open_risk": 684.45,
+  "position_risk_pct": 0.68,
+  "portfolio_heat_budget_pct": "6-8",
+  "heat_used_by_this_position_pct": 0.68,
+  "exposure_ceiling_pct": 70,
+  "exposure_note": "risk-on but concentrated macro \u2192 cap total equity ~70%; this high-beta name sized modestly within it",
+  "monitoring_triggers": [
+    "close below MA50 ~$200 \u2192 exit (stop hit)",
+    "RSI > 75 \u2192 trim into strength",
+    "close above $236.54 52w high \u2192 add the second tranche",
+    "Q2 FY27 earnings (~late Aug) \u2192 reassess thesis",
+    "China export-control / hyperscaler-capex headline \u2192 reassess"
+  ],
+  "source": "exposure-coach (ceiling/posture) + position-sizer key principles (survival first)"
+}

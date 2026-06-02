@@ -1,0 +1,17 @@
+{
+  "as_of": "2026-06-01",
+  "regime": "risk-on, late-cycle",
+  "summary": "Equity indices near highs with AI/datacenter capex still the dominant leadership theme. Rate path assumed neutral-to-easing. Volatility contained.",
+  "signals": {
+    "trend": "uptrend",
+    "risk_sentiment": "risk-on",
+    "volatility": "contained",
+    "rotation": "capital concentrated in mega-cap AI/semis"
+  },
+  "implication": "Backdrop supports holding/adding high-beta growth, but concentration in the AI trade is itself a fragility \u2014 breadth-narrow markets unwind fast.",
+  "assumptions": [
+    "Macro read is analyst judgment as of the data date, not a live market-data fetch.",
+    "No FOMC/CPI surprise priced in the window."
+  ],
+  "source": "market-environment-analysis framework (risk-on/off, VIX, rates, rotation)"
+}

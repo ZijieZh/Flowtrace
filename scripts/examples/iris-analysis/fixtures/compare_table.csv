@@ -1,0 +1,5 @@
+model,acc_full,acc_cleaned,delta
+logistic,0.973,0.974,+0.1%
+LDA,0.967,0.969,+0.2%
+KNN,0.953,0.961,+0.8%
+RF,0.967,0.973,+0.6%

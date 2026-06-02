@@ -1,0 +1,42 @@
+{
+  "bullets": [
+    { "id": "exp1_b1", "text": "Worked on various features for the company's web platform",
+      "matched_keywords": [], "score": 0.05, "verdict": "weak",
+      "gap": "vague verb, no domain/keyword signal, no metric — could be reframed toward backend service work if any existed" },
+    { "id": "exp1_b2", "text": "Built React components for the user dashboard",
+      "matched_keywords": [], "score": 0.0, "verdict": "irrelevant",
+      "gap": "frontend work; off-domain for a backend payments role — demote or drop" },
+    { "id": "exp1_b3", "text": "Helped improve API response times",
+      "matched_keywords": ["high-throughput services", "observability"], "score": 0.45, "verdict": "weak",
+      "gap": "real backend signal but buried: 'helped' hedges ownership, no numbers, no mention of throughput/latency scale" },
+    { "id": "exp1_b4", "text": "Participated in code reviews and agile ceremonies",
+      "matched_keywords": [], "score": 0.1, "verdict": "weak",
+      "gap": "generic; only worth keeping if compressed" },
+    { "id": "exp1_b5", "text": "Fixed bugs reported by customers",
+      "matched_keywords": ["reliability"], "score": 0.2, "verdict": "weak",
+      "gap": "could map to reliability if tied to production incidents" },
+    { "id": "exp2_b1", "text": "Developed internal tools using Python",
+      "matched_keywords": ["Python", "backend engineering"], "score": 0.55, "verdict": "weak",
+      "gap": "Python is a must/high keyword — surface it harder; specify the tools were backend services" },
+    { "id": "exp2_b2", "text": "Wrote scripts to automate data processing",
+      "matched_keywords": ["Python", "high-throughput services"], "score": 0.4, "verdict": "weak",
+      "gap": "data-processing-at-volume is adjacent to high-throughput; quantify volume" },
+    { "id": "exp2_b3", "text": "Maintained a MySQL database",
+      "matched_keywords": ["PostgreSQL"], "score": 0.5, "verdict": "weak",
+      "gap": "MySQL is transferable to the must-have PostgreSQL — relational DB at scale; name the transferable skill, don't claim Postgres" },
+    { "id": "exp2_b4", "text": "Assisted senior engineers with backend tasks",
+      "matched_keywords": ["backend engineering"], "score": 0.35, "verdict": "weak",
+      "gap": "'assisted' undersells; backend is the must-have headline — own the contribution" }
+  ],
+  "coverage": {
+    "must_have_covered": ["backend engineering (partial)", "PostgreSQL (transferable via MySQL)"],
+    "must_have_missing": ["Go or Java", "distributed systems", "Kafka / message queues", "high-throughput services (proven)", "observability (proven)"]
+  },
+  "transferable": [
+    "Python (held by candidate; JD accepts Python) — strongest bridge",
+    "MySQL relational-DB experience → PostgreSQL",
+    "API response-time work → high-throughput / observability adjacency",
+    "Data-processing scripts → high-volume processing adjacency"
+  ],
+  "profile_note": "Candidate reads as a generalist/early-career engineer leaning frontend on paper, with real but buried backend signal. Not a literal keyword match on the hard must-haves (Go/Java/Kafka/distributed) — treat as a transferable-skills case, surface Python+DB+API bridges, and be honest about the distributed-systems gap."
+}

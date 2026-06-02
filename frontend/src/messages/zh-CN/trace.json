@@ -1,0 +1,86 @@
+{
+  "error": {
+    "connectionError": "连接错误",
+    "agentNotFound": "未找到智能体",
+    "agentNotFoundDesc": "此智能体不存在或已被删除。",
+    "sessionExpired": "会话已过期",
+    "sessionExpiredDesc": "您的会话已过期，请重新登录。",
+    "accessDenied": "访问被拒绝",
+    "accessDeniedDesc": "您没有权限访问此智能体。",
+    "serverError": "服务器错误",
+    "somethingWentWrong": "出了点问题",
+    "unexpectedError": "发生了意外错误。",
+    "unableToLoad": "无法加载智能体信息。",
+    "retry": "重试",
+    "retryWithCount": "重试 ({{count}}/5)",
+    "retryNowWithCount": "立即重试 ({{count}}/5)",
+    "retrying": "重试中... ({{count}}/5)",
+    "autoRetrying": "将在 {{seconds}} 秒后自动重试... ({{count}}/5)",
+    "backToAgents": "← 返回智能体列表",
+    "logIn": "登录",
+    "oneMoment": "请稍候..."
+  },
+  "floatingActions": {
+    "pause": "暂停",
+    "runAll": "全部运行"
+  },
+  "output": {
+    "viewFinal": "查看最终输出"
+  },
+  "nodeMap": {
+    "emptyState": "这个 trace 还没有步骤",
+    "uploadMissingProject": "无法上传：缺少项目 ID",
+    "fileUploaded": "文件已上传",
+    "uploadFailed": "上传失败",
+    "finalOutputs": "最终输出",
+    "stepCard": {
+      "stop": "停止",
+      "noDescription": "暂无描述",
+      "inputs": "输入",
+      "loadingInputs": "正在加载输入...",
+      "noUserInputs": "没有用户输入",
+      "moreOutputs": "另外 {{count}} 项",
+      "output": "输出",
+      "notGeneratedYet": "尚未生成",
+      "assetCategoryCount": "{{count}} 个{{category}}",
+      "assetCategory": {
+        "folder": "文件夹",
+        "slideshow": "幻灯片",
+        "graph": "图表",
+        "pdf": "PDF",
+        "spreadsheet": "表格",
+        "video": "视频",
+        "audio": "音频",
+        "data": "数据",
+        "document": "文档",
+        "file": "文件"
+      },
+      "assetCategoryPlural": {
+        "folder": "文件夹",
+        "slideshow": "幻灯片",
+        "graph": "图表",
+        "pdf": "PDF",
+        "spreadsheet": "表格",
+        "video": "视频",
+        "audio": "音频",
+        "data": "数据",
+        "document": "文档",
+        "file": "文件"
+      }
+    }
+  },
+  "structuredResponse": {
+    "needYourInput": "需要你的输入",
+    "suggestions": {
+      "title": "建议"
+    },
+    "files": "文件",
+    "showLess": "收起",
+    "showMore": "再显示 {{count}} 项",
+    "inProgress": "进行中",
+    "progressWithDetail": "进行中 · {{progress}}",
+    "awaitingApproval": "等待批准",
+    "proposal": "提案",
+    "beforeContinue": "继续之前"
+  }
+}

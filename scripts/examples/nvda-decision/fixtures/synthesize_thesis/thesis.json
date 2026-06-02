@@ -1,0 +1,27 @@
+{
+  "as_of": "2026-06-01",
+  "price": 224.36,
+  "rating": "Buy",
+  "conviction": "Medium",
+  "bull_case": [
+    "Textbook uptrend: price above a fully stacked MA20>MA50>MA200, RSI 60 with room to run.",
+    "Forward P/E 17.7\u00d7 against ~94% implied EPS growth \u2014 undemanding on forward math.",
+    "Wide moat (CUDA + full-stack platform) and dominant share in the defining compute cycle.",
+    "Base-case 12-mo target $304.0 \u2192 ~35.5% upside."
+  ],
+  "bear_case": [
+    "Trailing P/E 34\u00d7 and P/B 35\u00d7 leave no margin for a demand air-pocket.",
+    "High beta 2.24 \u2014 drawdowns are violent (\u221220% peak-to-trough in the last year).",
+    "Customer concentration + custom-silicon competition + export-control policy risk.",
+    "Sitting -5.1% under resistance $236.54; near-term R:R to that level is poor (1.09)."
+  ],
+  "key_assumptions": [
+    "AI datacenter capex stays on its trajectory",
+    "no severe export-control escalation",
+    "forward EPS estimates broadly hold"
+  ],
+  "risk_reward": "Tactically capped (R:R 1.09 to $236.54); strategically favorable (R:R 5.52 to $304.0).",
+  "where_lanes_disagree": "Technical + business-quality + industry are bullish; valuation flags trailing-multiple risk; structure says 'under resistance'. Net: own it, but accumulate rather than chase.",
+  "call": "Buy / accumulate on the plan below; not an all-in-at-resistance trade.",
+  "source": "us-stock-analysis synthesis + scenario-analyzer bull/bear framing"
+}

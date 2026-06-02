@@ -1,0 +1,9 @@
+{
+  "heading": "Traces",
+  "openMenu": "Open menu",
+  "oneMoment": "One moment…",
+  "failedToLoad": "Failed to load traces",
+  "retry": "Retry",
+  "noTraces": "No traces here",
+  "noTracesDescription": "Add a trace.json under your scope to see it listed."
+}

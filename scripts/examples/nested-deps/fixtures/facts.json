@@ -1,0 +1,11 @@
+{
+  "facts": [
+    {"source":"s1","claim":"Paradigm shifts are non-cumulative","page":113},
+    {"source":"s2","claim":"All knowing is personal commitment","page":51},
+    {"source":"s3","claim":"Methodological monism stifles progress","page":18},
+    {"source":"s5","claim":"Tacit knowledge precedes explicit articulation","page":4},
+    {"source":"s7","claim":"Explanation = derivation from laws","page":248},
+    {"source":"s8","claim":"Analytic/synthetic distinction is untenable","page":20},
+    {"source":"s9","claim":"Falsifiability is the demarcation criterion","page":40}
+  ]
+}

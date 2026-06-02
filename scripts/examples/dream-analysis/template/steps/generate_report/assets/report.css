@@ -1,0 +1,77 @@
+@page {
+  size: A4;
+  margin: 2cm 2.2cm;
+}
+
+body {
+  font-family: "Source Serif Pro", Georgia, serif;
+  font-size: 10.5pt;
+  line-height: 1.55;
+  color: #1c1917;
+}
+
+h1 {
+  font-size: 22pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.2em;
+  color: #18181b;
+}
+
+h2 {
+  font-size: 14pt;
+  font-weight: 600;
+  margin-top: 1.6em;
+  margin-bottom: 0.4em;
+  color: #18181b;
+  border-bottom: 1px solid #e7e5e4;
+  padding-bottom: 0.2em;
+}
+
+h3 {
+  font-size: 11.5pt;
+  font-weight: 600;
+  margin-top: 1.2em;
+  margin-bottom: 0.3em;
+  color: #44403c;
+}
+
+blockquote {
+  border-left: 3px solid #a8a29e;
+  padding: 0.4em 1em;
+  margin: 1em 0;
+  background: #fafaf9;
+  font-style: italic;
+  color: #44403c;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 10pt;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1.5px solid #44403c;
+  padding: 0.4em 0.6em;
+}
+
+td {
+  border-bottom: 1px solid #e7e5e4;
+  padding: 0.4em 0.6em;
+  vertical-align: top;
+}
+
+img {
+  max-width: 100%;
+  margin: 1em 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e7e5e4;
+  margin: 2em 0;
+}

@@ -1,0 +1,18 @@
+{
+  "as_of": "2026-06-01",
+  "price": 224.36,
+  "pe_ttm": 34.41104,
+  "forward_pe": 17.725458,
+  "pb": 34.666256,
+  "peg_note": "Forward P/E 17.7\u00d7 against ~94% implied EPS growth \u2192 PEG well under 1 on forward estimates",
+  "fair_value_range": [
+    228.0,
+    380.0
+  ],
+  "fair_value_method": "forward EPS $12.66 \u00d7 multiple band 18\u201330\u00d7",
+  "target_price_12mo": 304.0,
+  "upside_to_target_pct": 35.5,
+  "margin_of_safety": "trailing P/E 34\u00d7 is rich, but forward 17.7\u00d7 is undemanding for the growth rate; valuation risk is in the trailing optics + high beta, not the forward math",
+  "peers": "vs AMD, AVGO, custom-silicon \u2014 NVDA commands a premium for franchise dominance",
+  "source": "us-stock-analysis financial-metrics + valuation framework"
+}

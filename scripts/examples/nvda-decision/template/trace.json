@@ -1,0 +1,167 @@
+{
+  "id": "nvda-decision",
+  "title": "Should I Buy NVDA? — Single-Stock Decision",
+  "description": "A faithful lift of the 'us-stock-analysis' Comprehensive Investment Report workflow (tradermonty/claude-trading-skills, MIT), composed with sibling skills from the same repo for the lanes that single workflow defers to: market-environment-analysis + sector-analyst (macro/industry), market-news-analyst (news/catalysts), scenario-analyzer (bull/bear synthesis), position-sizer (Kelly + ATR sizing), and exposure-coach (risk controls). Four ingest lanes run in parallel and fan into a synthesized thesis; sizing and risk controls chain off it; the final report fans in from the decision. Arrows are the knowledge: each lane is an independent read, and a 200-word 'should I buy' answer compresses these into one — this trace pulls them back apart.",
+  "version": "0.1.0",
+  "inputs": {
+    "ticker": {
+      "type": "string",
+      "default": "NVDA",
+      "description": "Ticker under decision, e.g. NVDA"
+    },
+    "lookback": {
+      "type": "string",
+      "default": "1y",
+      "description": "Historical window for price/technical/risk, yfinance-style: 6mo / 1y / 5y"
+    },
+    "account_size": {
+      "type": "number",
+      "default": 100000,
+      "description": "Total account equity, used by position sizing and risk controls"
+    }
+  },
+  "steps": {
+    "ingest_price": {
+      "name": "Ingest Price & Volume",
+      "does": "Pull OHLCV history, 52-week range, average volume, and the standard indicator stack (MA/RSI/MACD/Bollinger/ATR). Writes both a JSON summary and the full indicator series.",
+      "from_inputs": ["ticker", "lookback"],
+      "from_steps": [],
+      "assets": ["price_pack.json", "indicators.parquet"],
+      "asset_title": "Price & Indicator Pack"
+    },
+    "ingest_fundamentals": {
+      "name": "Ingest Fundamentals",
+      "does": "Pull financial statements snapshot, key metrics (P/E, EPS, margins, growth), and analyst ratings / price targets.",
+      "from_inputs": ["ticker"],
+      "from_steps": [],
+      "assets": ["fundamentals.json"],
+      "asset_title": "Fundamentals Snapshot"
+    },
+    "ingest_macro": {
+      "name": "Ingest Market Environment",
+      "does": "Assess the macro backdrop: risk-on/risk-off, VIX, rates, and where capital is rotating.",
+      "from_inputs": [],
+      "from_steps": [],
+      "assets": ["macro.json"],
+      "asset_title": "Market Environment"
+    },
+    "ingest_news": {
+      "name": "Ingest News & Calendar",
+      "does": "Gather recent company news, the earnings calendar, and developing storylines around the name.",
+      "from_inputs": ["ticker"],
+      "from_steps": [],
+      "assets": ["news.json"],
+      "asset_title": "News & Calendar"
+    },
+    "valuation": {
+      "name": "Valuation",
+      "does": "Compute valuation ratios (P/E, fwd P/E, PEG, P/B, EV/EBITDA), compare vs history and peers, and estimate a fair-value range + target price.",
+      "from_inputs": [],
+      "from_steps": ["ingest_fundamentals"],
+      "assets": ["valuation.json"],
+      "asset_title": "Valuation & Fair Value"
+    },
+    "business_quality": {
+      "name": "Business Quality",
+      "does": "Assess moat, margin structure, growth durability, and competitive position from the fundamentals.",
+      "from_inputs": [],
+      "from_steps": ["ingest_fundamentals"],
+      "assets": ["business_quality.json"],
+      "asset_title": "Business Quality"
+    },
+    "technical_read": {
+      "name": "Technical Read",
+      "does": "Read trend, moving-average posture, support/resistance, RSI/MACD/Bollinger, and chart patterns into a technical outlook.",
+      "from_inputs": [],
+      "from_steps": ["ingest_price"],
+      "assets": ["technical.json"],
+      "asset_title": "Technical Outlook"
+    },
+    "entry_levels": {
+      "name": "Entry & Stop Levels",
+      "does": "Set an entry zone and an ATR-based stop distance off the technical read, with reward:risk per level.",
+      "from_inputs": [],
+      "from_steps": ["ingest_price", "technical_read"],
+      "assets": ["entry_levels.json"],
+      "asset_title": "Entry / Stop Levels"
+    },
+    "industry_health": {
+      "name": "Industry Health",
+      "does": "Judge the semiconductor / AI-compute cycle, end-demand, and NVDA's share position from the macro read.",
+      "from_inputs": [],
+      "from_steps": ["ingest_macro"],
+      "assets": ["industry.json"],
+      "asset_title": "Industry Health"
+    },
+    "catalysts_risks": {
+      "name": "Catalysts & Risks",
+      "does": "Turn the news/calendar into dated near-term catalysts and risk flags with direction and timing.",
+      "from_inputs": [],
+      "from_steps": ["ingest_news"],
+      "assets": ["catalysts_risks.json"],
+      "asset_title": "Catalysts & Risks"
+    },
+    "synthesize_thesis": {
+      "name": "Synthesize Thesis",
+      "does": "Fan in the lanes into bull and bear cases, key assumptions, a risk/reward read, and a Buy/Hold/Sell rating with conviction.",
+      "from_inputs": [],
+      "from_steps": ["valuation", "business_quality", "technical_read", "industry_health", "catalysts_risks"],
+      "assets": ["thesis.json"],
+      "asset_title": "Investment Thesis"
+    },
+    "position_sizing": {
+      "name": "Position Sizing",
+      "does": "Size the position from the thesis conviction and entry/stop: fixed-fractional, ATR-based, and half-Kelly, then pick a final share count under portfolio constraints.",
+      "from_inputs": ["account_size"],
+      "from_steps": ["synthesize_thesis", "entry_levels"],
+      "assets": ["position.json"],
+      "asset_title": "Position Size"
+    },
+    "risk_controls": {
+      "name": "Risk Controls & Monitoring",
+      "does": "Set the stop-loss plan, portfolio heat / exposure ceiling, and the monitoring triggers that would change the call.",
+      "from_inputs": ["account_size"],
+      "from_steps": ["position_sizing", "entry_levels", "ingest_macro"],
+      "assets": ["risk_controls.json"],
+      "asset_title": "Risk Controls"
+    },
+    "investment_report": {
+      "name": "Investment Report",
+      "does": "Compose the full Buy/Hold/Sell report (exec summary, thesis, fundamentals, technicals, valuation, risk, catalysts, recommendation) per the us-stock-analysis report template.",
+      "from_inputs": [],
+      "from_steps": ["valuation", "business_quality", "technical_read", "industry_health", "catalysts_risks", "synthesize_thesis", "position_sizing", "risk_controls"],
+      "assets": ["report.md"],
+      "asset_title": "Investment Report"
+    },
+    "build_charts": {
+      "name": "Build Charts",
+      "does": "Render the price/MA/Bollinger (with entry/stop/resistance), RSI, MACD, and drawdown charts from the real indicator series. Deterministic — run scripts/make_charts.py.",
+      "from_inputs": [],
+      "from_steps": ["ingest_price", "entry_levels"],
+      "assets": ["price.png", "rsi.png", "macd.png", "drawdown.png"],
+      "asset_title": "Charts"
+    },
+    "typeset_report": {
+      "name": "Typeset PDF",
+      "does": "Render report.md + charts into a fixed-format equity-research PDF. The house style is enforced in code (scripts/typeset.py), so every run produces an identically-formatted note.",
+      "from_inputs": [],
+      "from_steps": ["investment_report", "build_charts"],
+      "assets": ["report.pdf"],
+      "asset_title": "Research Note (PDF)"
+    }
+  },
+  "deliverable": {
+    "description": "A Buy/Hold/Sell decision on the ticker, delivered as a fixed-format equity-research PDF (report.pdf), with the underlying markdown report, synthesized thesis, and concrete position-sizing + risk-control plan that make it actionable.",
+    "assets": [
+      "typeset_report/report.pdf",
+      "investment_report/report.md",
+      "synthesize_thesis/thesis.json",
+      "position_sizing/position.json",
+      "risk_controls/risk_controls.json"
+    ]
+  },
+  "environment": {
+    "python": ["yfinance", "pandas", "numpy", "matplotlib", "pyarrow", "markdown"],
+    "r": []
+  }
+}

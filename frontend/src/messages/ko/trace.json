@@ -1,0 +1,86 @@
+{
+  "error": {
+    "connectionError": "연결 오류",
+    "agentNotFound": "에이전트를 찾을 수 없습니다",
+    "agentNotFoundDesc": "이 에이전트는 존재하지 않거나 삭제되었습니다.",
+    "sessionExpired": "세션 만료",
+    "sessionExpiredDesc": "세션이 만료되었습니다. 다시 로그인해 주십시오.",
+    "accessDenied": "접근 거부",
+    "accessDeniedDesc": "이 에이전트에 접근할 권한이 없습니다.",
+    "serverError": "서버 오류",
+    "somethingWentWrong": "문제가 발생하였습니다",
+    "unexpectedError": "예기치 않은 오류가 발생하였습니다.",
+    "unableToLoad": "에이전트 정보를 불러올 수 없습니다.",
+    "retry": "다시 시도",
+    "retryWithCount": "다시 시도 ({{count}}/5)",
+    "retryNowWithCount": "지금 다시 시도 ({{count}}/5)",
+    "retrying": "다시 시도 중... ({{count}}/5)",
+    "autoRetrying": "{{seconds}}초 후 자동 재시도... ({{count}}/5)",
+    "backToAgents": "← 에이전트 목록으로 돌아가기",
+    "logIn": "로그인",
+    "oneMoment": "잠시만 기다려 주십시오..."
+  },
+  "floatingActions": {
+    "pause": "일시 정지",
+    "runAll": "전체 실행"
+  },
+  "output": {
+    "viewFinal": "최종 출력 보기"
+  },
+  "nodeMap": {
+    "emptyState": "이 레시피에는 아직 단계가 없습니다",
+    "uploadMissingProject": "업로드할 수 없습니다: 프로젝트 ID가 없습니다",
+    "fileUploaded": "파일이 업로드되었습니다",
+    "uploadFailed": "업로드에 실패하였습니다",
+    "finalOutputs": "최종 출력",
+    "stepCard": {
+      "stop": "중지",
+      "noDescription": "설명 없음",
+      "inputs": "입력",
+      "loadingInputs": "입력 로딩 중...",
+      "noUserInputs": "사용자 입력 없음",
+      "moreOutputs": "+{{count}}개 더",
+      "output": "출력",
+      "notGeneratedYet": "아직 생성되지 않았습니다",
+      "assetCategoryCount": "{{category}} {{count}}개",
+      "assetCategory": {
+        "folder": "폴더",
+        "slideshow": "슬라이드쇼",
+        "graph": "그래프",
+        "pdf": "PDF",
+        "spreadsheet": "스프레드시트",
+        "video": "동영상",
+        "audio": "오디오",
+        "data": "데이터",
+        "document": "문서",
+        "file": "파일"
+      },
+      "assetCategoryPlural": {
+        "folder": "폴더",
+        "slideshow": "슬라이드쇼",
+        "graph": "그래프",
+        "pdf": "PDF",
+        "spreadsheet": "스프레드시트",
+        "video": "동영상",
+        "audio": "오디오 파일",
+        "data": "데이터 파일",
+        "document": "문서",
+        "file": "파일"
+      }
+    }
+  },
+  "structuredResponse": {
+    "needYourInput": "입력이 필요합니다",
+    "suggestions": {
+      "title": "제안"
+    },
+    "files": "파일",
+    "showLess": "접기",
+    "showMore": "{{count}}개 더 보기",
+    "inProgress": "진행 중",
+    "progressWithDetail": "진행 중 · {{progress}}",
+    "awaitingApproval": "승인 대기 중",
+    "proposal": "제안",
+    "beforeContinue": "계속하기 전에"
+  }
+}

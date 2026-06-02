@@ -1,0 +1,9 @@
+{
+  "heading": "Traces",
+  "openMenu": "打开菜单",
+  "oneMoment": "请稍候…",
+  "failedToLoad": "加载 trace 失败",
+  "retry": "重试",
+  "noTraces": "暂无 trace",
+  "noTracesDescription": "在 scope 目录下放一个 trace.json 即可显示在此处。"
+}

@@ -1,0 +1,23 @@
+{
+  "moat": "wide",
+  "moat_basis": [
+    "CUDA software ecosystem + developer lock-in",
+    "full-stack platform (GPU+NVLink+networking+software)",
+    "datacenter AI-accelerator share leadership"
+  ],
+  "margins": "best-in-class gross/operating margins for the hardware space",
+  "growth_durability": "high near-term (AI capex), moderating long-term as the cycle matures",
+  "strengths": [
+    "dominant franchise in the defining compute platform of the cycle",
+    "pricing power",
+    "reinvestment runway"
+  ],
+  "red_flags": [
+    "customer concentration in a handful of hyperscalers",
+    "cyclicality \u2014 capex digestion risk",
+    "competition + in-house ASICs",
+    "valuation leaves no room for a demand air-pocket"
+  ],
+  "quality_rating": "A (franchise) with cyclicality caveat",
+  "source": "us-stock-analysis fundamental-analysis (business-quality) framework"
+}

@@ -1,0 +1,22 @@
+{
+  "as_of": "2026-06-01",
+  "price": 224.36,
+  "trend": "uptrend",
+  "ma_posture": "price $224.36 > MA20 $216.75 > MA50 $200.26 > MA200 $187.85",
+  "trend_strength": "strong \u2014 fully stacked bullish moving averages",
+  "rsi_14": 60.39,
+  "rsi_read": "neutral-bullish, not overbought",
+  "macd_read": "momentum cooling \u2014 MACD 4.20 below signal 5.62 (hist -1.42), a pullback from the high",
+  "support": [
+    194.74,
+    177.64,
+    170.66
+  ],
+  "resistance": [
+    236.54
+  ],
+  "structure": "consolidating -5.1% below the 52w high $236.54, holding above rising MA20",
+  "outlook_short": "constructive but capped near resistance; needs a close above $236.54 to extend",
+  "outlook_medium": "uptrend intact while above MA50 ~$200",
+  "source": "us-stock-analysis technical-analysis framework, computed from indicator pack"
+}

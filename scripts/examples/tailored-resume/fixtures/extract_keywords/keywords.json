@@ -1,0 +1,18 @@
+{
+  "keywords": [
+    { "term": "backend engineering", "type": "hard", "priority": "must", "weight": 1.0, "aliases": ["backend"] },
+    { "term": "distributed systems", "type": "hard", "priority": "must", "weight": 1.0, "aliases": [] },
+    { "term": "high-throughput services", "type": "hard", "priority": "must", "weight": 1.0, "aliases": ["high throughput", "high-volume"] },
+    { "term": "PostgreSQL", "type": "hard", "priority": "must", "weight": 1.0, "aliases": ["Postgres"] },
+    { "term": "Kafka", "type": "hard", "priority": "must", "weight": 0.9, "aliases": ["message queue", "message queues"] },
+    { "term": "Go", "type": "hard", "priority": "must", "weight": 0.9, "aliases": ["Golang"] },
+    { "term": "Java", "type": "hard", "priority": "must", "weight": 0.9, "aliases": [] },
+    { "term": "Python", "type": "hard", "priority": "high", "weight": 0.7, "aliases": [] },
+    { "term": "observability", "type": "hard", "priority": "high", "weight": 0.7, "aliases": ["monitoring"] },
+    { "term": "payment processing", "type": "domain", "priority": "high", "weight": 0.7, "aliases": ["payments"] },
+    { "term": "PCI DSS", "type": "domain", "priority": "medium", "weight": 0.4, "aliases": ["PCI", "PCI-compliant"] },
+    { "term": "on-call", "type": "soft", "priority": "medium", "weight": 0.4, "aliases": [] },
+    { "term": "reliability", "type": "soft", "priority": "medium", "weight": 0.4, "aliases": [] }
+  ],
+  "note": "Weighted by JD priority: 6 must-have hard skills dominate. Candidate's Python (high) is a real bridge; Go/Java/Kafka/distributed-systems are the gaps to watch."
+}

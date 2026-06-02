@@ -1,0 +1,56 @@
+# {{ analysis.dream_title }}
+
+> *{{ analysis.dream_type }}* — emotional intensity {{ analysis.emotion_intensity }}/10
+
+## Emotional Tone
+
+- **Primary**: {{ analysis.emotional_tone.primary }}
+- **Secondary**: {{ analysis.emotional_tone.secondary }}
+- **Texture**: {{ analysis.emotional_tone.texture }}
+
+{% if has_image %}
+## Imagery
+
+![Dream imagery]({{ image_filename }})
+{% endif %}
+
+## Key Symbols
+
+| Symbol | Meaning |
+|---|---|
+{% for s in analysis.key_symbols %}| {{ s.symbol }} | {{ s.meaning }} |
+{% endfor %}
+
+## Three-Framework Analysis
+
+### Jung — Archetypal
+
+**Archetype**: {{ analysis.three_framework_analysis.jung_archetypal.archetype_match }}
+
+{{ analysis.three_framework_analysis.jung_archetypal.interpretation }}
+
+### Freud — Symbolic
+
+{{ analysis.three_framework_analysis.freudian_symbolic.interpretation }}
+
+### Eastern — Symbolic
+
+{{ analysis.three_framework_analysis.eastern_symbolic.interpretation }}
+
+## Personalized Insight
+
+{{ analysis.personalized_insight }}
+
+> **Core Message**: {{ analysis.core_message }}
+
+## Life Connection
+
+{{ analysis.life_connection }}
+
+## Suggested Action
+
+{{ analysis.action_suggestion }}
+
+---
+
+{{ analysis.encouragement }}

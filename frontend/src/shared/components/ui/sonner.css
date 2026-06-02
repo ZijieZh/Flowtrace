@@ -1,0 +1,50 @@
+/* Force light theme for toasts - match Figma exactly */
+[data-sonner-toast] {
+  background-color: white !important;
+  border: 1px solid rgb(203, 213, 225) !important;
+  color: rgb(15, 23, 42) !important;
+  width: 431px !important;
+  max-width: 431px !important;
+  padding: 16px !important;
+  border-radius: 6px !important;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+[data-sonner-toast][data-type="success"] {
+  background-color: white !important;
+  border: 1px solid rgb(203, 213, 225) !important;
+}
+
+/* Hide sonner success icon (but keep SVGs in custom content) */
+[data-sonner-toast] > [data-icon] {
+  display: none !important;
+}
+
+[data-sonner-toast] [data-icon] svg {
+  display: none !important;
+}
+
+/* Sonner close button - inside toast, upper right */
+[data-sonner-toast] [data-close-button] {
+  position: absolute !important;
+  right: 8px !important;
+  top: 8px !important;
+  left: auto !important;
+  transform: none !important;
+  background: transparent !important;
+  border: none !important;
+  color: #9ca3af !important;
+}
+
+[data-sonner-toast] [data-close-button]:hover {
+  color: #4b5563 !important;
+}
+
+body.agent-file-preview-toast-context [data-sonner-toaster] {
+  z-index: 40 !important;
+}
+
+/* Ensure toasts appear above all dialogs (Settings Dialog uses z-[70]) */
+[data-sonner-toaster] {
+  z-index: 9999 !important;
+}

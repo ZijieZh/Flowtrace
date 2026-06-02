@@ -1,0 +1,5 @@
+feature,mean,std,min,max
+sepal_length,5.82,0.74,4.16,7.33
+sepal_width,3.06,0.44,1.86,4.07
+petal_length,3.76,1.75,0.86,6.66
+petal_width,1.18,0.78,-0.30,2.68

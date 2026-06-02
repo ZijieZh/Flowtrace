@@ -1,0 +1,55 @@
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  /*
+   * RESPONSIVE FONT SIZING
+   * Industry-standard approach using rem units with responsive base font size.
+   *
+   * IMPORTANT: Do NOT use CSS zoom or transform:scale() on body!
+   * These break Radix UI dropdown/popover positioning because:
+   * - Radix uses getBoundingClientRect() which returns "zoomed" coordinates
+   * - But Portal content renders in "unzoomed" space
+   * - This mismatch causes dropdowns to appear in wrong positions on resize
+   *
+   * Trade-off: Only rem-based sizes scale. Hardcoded px values won't scale,
+   * but dropdown positioning works correctly on all screen sizes.
+   */
+  html, body, #root {
+    /* Full viewport height so xyflow's ReactFlow container (inside
+       SidebarInset > Suspense > Routes) can measure its own size and
+       fitView() can compute a real bounding box. Without this rule the parent
+       collapses to content-height (≈0 during first paint) and xyflow falls
+       back to minZoom (0.3), leaving the NodeMap at the corner. */
+    height: 100%;
+  }
+  html {
+    font-size: 16px; /* Default: 1rem = 16px */
+  }
+
+  /* Small laptops (1024px - 1440px) */
+  @media (max-width: 1440px) {
+    html {
+      font-size: 14.4px; /* 90% of 16px */
+    }
+  }
+
+  /* Smaller screens (768px - 1024px) */
+  @media (max-width: 1024px) {
+    html {
+      font-size: 13.6px; /* 85% of 16px */
+    }
+  }
+
+  /* Mobile/tablet (below 768px) */
+  @media (max-width: 768px) {
+    html {
+      font-size: 12.8px; /* 80% of 16px */
+    }
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "ticker": "NVDA",
+  "as_of": "2026-06-01",
+  "next_earnings": "next quarterly report ~late Aug 2026 (Q2 FY27 window \u2014 verify on the calendar)",
+  "storylines": [
+    {
+      "theme": "AI datacenter demand",
+      "direction": "supportive",
+      "note": "hyperscaler capex guidance is the swing variable for the name"
+    },
+    {
+      "theme": "next-gen GPU product cycle",
+      "direction": "supportive",
+      "note": "platform refresh cadence drives the bull case"
+    },
+    {
+      "theme": "China export controls",
+      "direction": "risk",
+      "note": "policy headlines have repeatedly moved the stock"
+    },
+    {
+      "theme": "custom-silicon / competition",
+      "direction": "risk",
+      "note": "hyperscaler ASICs + AMD as share-loss risk"
+    }
+  ],
+  "note": "Storyline TYPES and the earnings window are durable/calendar facts; specific dated headlines were not live-fetched.",
+  "source": "market-news-analyst + earnings-calendar framework"
+}
