@@ -27,7 +27,7 @@ BRAND = "FlowTrace"
 # ── house style: warm-parchment design tokens, hard-coded ───────────────────
 STYLE_CSS = """
 __FACES__
-@page { size: A4; margin: 20mm 22mm 22mm 22mm; background: #f5f4ed;
+@page { size: 168mm 297mm; margin: 20mm 22mm 22mm 22mm; background: #f5f4ed;
   @bottom-center { content: counter(page) "  \\00b7  __DOC_TITLE__";
     font-family: "Newsreader","Charter",Georgia,serif; font-size: 8.5pt; color: #87867f; } }
 @page:first { @bottom-center { content: ""; } }
