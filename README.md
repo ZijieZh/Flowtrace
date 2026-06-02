@@ -19,6 +19,11 @@
 Flowtrace turns a kind of task into a trace your agent works through, step by step. Works with any LLM or agent, including Claude Code, Codex, and Cursor.
 
 <div align="center">
+<img src="docs/assets/traces-grid.gif" width="860" alt="A 3×3 grid of live traces across finance, healthcare, research, data, marketing, education, video, gaming, and lifestyle — each animating as a DAG that builds step by step">
+<br><sub>A few of the traces people run — each one a graph you watch build, step by step</sub>
+</div>
+
+<div align="center">
 <table><tr>
 <td align="center" valign="top"><img src="docs/assets/examples/nvda-decision.png" height="340" alt="A trace shown as a graph: ingest lanes fan into a synthesized thesis, then position sizing and risk controls, then a research-note report"><br><sub>The flow</sub></td>
 <td align="center" valign="top"><img src="docs/assets/examples/nvda-decision-pdf.png" height="340" alt="The deliverable: a fixed-format research-note PDF"><br><sub>The deliverable</sub></td>
@@ -222,6 +227,9 @@ Every CLI write makes one git commit, scoped to exactly the paths it declares: `
 
 ## Community
 
+⭐ **If Flowtrace is useful to you, consider starring the repo — it helps others find it.**
+
+- **Contributing**: see [CONTRIBUTING.md](./CONTRIBUTING.md), and look for [good first issues](https://github.com/AIScientists-Dev/Flowtrace/labels/good%20first%20issue).
 - **GitHub Issues**: [report bugs / propose changes](https://github.com/AIScientists-Dev/flowtrace/issues)
 - **Discord**: [discord.gg/x9mtbMEx](https://discord.gg/x9mtbMEx)
 - **X**: [@morphmind__ai](https://x.com/morphmind__ai?s=11)
