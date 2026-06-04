@@ -82,7 +82,7 @@ Update with `git pull && ./scripts/install.sh`. Override the symlink target with
 ## Examples
 
 <div align="center">
-<img src="docs/assets/traces-grid.gif" width="860" alt="A grid of live traces across finance, healthcare, research, data, marketing, education, video, gaming, and lifestyle, each animating as a flow that builds step by step">
+<img src="docs/assets/traces-grid.gif" width="720" alt="A grid of live traces across finance, healthcare, research, data, marketing, education, video, gaming, and lifestyle, each animating as a flow that builds step by step">
 <br><sub>A few of the traces people run, each one a flow that builds step by step</sub>
 </div>
 

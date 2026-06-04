@@ -82,7 +82,7 @@ cd flowtrace
 ## 示例
 
 <div align="center">
-<img src="assets/traces-grid.gif" width="860" alt="一组实时 trace，覆盖金融、医疗、研究、数据、营销、教育、视频、游戏、生活，每一个都作为一条流程逐步构建">
+<img src="assets/traces-grid.gif" width="720" alt="一组实时 trace，覆盖金融、医疗、研究、数据、营销、教育、视频、游戏、生活，每一个都作为一条流程逐步构建">
 <br><sub>人们跑的一些 trace，每一个都是一条逐步构建的流程</sub>
 </div>
 
