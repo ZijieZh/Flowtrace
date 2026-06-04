@@ -73,7 +73,7 @@ EOF
 
 # ── Parallel roots: JD side and resume side are independent ───────────────
 do_step read_jd       jd_parsed.json     "parsed JD: 6 must-have, 3 nice-to-have"        "JD parsed"
-do_step parse_resume  resume_parsed.json "structured resume: 9 bullets across 2 roles"   "resume parsed"
+do_step parse_resume  resume_parsed.json "structured resume: 18 bullets across 3 roles"  "resume parsed"
 
 # ── Job analysis ──────────────────────────────────────────────────────────
 do_step extract_keywords keywords.json   "13 weighted keywords; 6 must-have hard skills" "keywords extracted"
@@ -81,30 +81,30 @@ do_step extract_keywords keywords.json   "13 weighted keywords; 6 must-have hard
 # ── Fan-in: scoring needs both keywords and parsed resume ─────────────────
 cli step score_bullets running --message "scoring bullets against keywords" >/dev/null
 place score_bullets bullet_scores.json
-cli step score_bullets done --asset bullet_scores.json --message "9 bullets scored: 1 irrelevant, 8 weak; distributed/Kafka are real gaps" >/dev/null
+cli step score_bullets done --asset bullet_scores.json --message "18 bullets scored: 6 irrelevant, 12 weak; distributed/Kafka are real gaps" >/dev/null
 cli reply <<EOF >/dev/null
 {
-  "headline": "9 bullets scored against the JD",
+  "headline": "18 bullets scored against the JD",
   "status": "complete",
   "support": [
-    "1 irrelevant (React/frontend), 8 weak — none strong as written",
-    "Python + relational-DB + API work are the real bridges",
+    "6 irrelevant (a whole frontend/marketing role + a React bullet), 12 weak — none strong as written",
+    "Python + Flask services + relational-DB + a buried Stripe payments integration are the real bridges",
     "distributed systems and Kafka are honest gaps"
   ],
   "findings": [
-    { "title": "transferable signal", "detail": "MySQL → PostgreSQL; data-processing → high-throughput adjacency" },
+    { "title": "transferable signal", "detail": "MySQL → PostgreSQL; Stripe checkout → payments domain; logging/dashboards → observability" },
     { "title": "must-have missing",   "detail": "Go/Java, distributed systems, Kafka — flagged for the recommendations branch" }
   ],
   "evidence": [
     { "type": "document", "path": "score_bullets/bullet_scores.json", "title": "bullet_scores.json" },
-    { "type": "check", "label": "every bullet scored", "passed": true, "expected": 9, "actual": 9 }
+    { "type": "check", "label": "every bullet scored", "passed": true, "expected": 18, "actual": 18 }
   ],
   "checkpoint": { "step_id": "score_bullets" }
 }
 EOF
 
 # ── Fan-out: rewrite + format on one branch, recommendations on another ───
-do_step rewrite_bullets bullets_rewritten.json "rewrote 7 weak bullets, dropped 1 frontend bullet, new summary" "bullets rewritten (no fabrication)"
+do_step rewrite_bullets bullets_rewritten.json "rewrote 12 weak bullets, dropped 6 (a whole frontend role + a React bullet), new summary" "bullets rewritten (no fabrication)"
 
 cli step reorder_format running --message "assembling ATS-safe resume" >/dev/null
 place reorder_format resume_after.md

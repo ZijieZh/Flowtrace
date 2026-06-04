@@ -1,0 +1,34 @@
+{
+  "lane": "creative",
+  "headline": "Hero video is fatigued, not mistargeted — CTR halved while frequency climbed 55%.",
+  "clusters": [
+    {
+      "cluster": "Hero video (0:30 unboxing -> first night)",
+      "ctr": 0.7,
+      "ctr_avg_4wk": 1.4,
+      "verdict": "fatigued",
+      "confidence": "High",
+      "why": "Live unchanged 5 weeks; CTR -50% tracks 1:1 with frequency +55% (4.8). Classic fatigue curve, not a cold-audience miss. Well past the 1,000-impression judging floor.",
+      "evidence": ["ctr -50%", "frequency 4.8 (+55%)", "5 weeks unchanged"]
+    },
+    {
+      "cluster": "Static 'before/after sleep-score'",
+      "ctr": 1.5,
+      "verdict": "still working",
+      "confidence": "High",
+      "why": "Above account CTR even as video collapses; the durable, fatigue-resistant performer. Pattern, not a one-off ad.",
+      "evidence": ["ctr 1.5% vs 0.9% account"]
+    },
+    {
+      "cluster": "Hot-sleeper / 'cooling' angle ads",
+      "verdict": "contested",
+      "confidence": "Medium",
+      "why": "Competitor B is pushing the same cooling angle hard in video — message is now crowded; click intent likely diluted by a louder competitor, compounding seasonal softness.",
+      "evidence": ["competitor cooling-angle land-grab"]
+    }
+  ],
+  "spec_hygiene": "No running headline over Meta/Google limits; spec issue is not the problem.",
+  "pattern_read": "The winning pattern is the static before/after; the losing pattern is a single aging video carrying too much of prospecting reach.",
+  "hands_to": "problem_tree",
+  "source": "ad-creative / Iterating from Performance Data (Analyze Winners + Analyze Losers, ad-fatigue caveat)"
+}

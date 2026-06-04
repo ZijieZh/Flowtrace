@@ -1,0 +1,52 @@
+{
+  "draft_ref": "draft/draft.md",
+  "sections": [
+    {
+      "id": "s1", "title": "From Demo to Budget Line",
+      "works": ["the accounting-not-benchmark framing is a strong, specific opening idea", "the $13.8B / 6x figure lands early and is sourced"],
+      "clarity": ["'essentially complete' is an overclaim for 2026 — soften to 'largely complete' so a skeptic doesn't bounce"],
+      "flow": ["good handoff into s2 with 'the money is not where the demos are' — keep that thread explicit"],
+      "evidence": ["fine — the single sourced figure carries the section"],
+      "style": ["on-voice (confident, contrarian)"],
+      "line_edits": [ { "original": "in 2026 it is essentially complete.", "suggested": "by 2026 it is largely complete.", "why": "calibrated confidence reads as more credible to a skeptical investor than an absolute" } ]
+    },
+    {
+      "id": "s2", "title": "Follow the Money, Not the Models",
+      "works": ["two-number structure is clean and persuasive", "'racing to zero' is a vivid, correct framing"],
+      "clarity": ["'undifferentiated' is jargon-adjacent — fine for this audience, keep"],
+      "flow": ["the 'put those together' transition is doing real work; keep it"],
+      "evidence": ["280x figure should name the time window inline so it can't be read as cherry-picked → already present, good"],
+      "style": ["'a bad place to be the fifth entrant' is a nice sharp aside — protect it in the voice pass"],
+      "line_edits": [ { "original": "margin migrates up the stack.", "suggested": "margin migrates up the stack — toward whoever turns a raw model into a dependable workflow.", "why": "completes the logical chain into s3 (reliability) instead of leaving it implicit" } ]
+    },
+    {
+      "id": "s3", "title": "Reliability Is the Whole Game",
+      "works": ["the 90%-per-step → fails-the-whole-task point is the sharpest argument in the piece", "Klarna proof-point converts the abstract claim into a P&L"],
+      "clarity": ["spell out why sub-50% autonomous success matters operationally — the per-step math does this, keep it adjacent to the stat"],
+      "flow": ["strong"],
+      "evidence": ["could add one more proof-point, but one named, quantified example is enough for a 2,000-word piece — do not pad"],
+      "style": ["'That is not a demo. That is a P&L line.' — keep the staccato, it's the voice"],
+      "line_edits": [ { "original": "It is the system that makes an ordinary model trustworthy", "suggested": "It is the system that makes an ordinary model trustworthy enough to hand a real workflow", "why": "ties 'trustworthy' to the concrete thing the buyer is paying for" } ]
+    },
+    {
+      "id": "s4", "title": "Will Agents Eat the SaaS Seat?",
+      "works": ["pressure-testing rather than repeating the thesis is exactly right for this reader", "the qualified verdict is the most credible passage in the draft"],
+      "clarity": ["'apocalypse' in the CTA line is fun but slightly flip — judgment call, lean toward keeping the voice"],
+      "flow": ["the turn from 'incumbents take it seriously' to 'but the evidence qualifies it' is the rhetorical hinge of the piece — keep it sharp"],
+      "evidence": ["the qualifier (C7) is synthesized commentary — make sure the references list flags it as analysis, not a hard stat"],
+      "style": ["'Underwrite the repricing, not the apocalypse' is a keeper line"],
+      "line_edits": []
+    },
+    {
+      "id": "s5", "title": "The Investable Layer",
+      "works": ["concrete underwrite/avoid guidance is what the investor came for", "ties the moat directly to switching cost and proprietary data"],
+      "clarity": ["clear"],
+      "flow": ["lands the CTA cleanly into the conclusion"],
+      "evidence": ["the 'thin GPT wrapper' avoid is an opinion — fine, the piece earned it by here"],
+      "style": ["on-voice"],
+      "line_edits": []
+    }
+  ],
+  "overall": "Strong, sourced, and genuinely contrarian where it counts. Two small calibration edits (s1 overclaim, s2 transition) and protect the staccato voice lines through the voice pass. No structural changes needed; do not pad the evidence.",
+  "source": "content-research-writer step 5 — Section-by-Section Feedback (What Works + Clarity/Flow/Evidence/Style + specific line edits per section)"
+}

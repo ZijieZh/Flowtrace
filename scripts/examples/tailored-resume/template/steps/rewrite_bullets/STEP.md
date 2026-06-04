@@ -10,7 +10,9 @@ writes:
 
 # Rewrite Bullets
 
-The content half of the skill's **Resume Structure**. Take everything `score_bullets` marked `weak` and rewrite it to surface relevant impact — plus craft a tailored professional summary.
+Source skill: **tailored-resume-generator** (Resume Structure — the content half).
+
+Take everything `score_bullets` marked `weak` and rewrite it to surface relevant impact — plus craft a tailored professional summary.
 
 ## What this step does
 

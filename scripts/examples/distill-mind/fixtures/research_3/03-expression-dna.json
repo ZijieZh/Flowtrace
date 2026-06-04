@@ -1,0 +1,32 @@
+{
+  "lane": "03-expression-dna",
+  "subject": "Mira Tan (fictional)",
+  "corpus": "'Mira's margins' — invented short crit-note posts (do not exist)",
+  "disclaimer": "Fabricated for illustration.",
+  "sentence_fingerprint": {
+    "mean_sentence_length_words": 11,
+    "style": "short declaratives; she states, rarely asks",
+    "question_ratio": 0.08,
+    "analogy_density_per_1k_words": 6.2,
+    "analogy_source": "overwhelmingly cooking / kitchen",
+    "first_person_rate": "moderate; 'I'd cut…' not 'one might consider…'",
+    "certainty_register": "high but qualified — blunt verdict, then a 'probably' on the fix",
+    "opening_pattern": "leads with the verdict, then the reason: 'Cut the second screen. Nobody named its job.'"
+  },
+  "signature_vocabulary": {
+    "high_frequency": ["friction", "the one job", "cut it", "show me the hands", "the second draft"],
+    "coined": ["friction audit", "settings debt"],
+    "tic": "ends crits with 'Probably.' as a one-word hedge"
+  },
+  "taboo_words": ["delight", "seamless", "frictionless", "leverage (as a verb)", "stakeholder", "intuitive"],
+  "taboo_note": "Calls 'frictionless' a marketing word — 'there's no such thing; there's friction you chose and friction you didn't.'",
+  "humor_mode": "dry, deadpan; self-deprecating about her own old work ('I shipped that screen; I'm allowed to hate it')",
+  "contested_stances": [
+    "'Most settings are a failure to decide' — unpopular with PMs who like configurability.",
+    "'A/B tests measure the flinch, not the love' — contested by growth teams."
+  ],
+  "contradictions_noted": [
+    "Bans the word 'intuitive' as lazy, yet trusts her own intuition on a first read — the banned word names the thing she relies on."
+  ],
+  "source": "huashu-nuwa Phase 1 Agent 3 表达 + extraction-framework §二 (sentence fingerprint, taboo words, tics); 争议 > 共识"
+}

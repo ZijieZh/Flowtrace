@@ -1,0 +1,170 @@
+{
+  "id": "paid-ads",
+  "title": "Weekly Paid-Ads Optimization",
+  "description": "Run one brand's weekly paid-ads optimization loop as a trace. Faithful lift of coreyhaines31/marketingskills (MIT, 50+ marketing skills): this week's account numbers fan into five parallel diagnoses (ad-creative, customer-research, analytics, ads, cro), fan in to a single bottleneck via marketing-psychology's Theory of Constraints, become weighted candidate experiments via ab-testing's hypothesis + ICE framework, get scoped into a test (ab-testing), turned into creative + landing variants (ad-creative + cro), shipped with a launch + tracking checklist (ads + analytics), and written back to the playbook (ab-testing's Experiment Playbook + product-marketing's context doc). This is the GROW loop: the hypothesis node reads an accumulated memory.md (the lift of product-marketing's .agents/product-marketing.md), so over weeks its output stops being generic marketing advice and becomes this brand's paid-ads playbook — it explicitly skips candidate experiments already ruled out by prior weeks' learnings.",
+  "version": "0.1.0",
+  "steps": {
+    "weekly_data": {
+      "name": "Weekly Data",
+      "does": "Parse this week's account pull into structured metrics: CTR / CVR / CPA by channel, audience signals, competitor moves, pacing vs. budget.",
+      "from_inputs": [
+        "request"
+      ],
+      "from_steps": [],
+      "assets": [
+        "weekly_data.json"
+      ],
+      "asset_title": "This Week's Metrics"
+    },
+    "diag_copy": {
+      "name": "Diagnose Copy",
+      "does": "Analyze creative: which ad/headline angles are winning vs. fatiguing, and what the CTR drop says about the message.",
+      "from_inputs": [],
+      "from_steps": [
+        "weekly_data"
+      ],
+      "assets": [
+        "diag_copy.json"
+      ],
+      "asset_title": "Creative Diagnosis"
+    },
+    "diag_audience": {
+      "name": "Diagnose Audience",
+      "does": "Read the audience signals: which segments / lookalikes are converting, where intent is decaying, what JTBD the movers map to.",
+      "from_inputs": [],
+      "from_steps": [
+        "weekly_data"
+      ],
+      "assets": [
+        "diag_audience.json"
+      ],
+      "asset_title": "Audience Diagnosis"
+    },
+    "diag_timing": {
+      "name": "Diagnose Timing",
+      "does": "Read delivery timing, frequency, and attribution: dayparting, fatigue/frequency caps, and whether platform CPA is inflated vs. blended.",
+      "from_inputs": [],
+      "from_steps": [
+        "weekly_data"
+      ],
+      "assets": [
+        "diag_timing.json"
+      ],
+      "asset_title": "Timing & Attribution Diagnosis"
+    },
+    "diag_channel": {
+      "name": "Diagnose Channel",
+      "does": "Compare channel economics (Meta vs. Google: CPM/CPC/CPA) and read competitor moves that explain auction pressure.",
+      "from_inputs": [],
+      "from_steps": [
+        "weekly_data"
+      ],
+      "assets": [
+        "diag_channel.json"
+      ],
+      "asset_title": "Channel & Competitor Diagnosis"
+    },
+    "diag_funnel": {
+      "name": "Diagnose Funnel",
+      "does": "Run a CRO read of the post-click path: value-prop clarity, headline match, CTA, trust, and friction that depresses CVR.",
+      "from_inputs": [],
+      "from_steps": [
+        "weekly_data"
+      ],
+      "assets": [
+        "diag_funnel.json"
+      ],
+      "asset_title": "Landing / Funnel Diagnosis"
+    },
+    "problem_tree": {
+      "name": "Problem Tree",
+      "does": "Fan in all five diagnoses; apply Theory of Constraints to name the ONE binding bottleneck this week and rank the rest.",
+      "from_inputs": [],
+      "from_steps": [
+        "diag_copy",
+        "diag_audience",
+        "diag_timing",
+        "diag_channel",
+        "diag_funnel"
+      ],
+      "assets": [
+        "problem_tree.json"
+      ],
+      "asset_title": "This Week's Bottleneck"
+    },
+    "hypothesis": {
+      "name": "Hypothesis",
+      "does": "From the bottleneck AND the accumulated brand memory, generate 3 ICE-weighted candidate experiments — skipping anything memory already ruled out.",
+      "from_inputs": [],
+      "from_steps": [
+        "problem_tree"
+      ],
+      "assets": [
+        "hypothesis.json"
+      ],
+      "asset_title": "Candidate Experiments (memory-informed)"
+    },
+    "ab_setup": {
+      "name": "A/B Setup",
+      "does": "Pick the top 1–2 experiments and design the test: variable, primary/secondary/guardrail metrics, sample size, duration, allocation.",
+      "from_inputs": [],
+      "from_steps": [
+        "hypothesis"
+      ],
+      "assets": [
+        "ab_setup.json"
+      ],
+      "asset_title": "Test Design"
+    },
+    "variant_gen": {
+      "name": "Variant Generation",
+      "does": "Produce the control vs. treatment assets: ad creative (angle/headlines/specs) and the matching landing-page changes.",
+      "from_inputs": [],
+      "from_steps": [
+        "ab_setup"
+      ],
+      "assets": [
+        "variants.md"
+      ],
+      "asset_title": "Creative + Landing Variants"
+    },
+    "launch_plan": {
+      "name": "Launch Plan",
+      "does": "Assemble the launch checklist and the analytics instrumentation (events, UTMs, conversions) needed to read the test cleanly.",
+      "from_inputs": [],
+      "from_steps": [
+        "variant_gen"
+      ],
+      "assets": [
+        "launch_plan.md"
+      ],
+      "asset_title": "Launch + Tracking Checklist"
+    },
+    "memory_writeback": {
+      "name": "Memory Writeback",
+      "does": "Append this week's decision and the experiment-playbook entry to memory.md so next week's hypothesis is even more brand-specific.",
+      "from_inputs": [],
+      "from_steps": [
+        "launch_plan"
+      ],
+      "assets": [
+        "memory.md"
+      ],
+      "asset_title": "Updated Brand Playbook (memory.md)"
+    }
+  },
+  "deliverable": {
+    "description": "This week's paid-ads decision: the chosen test design + creative/landing variants + a launch & tracking checklist, the memory-informed hypothesis that shows the brand-specific reasoning, and the updated brand playbook (memory.md) that carries the learning into next week.",
+    "assets": [
+      "launch_plan/launch_plan.md",
+      "variant_gen/variants.md",
+      "hypothesis/hypothesis.json",
+      "ab_setup/ab_setup.json",
+      "memory_writeback/memory.md"
+    ]
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

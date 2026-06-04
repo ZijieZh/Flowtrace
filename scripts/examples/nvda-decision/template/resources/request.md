@@ -1,5 +1,7 @@
 # Decision Request
 
+> *For illustration only — not investment advice. NVDA is a real public company analyzed from public data.*
+
 **Question:** Should I buy NVDA right now?
 
 - **Ticker:** NVDA

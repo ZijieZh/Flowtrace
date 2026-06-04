@@ -1,0 +1,27 @@
+{
+  "tool": "aflplusplus",
+  "harness": "fuzz_stripe_sig_header",
+  "instrumentation": "afl-clang-fast",
+  "asan": true,
+  "seed_corpus": "valid Stripe-Signature headers (t=...,v1=...)",
+  "campaign": { "duration_s": 7200, "execs": 41880022, "exec_per_s": 5816, "paths": 1473, "stability_pct": 98 },
+  "summary": { "unique_crashes_raw": 3, "unique_crashes_after_dedup": 1, "unique_hangs": 0 },
+  "findings": [
+    {
+      "id": "F-FUZ-001",
+      "crash_class": "out-of-bounds-read",
+      "file": "internal/webhooks/stripe.go:71 (parseSignatureHeader)",
+      "cwe": ["CWE-125"],
+      "asan": "heap-buffer-overflow READ of size 1",
+      "input": "Stripe-Signature: t=1717,v1=  (truncated v1 segment, no '=' value)",
+      "detail": "Splitting the header on ',' then on '=' assumes a value follows every key; a truncated 'v1=' with no bytes after drives an index past the slice bound. ASan flags a 1-byte OOB read; in production this is a panic -> 500, remotely triggerable on the request path.",
+      "severity": "Medium",
+      "impact": "availability (DoS) only — no confidentiality/integrity",
+      "remediation": "Bounds-check each split segment; reject malformed headers before indexing.",
+      "blocking_candidate": false,
+      "blocking_note": "Real bug, but availability-only and not part of an exploitable confidentiality/integrity chain — triage scores it Medium and it ships as tracked debt with an SLA, NOT a blocker.",
+      "source": "implementing-fuzz-testing-in-cicd-with-aflplusplus (CI crash gate + crash triage / dedup by stack trace)"
+    }
+  ],
+  "source": "implementing-fuzz-testing-in-cicd-with-aflplusplus"
+}

@@ -1,0 +1,17 @@
+{
+  "draft_ref": "draft/draft.md",
+  "current_analysis": {
+    "works": ["names the 2026 frame the reader already has", "pivots immediately to the money question, which is what an investor cares about"],
+    "weaker": ["the phrasing 'go to work' is a cliche the reader has heard 50 times", "no specific number, so it reads as opinion not signal", "buries the contrarian edge (the money is NOT where the demos are)"],
+    "emotional_impact": "mild recognition; should be sharper FOMO + a contrarian jolt for a skeptical investor"
+  },
+  "candidates": [
+    { "kind": "bold_statement", "text": "The foundation-model wars are over, and the winners are about to be commoditized. The next fortune in enterprise AI will be made one layer up — by whoever makes agents reliable enough to trust with real money.", "why_it_works": "leads with a contrarian claim that flatters the investor's skepticism and frames the entire thesis (value migrates up the stack) in two sentences" },
+    { "kind": "personal_story", "text": "Last quarter I sat through a dozen agent demos that all worked flawlessly. Then I asked each founder the same question — 'what's your task-completion rate in production?' — and watched the room go quiet. That silence is the whole investment thesis.", "why_it_works": "dramatizes the demo-vs-reliability gap with a first-person scene; ends on the exact metric the piece tells investors to demand" },
+    { "kind": "surprising_data", "text": "Enterprises spent $13.8 billion on generative AI last year — roughly six times the year before — and almost none of the durable margin will end up with the companies that built the models. Here's where it goes instead.", "why_it_works": "opens with a hard, sourced number (credibility for a skeptical reader), then immediately subverts the obvious conclusion, creating curiosity and promising a payoff" }
+  ],
+  "recommended": "surprising_data",
+  "recommendation_rationale": "For a VC audience the sourced $13.8B figure buys instant credibility and the 'almost none will go to the model-builders' twist delivers the contrarian thesis in one line. The personal-story option is strong and kept as a back-pocket alternative if the writer wants a warmer open.",
+  "hook_checks": { "creates_curiosity": true, "promises_value": true, "specific": true, "matches_audience": true },
+  "source": "content-research-writer step 4 — Improve Hooks (current-hook analysis + three alternatives: bold statement / personal story / surprising data, each with why-it-works + hook checks)"
+}

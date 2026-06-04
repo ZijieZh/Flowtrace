@@ -1,0 +1,46 @@
+{
+  "lens": "CTO",
+  "role": "the architecture skeptic",
+  "reads": ["ingest_product/product_tech.json"],
+  "bottom_line": "The product is real and the AI talent is the prize, but two P1 debt items sit directly on the path to the cross-sell thesis. The deal model under-prices integration. SHARPEN before you commit.",
+  "verdict": "SHARPEN",
+  "verdict_scale": "SHIP / SHARPEN / BLOCK",
+  "scaling_cliff": {
+    "current_capacity_rps": 2400,
+    "break_point_rps": 7200,
+    "headroom_months_at_current_growth": 14,
+    "read": "single-writer Postgres ceiling at ~3x load; fine for mid-market, NOT fine once we point our enterprise base at it"
+  },
+  "tech_debt": {
+    "top_item": "v1 auth service blocks SSO/SCIM — every enterprise deal dies here",
+    "second_item": "shared-schema tenancy with no row-level encryption — security + EU data-isolation risk",
+    "tech_debt_ratio_pct": 31,
+    "read": "31% is above the <25% healthy line; the two P1 items are the integration critical path, not backlog"
+  },
+  "build_vs_buy": {
+    "three_year_build_tco_usd_m": 16.0,
+    "three_year_buy_tco_usd_m": "acquisition price + 4.5 integration",
+    "strategic_fit": "core — this is capability we want to own, not context",
+    "decision": "BUY is correct on capability; the AI sequencing team is genuinely hard to replicate"
+  },
+  "integration_reality": {
+    "priced_in_deal_model_usd_m": 4.5,
+    "true_estimate_usd_m": 7.0,
+    "true_estimate_eng_quarters": 8,
+    "gap": "remediating auth (45d) + tenancy/row-encryption (60d) + tested DR (30d) is ~2 extra quarters beyond the 4.5 budgeted",
+    "read": "integration is ~55% more than the model carries; that erodes the synergy NPV"
+  },
+  "security_ai_surface": {
+    "soc2_exception": "access-review control skipped a quarter — real, must be remediated",
+    "pen_test_overdue_months": 16,
+    "ai_governance": "AI sequencing service has no eval harness, no model card, no training-data retention policy",
+    "read": "the AI feature is a regulatory liability as shipped (loop GC + compliance); fixable but unfunded today"
+  },
+  "reasoning_technique": "ReAct — ground every claim in the tech-debt inventory and DORA data, not opinion",
+  "conditions": [
+    "Re-baseline integration cost to ~$7M / 8 quarters in the deal model",
+    "Auth + tenancy on the critical path, owned + dated before close",
+    "AI eval harness + model governance funded as a day-1 workstream"
+  ],
+  "source": "cto-review (six CTO forcing questions: scaling cliff, tech-debt inventory, team scaling, build-vs-buy 3yr TCO, SLO/reliability, security & compliance surface) + cto-advisor (tech-debt ratio <25%, DORA, build-vs-buy default-buy, ADR-style options)"
+}

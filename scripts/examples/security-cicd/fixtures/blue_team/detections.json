@@ -1,0 +1,55 @@
+{
+  "as_of": "2026-06-03",
+  "premise": "Purple-team output: for the same triaged findings, ship detection-as-code that would catch the exploitation red-team is proving. Runs in parallel with red_team off the triage fan-out.",
+  "covers": ["T-001", "T-002", "T-003"],
+  "sigma": [
+    {
+      "id": "a7f1c0e2-3b44-4d19-9c21-6e8a55b1d402",
+      "title": "Webhook Signature Verification Failures Spiking From Single Source",
+      "status": "experimental",
+      "level": "high",
+      "attack": ["attack.initial_access", "attack.t1190", "attack.credential_access", "attack.t1212"],
+      "covers_finding": "T-002",
+      "logsource": { "product": "payments-gateway", "category": "application" },
+      "detection": "selection: msg='stripe.webhook.sig_verify' result='fail'; threshold: count() by src_ip > 20 in 1m; plus selection2: result='accept' after >5 prior fails from same src_ip",
+      "condition": "selection | count by src_ip > 20 OR (selection2)",
+      "rationale": "A timing/forgery attack generates many near-miss signature failures, then a sudden accept. Catches T-002 exploitation even before the secret is rotated.",
+      "falsepositives": ["Stripe retry storms after an outage (tune threshold)", "a misconfigured legit caller"],
+      "validated": true,
+      "sigma_check": "PASS"
+    },
+    {
+      "id": "b3d9e7a1-55c2-41ab-8f30-9a1c2e4f7d88",
+      "title": "SQL Error / UNION Tokens In Webhook Event Id",
+      "status": "experimental",
+      "level": "high",
+      "attack": ["attack.initial_access", "attack.t1190"],
+      "covers_finding": "T-001",
+      "logsource": { "product": "payments-gateway", "category": "application" },
+      "detection": "selection: field='Stripe-Event-Id' value|contains: [\"'\", 'UNION', '--', '/*', 'pg_sleep']",
+      "condition": "selection",
+      "rationale": "Flags injection payloads arriving in the event-id header (the T-001 source) at the edge, independent of whether the query is fixed yet.",
+      "falsepositives": ["legitimate event ids never contain SQL meta-characters — very low FP"],
+      "validated": true,
+      "sigma_check": "PASS"
+    }
+  ],
+  "yara": [
+    {
+      "rule": "acme_leaked_stripe_webhook_secret",
+      "anchor": "hardcoded signing-secret string prefix 'whsec_5f3b9c2a' (stable, unique artifact per YARA selection strategy)",
+      "covers_finding": "T-002",
+      "strings": "$s = \"whsec_5f3b9c2a\" ascii",
+      "condition": "any of them and filesize < 5MB",
+      "note": "Scans build artifacts / images for the leaked secret so it is flagged anywhere it propagates until rotation + history purge complete. Defense-in-depth, not a fix."
+    }
+  ],
+  "coverage_map": {
+    "T1190": "covered (Sigma: SQL tokens in event id)",
+    "T1212": "covered (Sigma: sig-verify failure spike -> accept)",
+    "T1552.001": "covered (YARA: leaked-secret artifact)",
+    "T1499.004": "NOT covered — the parser-crash DoS (T-004) has no behavioral rule yet; logged as residual gap for the posture report"
+  },
+  "coverage_note": "3 of the 4 threat-intel techniques now have detection; residual gap on the availability DoS. Coverage is a COMPENSATING CONTROL for the gate — it does not waive a confirmed-exploitable blocker.",
+  "source": "building-detection-rules-with-sigma (Purple Team Output -> Sigma; ATT&CK tagging) + performing-yara-rule-development-for-detection (artifact-anchored rule)"
+}

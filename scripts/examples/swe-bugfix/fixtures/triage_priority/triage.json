@@ -1,0 +1,25 @@
+{
+  "id": "PAY-4815",
+  "severity": "SEV-2",
+  "priority": "P1",
+  "money_affecting": true,
+  "blast_radius": "~0.3% of charges during traffic spikes (duplicate debit); 0 at low traffic. Affects any path where the mobile client retries an in-flight POST /charges with the same idempotency key.",
+  "user_facing": true,
+  "decision": "systematic-debugging required: full Four-Phase investigation before any fix. No symptom patch, no hotfix-and-investigate-later.",
+  "rationalizations_rejected": [
+    {
+      "excuse": "It's money-affecting, hotfix now and investigate later.",
+      "reality": "First fix sets the pattern; a symptom patch (PSP-side dedupe) leaves the race in place. Systematic is faster than thrashing."
+    },
+    {
+      "excuse": "It's obviously the cache, just add a lock.",
+      "reality": "'Obvious' guesses skip Phase 1-3. A global lock would also kill throughput. Confirm the root cause first."
+    },
+    {
+      "excuse": "Only 0.3%, low priority.",
+      "reality": "Double-charging real customers is a trust/compliance issue regardless of rate. P1."
+    }
+  ],
+  "next": "reproduce",
+  "source": "systematic-debugging 'When to Use' (ESPECIALLY under time pressure) + 'Common Rationalizations' table"
+}

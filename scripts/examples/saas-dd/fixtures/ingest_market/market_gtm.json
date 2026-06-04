@@ -1,0 +1,41 @@
+{
+  "as_of": "2026-06-01",
+  "target": "Acme RevOps, Inc.",
+  "market": {
+    "category": "RevOps automation / GTM workflow",
+    "serviceable_market_usd_b": 6.2,
+    "segment": "mid-market ($5M-$250M revenue GTM teams)",
+    "growth_of_category_pct": 18,
+    "position": "challenger #3 in mid-market; share led by two larger incumbents"
+  },
+  "competitive": {
+    "moat": "workflow-graph + native CRM bidirectional sync + the new AI sequencing; switching cost is the configured workflows",
+    "moat_strength": "moderate — sticky once configured, but feature-replicable by incumbents within ~12-18 months",
+    "win_rate_vs_incumbents_pct": 34,
+    "win_rate_trend": "flat-to-down (was 38% a year ago)",
+    "primary_loss_reason": "'no SSO/SCIM' and 'single-region' block enterprise — capped at mid-market today"
+  },
+  "gtm": {
+    "motion": "sales-led with a PLG self-serve entry; ~60% sales-sourced, ~30% marketing-sourced, ~10% partner",
+    "pipeline_coverage_next_q": 2.7,
+    "pipeline_coverage_target": 3.0,
+    "quota_attainment_reps_pct": 55,
+    "ramp_months_to_quota": 5.5,
+    "median_discount_pct": 14,
+    "discount_trend": "creeping up from 9% a year ago"
+  },
+  "retention_cohorts": {
+    "nrr_pct": 109,
+    "grr_pct": 88,
+    "expansion_share_of_arr_growth_pct": 34,
+    "logo_churn_annual_pct": 12,
+    "at_risk_arr_pct": 8,
+    "note": "Expansion is healthy and carrying NRR, but logo churn at 12% is high for mid-market; the leak is small accounts (<$25k)."
+  },
+  "icp_fit_with_acquirer": {
+    "overlap": "high — Acme RevOps's mid-market GTM buyer is adjacent to our enterprise GTM buyer; cross-sell path is real",
+    "cross_sell_arr_opportunity_usd_m_3yr": 9.0,
+    "carry_upmarket_dependency": "requires SSO/SCIM + multi-region (the CTO tech-debt items)"
+  },
+  "source": "cro-advisor (NRR/GRR waterfall, pipeline coverage, magic number, discount discipline) + cro-review Q1/Q2/Q3/Q5/Q6 (coverage, win-rate, NRR decomposition, discount creep, source mix)"
+}

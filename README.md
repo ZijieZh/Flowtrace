@@ -81,23 +81,24 @@ Update with `git pull && ./scripts/install.sh`. Override the symlink target with
 
 ## Examples
 
-<div align="center">
-<img src="docs/assets/traces-grid.gif" width="720" alt="A grid of live traces across finance, healthcare, research, data, marketing, education, video, gaming, and lifestyle, each animating as a flow that builds step by step">
-<br><sub>A few of the traces people run, each one a flow that builds step by step</sub>
-</div>
-
-Each of these builds and runs from a single command:
+**Nine examples** built from popular open-source skills, spanning different domains — open any one for its flow and a one-command demo in the [examples gallery](docs/EXAMPLES.md):
 
 <div align="center">
 <table><tr>
-<td align="center"><a href="docs/EXAMPLES.md"><img src="docs/assets/examples/iris-analysis.png" height="150" alt="iris-analysis flow"></a><br><sub>24-step statistical analysis</sub></td>
-<td align="center"><a href="docs/EXAMPLES.md"><img src="docs/assets/examples/tailored-resume.png" height="150" alt="tailored-resume flow"></a><br><sub>résumé tailored to a job posting</sub></td>
-<td align="center"><a href="docs/EXAMPLES.md"><img src="docs/assets/examples/nested-deps.png" height="150" alt="research-synthesis flow"></a><br><sub>research synthesis with citations</sub></td>
-<td align="center"><a href="docs/EXAMPLES.md"><img src="docs/assets/examples/dream-analysis.png" height="150" alt="dream-analysis flow"></a><br><sub>dream to a symbolic-analysis PDF</sub></td>
+<td align="center" valign="top"><a href="docs/EXAMPLES.md#saas-dd"><img src="docs/assets/examples/feat-saas-dd.png" height="240" alt="SaaS acquisition due diligence flow"></a><br><sub><a href="docs/EXAMPLES.md#saas-dd">SaaS due diligence</a></sub></td>
+<td align="center" valign="top"><a href="docs/EXAMPLES.md#security-cicd"><img src="docs/assets/examples/feat-security-cicd.png" height="240" alt="security CI/CD pipeline flow"></a><br><sub><a href="docs/EXAMPLES.md#security-cicd">Security CI/CD gate</a></sub></td>
+<td align="center" valign="top"><a href="docs/EXAMPLES.md#distill-mind"><img src="docs/assets/examples/feat-distill-mind.png" height="240" alt="distill a mind into a skill flow"></a><br><sub><a href="docs/EXAMPLES.md#distill-mind">Distill a mind into a skill</a></sub></td>
 </tr></table>
 </div>
 
-The full set, each shown as a flow, is in the [examples gallery](docs/EXAMPLES.md).
+Plus six more:
+
+- 📄 Career — [Tailored Résumé Generator](docs/EXAMPLES.md#tailored-resume)
+- 💰 Investing — [Comprehensive Stock Analysis](docs/EXAMPLES.md#nvda-decision)
+- ✍️ Research / writing — [Industry Deep-Dive Report](docs/EXAMPLES.md#research-writer)
+- 🐛 Software engineering — [Bug-Fix Learning Loop](docs/EXAMPLES.md#swe-bugfix)
+- 📈 Growth / marketing — [Weekly Paid-Ads Optimization](docs/EXAMPLES.md#paid-ads)
+- 🖼 Design / decks — [Talk → Magazine Slide Deck](docs/EXAMPLES.md#talk-to-deck)
 
 ## Documentation
 

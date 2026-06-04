@@ -1,0 +1,33 @@
+{
+  "lane": "05-decisions",
+  "subject": "Mira Tan (fictional)",
+  "corpus": "three invented case studies she has narrated (do not exist)",
+  "disclaimer": "Fabricated for illustration.",
+  "decisions": [
+    {
+      "decision": "Killed a near-finished 'advanced filters' panel one week before launch.",
+      "actual_logic": "Nobody on the team could name the one job the panel did that the search bar didn't. By her rule, an un-nameable screen gets cut.",
+      "hindsight": "'Best thing we didn't ship that quarter.' Retention unchanged; support tickets down.",
+      "implies_heuristic": "If you can't name the one job, cut the screen.",
+      "say_do": "consistent with 'subtract before you add'"
+    },
+    {
+      "decision": "Shipped an onboarding flow she called 'embarrassing' rather than wait for the polished version.",
+      "actual_logic": "The second draft is the real first draft — she wanted real hands on it to find the friction the team couldn't see.",
+      "hindsight": "v2, two weeks later, fixed three things no internal review had caught.",
+      "implies_heuristic": "Ship the embarrassing version to find the real friction.",
+      "say_do": "consistent with 'second draft' model"
+    },
+    {
+      "decision": "Kept a single 'compact mode' toggle against her own subtract-everything instinct.",
+      "actual_logic": "Behavior showed a real, persistent split between two user groups; removing it would have broken a job for one of them. The setting earned its place by data, not by argument.",
+      "hindsight": "Cites this as the exception that proves 'subtract' is a default, not a law.",
+      "implies_heuristic": "A setting may stay only if behavior (not opinion) proves two real jobs.",
+      "say_do": "tension with 'every setting is a lost argument' — kept, not reconciled"
+    }
+  ],
+  "contradictions_noted": [
+    "Decision 3 directly tensions her stated 'subtract before you add' / 'settings debt' — revealed behavior overrode the stated default. Kept as a core tension."
+  ],
+  "source": "huashu-nuwa Phase 1 Agent 5 决策; decisions are revealed beliefs; the heuristic underneath matters, not the outcome"
+}

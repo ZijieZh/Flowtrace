@@ -12,7 +12,9 @@ writes:
 
 # Reorder & Format
 
-The skill's **ATS Optimization** + the ordering half of **Resume Structure**. This is a **join**: it consumes the rewritten bullets *and* the keywords directly (the `extract_keywords → reorder_format` edge exists precisely because ATS keyword incorporation happens here, at format time).
+Source skill: **tailored-resume-generator** (ATS Optimization + the ordering half of Resume Structure).
+
+This is a **join**: it consumes the rewritten bullets *and* the keywords directly (the `extract_keywords → reorder_format` edge exists precisely because ATS keyword incorporation happens here, at format time).
 
 ## What this step does
 

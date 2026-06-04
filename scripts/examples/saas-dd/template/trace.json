@@ -1,0 +1,233 @@
+{
+  "id": "saas-dd",
+  "title": "SaaS Acquisition Due Diligence — Go / No-Go + Price",
+  "description": "A faithful lift of the C-suite advisory + compliance skills from alirezarezvani/claude-skills (MIT), composed into one Corp-Dev / M&A decision. The knowledge is in the arrows. Four ingest lanes fan out (financials, product, market, legal); five C-suite lenses then run in PARALLEL — CFO (cfo-review + cfo-advisor), CEO (ceo-advisor), CTO (cto-review + cto-advisor), CRO (cro-review + cro-advisor), GC (gc-review + general-counsel-advisor) — deliberately with no cross-pollination, because running them serially would let the CFO's framing contaminate the rest (the skills' own 'Phase 2: use only your own analysis' rule). A synergy model rolls up the operating lenses; a two-sided thesis (cross-eval steelman vs devil's-advocate) is built BEFORE valuation so the number can't anchor the argument; valuation (financial-analyst DCF + business-investment-advisor NPV/IRR + saas-metrics-coach unit economics) prices it; and a compliance gate (compliance-os + compliance-readiness + soc2-audit-prep) sits LAST but truly vetoes. The IC memo fans in from valuation, both thesis sides, and the gate. A 200-word 'should we buy it' answer compresses these into one — this trace pulls them back apart.",
+  "version": "0.1.0",
+  "steps": {
+    "intake": {
+      "name": "Deal Intake",
+      "does": "Frame the deal: target, asking price, the IC question, and the diligence scope each lane must cover.",
+      "from_inputs": [
+        "request"
+      ],
+      "from_steps": [],
+      "assets": [
+        "deal_brief.json"
+      ],
+      "asset_title": "Deal Brief"
+    },
+    "ingest_financials": {
+      "name": "Ingest — Financials",
+      "does": "Pull the data room's financials into one validated pack: P&L, ARR bridge, unit economics, burn.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "financials.json"
+      ],
+      "asset_title": "Financials Pack"
+    },
+    "ingest_product": {
+      "name": "Ingest — Product & Tech",
+      "does": "Structure the technical data room: architecture, stack, tech-debt inventory, security posture, AI features.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "product_tech.json"
+      ],
+      "asset_title": "Product & Tech Pack"
+    },
+    "ingest_market": {
+      "name": "Ingest — Market & GTM",
+      "does": "Structure the market read: TAM/segment, competitive position, pipeline, retention cohorts, ICP fit.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "market_gtm.json"
+      ],
+      "asset_title": "Market & GTM Pack"
+    },
+    "ingest_legal": {
+      "name": "Ingest — Legal & Compliance",
+      "does": "Structure the legal data room: cap table, material contracts, IP assignment, data/privacy, certifications.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "legal_pack.json"
+      ],
+      "asset_title": "Legal & Compliance Pack"
+    },
+    "lens_cfo": {
+      "name": "Lens — CFO",
+      "does": "The numerate skeptic. Burn multiple, unit economics, margin durability, bear-case survival. Independent verdict.",
+      "from_inputs": [],
+      "from_steps": [
+        "ingest_financials"
+      ],
+      "assets": [
+        "cfo_review.json"
+      ],
+      "asset_title": "CFO Review"
+    },
+    "lens_ceo": {
+      "name": "Lens — CEO",
+      "does": "The strategic allocator. Thesis fit, the one thing that kills the deal, build-vs-buy-vs-partner. Independent verdict.",
+      "from_inputs": [],
+      "from_steps": [
+        "ingest_financials",
+        "ingest_market"
+      ],
+      "assets": [
+        "ceo_review.json"
+      ],
+      "asset_title": "CEO Review"
+    },
+    "lens_cto": {
+      "name": "Lens — CTO",
+      "does": "The architecture skeptic. Scaling cliff, tech-debt cost, integration TCO, security & AI surface. Independent verdict.",
+      "from_inputs": [],
+      "from_steps": [
+        "ingest_product"
+      ],
+      "assets": [
+        "cto_review.json"
+      ],
+      "asset_title": "CTO Review"
+    },
+    "lens_cro": {
+      "name": "Lens — CRO",
+      "does": "The pipeline-paranoid operator. NRR decomposition, pipeline coverage, discount discipline, concentration. Independent verdict.",
+      "from_inputs": [],
+      "from_steps": [
+        "ingest_market"
+      ],
+      "assets": [
+        "cro_review.json"
+      ],
+      "asset_title": "CRO Review"
+    },
+    "lens_gc": {
+      "name": "Lens — GC",
+      "does": "The General Counsel six questions. IP ownership, liability, data/DPA, regulatory trigger, employment/equity. Independent verdict.",
+      "from_inputs": [],
+      "from_steps": [
+        "ingest_legal"
+      ],
+      "assets": [
+        "gc_review.json"
+      ],
+      "asset_title": "GC Review"
+    },
+    "synergy_model": {
+      "name": "Synergy & Integration Model",
+      "does": "Roll the operating lenses (CFO/CRO/CTO) into base/bull/bear revenue + cost synergies, net of integration cost and dis-synergy.",
+      "from_inputs": [],
+      "from_steps": [
+        "lens_cfo",
+        "lens_cro",
+        "lens_cto"
+      ],
+      "assets": [
+        "synergy_model.json"
+      ],
+      "asset_title": "Synergy Model"
+    },
+    "thesis_pro": {
+      "name": "Thesis — Pro (Steelman)",
+      "does": "Fan in all five lenses; build the strongest evidence-backed case TO DO the deal, with assumptions and a vote.",
+      "from_inputs": [],
+      "from_steps": [
+        "lens_cfo",
+        "lens_ceo",
+        "lens_cto",
+        "lens_cro",
+        "lens_gc"
+      ],
+      "assets": [
+        "thesis_pro.json"
+      ],
+      "asset_title": "Pro Thesis"
+    },
+    "thesis_contra": {
+      "name": "Thesis — Contra (Devil's Advocate)",
+      "does": "Fan in all five lenses; build the strongest evidence-backed case NOT to do the deal (or to walk on price), with a vote.",
+      "from_inputs": [],
+      "from_steps": [
+        "lens_cfo",
+        "lens_ceo",
+        "lens_cto",
+        "lens_cro",
+        "lens_gc"
+      ],
+      "assets": [
+        "thesis_contra.json"
+      ],
+      "asset_title": "Contra Thesis"
+    },
+    "valuation": {
+      "name": "Valuation",
+      "does": "Price the target three ways (DCF, comps, NPV/IRR on synergy cash flows) and reconcile to a recommended offer range AFTER the thesis.",
+      "from_inputs": [],
+      "from_steps": [
+        "thesis_pro",
+        "thesis_contra",
+        "ingest_financials",
+        "synergy_model"
+      ],
+      "assets": [
+        "valuation.json"
+      ],
+      "asset_title": "Valuation"
+    },
+    "compliance_gate": {
+      "name": "Compliance Gate (Veto)",
+      "does": "Select applicable frameworks, simulate the mock audit, and decide READY / CONDITIONAL / BLOCK — this gate can veto a financially attractive deal.",
+      "from_inputs": [],
+      "from_steps": [
+        "ingest_legal",
+        "lens_gc",
+        "valuation"
+      ],
+      "assets": [
+        "compliance_gate.json"
+      ],
+      "asset_title": "Compliance Gate"
+    },
+    "ic_memo": {
+      "name": "IC Memo",
+      "does": "Compose the investment-committee memo: recommendation, price, both thesis sides, conditions to close, and the gate's verdict.",
+      "from_inputs": [],
+      "from_steps": [
+        "valuation",
+        "thesis_pro",
+        "thesis_contra",
+        "compliance_gate"
+      ],
+      "assets": [
+        "ic_memo.md"
+      ],
+      "asset_title": "Investment Committee Memo"
+    }
+  },
+  "deliverable": {
+    "description": "A go / no-go decision on the acquisition with a recommended offer range, delivered as an investment-committee memo (ic_memo.md) backed by the reconciled valuation, the two-sided thesis (pro + contra), and the compliance gate verdict that makes the conditions-to-close binding.",
+    "assets": [
+      "ic_memo/ic_memo.md",
+      "valuation/valuation.json",
+      "thesis_pro/thesis_pro.json",
+      "thesis_contra/thesis_contra.json",
+      "compliance_gate/compliance_gate.json"
+    ]
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

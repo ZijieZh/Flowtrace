@@ -1,0 +1,227 @@
+{
+  "id": "swe-bugfix",
+  "title": "Bug-Fix Learning Loop",
+  "description": "Fix a production bug the disciplined way, then teach the codebase what was learned. Faithful lift of Jesse Vincent's 'superpowers' skill library (obra/superpowers, MIT): systematic-debugging's Iron Law and Four Phases (root-cause investigation → pattern analysis → hypothesis & testing → implementation) drive the diagnosis; test-driven-development supplies the RED→GREEN→REFACTOR fix loop under subagent-driven-development's two-stage (spec then quality) review; requesting/receiving-code-review, verification-before-completion, and finishing-a-development-branch close the work. The GROW loop is explicit: every step keeps a memory.md, and a terminal writing-skills node distills this run's learning into a NEW skill written back to the library while memory_writeback records the codebase-specific gotcha — so the same trace, re-run, sharpens.",
+  "version": "0.1.0",
+  "steps": {
+    "bug_report": {
+      "name": "Bug Report",
+      "does": "Read the incoming bug report; extract symptom, stack trace, and repro rate.",
+      "from_inputs": [
+        "request"
+      ],
+      "from_steps": [],
+      "assets": [
+        "bug_report.json"
+      ],
+      "asset_title": "Parsed Bug Report"
+    },
+    "triage_priority": {
+      "name": "Triage & Priority",
+      "does": "Classify severity, blast radius, and priority; decide systematic debugging is required.",
+      "from_inputs": [],
+      "from_steps": [
+        "bug_report"
+      ],
+      "assets": [
+        "triage.json"
+      ],
+      "asset_title": "Triage Decision"
+    },
+    "reproduce": {
+      "name": "Reproduce Consistently",
+      "does": "Phase 1: build a reliable reproduction; read the error carefully; measure the repro rate.",
+      "from_inputs": [],
+      "from_steps": [
+        "triage_priority"
+      ],
+      "assets": [
+        "repro.json"
+      ],
+      "asset_title": "Reproduction"
+    },
+    "gather_evidence": {
+      "name": "Gather Evidence",
+      "does": "Phase 1: instrument every component boundary; run once; capture which layer breaks.",
+      "from_inputs": [],
+      "from_steps": [
+        "reproduce"
+      ],
+      "assets": [
+        "evidence.json"
+      ],
+      "asset_title": "Boundary Evidence"
+    },
+    "pattern_analysis": {
+      "name": "Pattern Analysis",
+      "does": "Phase 2: find working examples, compare against the broken path, list every difference.",
+      "from_inputs": [],
+      "from_steps": [
+        "gather_evidence"
+      ],
+      "assets": [
+        "pattern.json"
+      ],
+      "asset_title": "Pattern Comparison"
+    },
+    "hypothesize": {
+      "name": "Form Hypothesis",
+      "does": "Phase 3: state ONE specific root-cause hypothesis grounded in the evidence.",
+      "from_inputs": [],
+      "from_steps": [
+        "pattern_analysis"
+      ],
+      "assets": [
+        "hypothesis.json"
+      ],
+      "asset_title": "Single Hypothesis"
+    },
+    "test_hypothesis": {
+      "name": "Test Hypothesis",
+      "does": "Phase 3: test minimally, one variable; trace the bad value backward to its source.",
+      "from_inputs": [],
+      "from_steps": [
+        "hypothesize"
+      ],
+      "assets": [
+        "hypothesis_test.json"
+      ],
+      "asset_title": "Hypothesis Test"
+    },
+    "root_cause": {
+      "name": "Root Cause",
+      "does": "Confirmed root cause at the source (not the symptom); the Iron Law is satisfied.",
+      "from_inputs": [],
+      "from_steps": [
+        "test_hypothesis"
+      ],
+      "assets": [
+        "root_cause.json"
+      ],
+      "asset_title": "Confirmed Root Cause"
+    },
+    "fix_design": {
+      "name": "Fix Design",
+      "does": "Design the source fix plus defense-in-depth layers before writing any code.",
+      "from_inputs": [],
+      "from_steps": [
+        "root_cause"
+      ],
+      "assets": [
+        "fix_design.md"
+      ],
+      "asset_title": "Fix Design"
+    },
+    "implement_tdd": {
+      "name": "Implement (TDD)",
+      "does": "RED → GREEN → REFACTOR: failing regression test first, minimal fix, then clean up.",
+      "from_inputs": [],
+      "from_steps": [
+        "fix_design"
+      ],
+      "assets": [
+        "fix_summary.md",
+        "tdd_evidence.json"
+      ],
+      "asset_title": "Implemented Fix"
+    },
+    "review_spec": {
+      "name": "Spec Review",
+      "does": "Stage 1 review: does the diff match the fix design — nothing missing, nothing extra?",
+      "from_inputs": [],
+      "from_steps": [
+        "implement_tdd"
+      ],
+      "assets": [
+        "spec_review.json"
+      ],
+      "asset_title": "Spec Compliance Review"
+    },
+    "review_quality": {
+      "name": "Quality Review",
+      "does": "Stage 2 review: code quality, naming, coupling — only after spec review is green.",
+      "from_inputs": [],
+      "from_steps": [
+        "implement_tdd"
+      ],
+      "assets": [
+        "quality_review.json"
+      ],
+      "asset_title": "Code Quality Review"
+    },
+    "code_review": {
+      "name": "Code Review",
+      "does": "Fan-in both review stages; evaluate each finding technically and act on it.",
+      "from_inputs": [],
+      "from_steps": [
+        "review_spec",
+        "review_quality"
+      ],
+      "assets": [
+        "code_review.json"
+      ],
+      "asset_title": "Adjudicated Review"
+    },
+    "verify_completion": {
+      "name": "Verify Completion",
+      "does": "Run the full suite fresh; confirm red→green and zero regressions before any claim.",
+      "from_inputs": [],
+      "from_steps": [
+        "code_review"
+      ],
+      "assets": [
+        "verification.json"
+      ],
+      "asset_title": "Verification Evidence"
+    },
+    "finish_branch": {
+      "name": "Finish Branch",
+      "does": "Tests pass: present integration options and open the PR with summary + test plan.",
+      "from_inputs": [],
+      "from_steps": [
+        "verify_completion"
+      ],
+      "assets": [
+        "branch_finish.json"
+      ],
+      "asset_title": "Branch Completion"
+    },
+    "writing_skills": {
+      "name": "Writing Skills",
+      "does": "Distill this run's learning into a NEW reusable skill written back to the library.",
+      "from_inputs": [],
+      "from_steps": [
+        "finish_branch"
+      ],
+      "assets": [
+        "new_skill.md"
+      ],
+      "asset_title": "New Skill (library writeback)"
+    },
+    "memory_writeback": {
+      "name": "Memory Writeback",
+      "does": "Record the codebase-specific gotcha in memory.md so the next run skips this dead-end.",
+      "from_inputs": [],
+      "from_steps": [
+        "writing_skills"
+      ],
+      "assets": [
+        "memory.md"
+      ],
+      "asset_title": "memory.md (accumulated learning)"
+    }
+  },
+  "deliverable": {
+    "description": "A root-caused, test-backed fix for the reported bug (fix_summary.md + root_cause.json), plus the GROW artifacts: a new reusable skill written back to the library (new_skill.md) and the codebase-specific gotcha recorded in memory.md so the same trace sharpens on the next run.",
+    "assets": [
+      "implement_tdd/fix_summary.md",
+      "root_cause/root_cause.json",
+      "writing_skills/new_skill.md",
+      "memory_writeback/memory.md"
+    ]
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

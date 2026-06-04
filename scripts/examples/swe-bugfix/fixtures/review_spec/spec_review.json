@@ -1,0 +1,19 @@
+{
+  "stage": "spec-compliance",
+  "reviewer": "fresh spec-reviewer subagent (subagent-driven-development, stage 1 of 2)",
+  "compared_against": "fix_design/fix_design.md (the design only - not taste)",
+  "checked": [
+    { "designed": "Layer 2 - atomic reserve_or_get (INSERT ... ON CONFLICT ... RETURNING)", "present": true },
+    { "designed": "Layer 3 - UNIQUE (idempotency_key) constraint migration", "present": true, "note": "migrations/0042_idempotency_unique.sql" },
+    { "designed": "Layer 1 - Idempotency-Key header validation (reject missing/empty)", "present": true, "note": "added in REFACTOR" },
+    { "designed": "concurrency regression test asserting exactly 1 charge", "present": true },
+    { "designed": "non-owner returns the ORIGINAL charge id", "present": "partial" }
+  ],
+  "missing": [
+    "The design's test contract requires asserting that every response body carries the SAME (original) charge id. The shipped test asserts the PSP saw exactly 1 charge, but does NOT assert that the non-owner request returns that same charge id to the client. A path that 1-charges but returns a 409/empty to the retry would still pass the current test while violating the 'retried request returns the original charge' constraint."
+  ],
+  "extra": [],
+  "verdict": "changes-requested",
+  "required_change": "Extend test_concurrent_same_key_charges_once (or add a sibling test) to assert all 50 responses carry the identical charge id returned by the owner.",
+  "source": "subagent-driven-development two-stage review (spec compliance FIRST); example catches a missing spec'd element"
+}

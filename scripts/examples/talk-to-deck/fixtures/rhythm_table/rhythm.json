@@ -1,0 +1,28 @@
+{
+  "style": "A",
+  "page_budget": 9,
+  "slides": [
+    { "n": 1, "beat": "cover",                    "theme": "hero-dark",  "role": "cover" },
+    { "n": 2, "beat": "Hook — two kinds of speed", "theme": "light",      "role": "argument" },
+    { "n": 3, "beat": "Claim — slowness is a design budget", "theme": "dark", "role": "quote" },
+    { "n": 4, "beat": "Three forces (overview)",   "theme": "light",      "role": "argument" },
+    { "n": 5, "beat": "Worked contrast — 40 vs 9", "theme": "hero-light", "role": "data" },
+    { "n": 6, "beat": "The three forces, named",   "theme": "dark",       "role": "contrast" },
+    { "n": 7, "beat": "The turn — subtraction under constraint", "theme": "light", "role": "argument" },
+    { "n": 8, "beat": "The ask — measure time-to-out-of-the-way", "theme": "dark", "role": "argument" },
+    { "n": 9, "beat": "Closing",                   "theme": "hero-dark",  "role": "closing" }
+  ],
+  "rhythm_rules": {
+    "no_3_consecutive_same_theme": true,
+    "hero_count": 3,
+    "hero_slides": [1, 5, 9],
+    "hero_cadence": "≈1 per 3–4 slides (1, 5, 9)",
+    "opens_and_closes_on_hero": true
+  },
+  "rhythm_check": {
+    "longest_same_theme_run": 1,
+    "passes_no_3_consecutive": true,
+    "min_one_hero_in_8plus": true
+  },
+  "source": "pacing per op7418/guizang-ppt-skill SKILL.md Step 3.0.5 · 规划主题节奏 (Plan Theme Rhythm): map each slide's theme first; no 3+ consecutive same-theme slides; ≥1 hero in an 8+ page deck; insert ~1 hero per 3–4 regular slides. Built BEFORE layouts per '先做主题节奏表'."
+}

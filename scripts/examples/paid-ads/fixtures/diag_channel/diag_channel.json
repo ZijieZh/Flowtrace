@@ -1,0 +1,38 @@
+{
+  "lane": "channel_competitor",
+  "headline": "Damage is concentrated in Meta prospecting; CPMs are up from a transient competitor sale, but the controllable lever is creative.",
+  "channels": [
+    {
+      "channel": "Meta (prospecting)",
+      "cpa_read": "primary source of the blended CPA rise",
+      "lever": "ad-fatigue + auction CPM — per 'If CTR is low: ad fatigue -> refresh creative' and 'If CPM is high: high competition -> placements'",
+      "verdict": "pre-click problem (creative + auction), not post-click",
+      "confidence": "High"
+    },
+    {
+      "channel": "Google non-brand",
+      "cpa": 66,
+      "delta_pct": 22,
+      "lever": "rising CPCs as competitors bid spring sales; quality score steady",
+      "verdict": "softening with the same external pressure; secondary",
+      "confidence": "Medium"
+    },
+    {
+      "channel": "Google brand",
+      "cpa": 19,
+      "verdict": "healthy — demand intact, so this is a paid-efficiency problem, not a demand collapse",
+      "confidence": "High",
+      "why": "Brand search holding while prospecting deteriorates localises the problem to top-of-funnel paid, not the brand itself."
+    }
+  ],
+  "competitor_read": {
+    "moves": ["Competitor A 15-20% off (Meta)", "Competitor B spring sale + new 'cooling' video angle"],
+    "cpm_effect": "shared-interest CPMs +18%",
+    "durability": "TRANSIENT — spring sales lapse; the cooling-angle push is the more durable threat but targets the seasonal hot-sleeper job, not gift-intent",
+    "verdict": "Do not torch budget defending the contested cooling angle during a competitor sale. Let CPMs normalise; compete where we're strong (gift-intent, durable creative).",
+    "confidence": "Medium"
+  },
+  "implication": "External CPMs explain part of the CPA rise but are not controllable this week. The controllable, highest-leverage lever the channel data points to is refreshing the fatigued prospecting creative.",
+  "hands_to": "problem_tree",
+  "source": "ads / Platform Selection + Optimization lever trees + competitor-profiling / competitor move read (durability)"
+}

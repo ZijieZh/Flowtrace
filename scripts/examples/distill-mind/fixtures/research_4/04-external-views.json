@@ -1,0 +1,41 @@
+{
+  "lane": "04-external-views",
+  "subject": "Mira Tan (fictional)",
+  "corpus": "invented studio write-ups + conference recaps (do not exist); second-hand by nature",
+  "disclaimer": "Fabricated for illustration.",
+  "observed_patterns": [
+    {
+      "pattern": "She critiques the empty state first in every teardown — observers note it before she names it as a method.",
+      "observer": "a (fictional) studio retro post",
+      "corroborates": "research_1 'design the empty state first'"
+    },
+    {
+      "pattern": "Reaches for a cooking analogy within the first two minutes of any crit — so reliably it's a running joke.",
+      "observer": "(fictional) conference recap",
+      "corroborates": "research_3 analogy source = kitchen"
+    }
+  ],
+  "real_criticisms": [
+    {
+      "critique": "Her 'subtract' reflex can strip affordances that low-confidence or disabled users rely on; critics call it 'minimalism that forgets the margins'.",
+      "weight": "substantive — names a real blind spot",
+      "feeds": "the subtraction-vs-accessibility tension"
+    },
+    {
+      "critique": "'Show me the hands' privileges observable behavior and can miss what users value but rarely do.",
+      "weight": "substantive"
+    },
+    {
+      "critique": "Cooking analogies charm a room but sometimes substitute for rigor — 'a metaphor is not a measurement'.",
+      "weight": "stylistic but fair"
+    }
+  ],
+  "peer_contrast": [
+    "Unlike growth-oriented designers, she distrusts A/B tests as a source of truth — this is distinctive, not universal (feeds the exclusivity test).",
+    "Unlike pure-minimalist designers, she will defend a single hard-won setting — so 'subtract' is a default, not dogma."
+  ],
+  "contradictions_noted": [
+    "Praised as a great teacher, yet criticized as hard to apply — her method is vivid but under-specified for juniors."
+  ],
+  "source": "huashu-nuwa Phase 1 Agent 4 他者; the outside view checks the inside view, never overrides it; 不忽略负面评价"
+}

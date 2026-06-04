@@ -1,0 +1,155 @@
+{
+  "id": "research-writer",
+  "title": "Industry Deep-Dive Report",
+  "description": "Write a long-form industry deep-dive as a collaborative research partner. Faithful lift of the 'content-research-writer' SKILL.md (by ComposioHQ, awesome-claude-skills, Apache-2.0): its eight numbered Instructions steps (understand the project → collaborative outlining + research-to-do → conduct research → iterate outline → draft sections → improve hook → section-by-section feedback → preserve voice → citation management → final review + pre-publish checklist) become an ~11-node DAG. The root node, understand_project, fixes the audience / goal / length / style — the single judgment everything downstream is computed against. Because outline, research-to-do, every drafted section, the hook, the review, the voice pass and the citation polish all read that framing, editing audience mid-run makes the whole draft go stale and rewrite: this is the example's node-level STEER story. Without per-node steering you would re-run the writing project from scratch.",
+  "version": "0.1.0",
+  "steps": {
+    "understand_project": {
+      "name": "Understand the Project",
+      "does": "Fix topic, main argument, audience, goal, length/format and voice — the judgment every downstream node depends on.",
+      "from_inputs": [
+        "request"
+      ],
+      "from_steps": [],
+      "assets": [
+        "project.json"
+      ],
+      "asset_title": "Project Brief"
+    },
+    "research_todo": {
+      "name": "Research To-Do",
+      "does": "Enumerate the claims and data points that must be sourced, framed for this audience and angle.",
+      "from_inputs": [],
+      "from_steps": [
+        "understand_project"
+      ],
+      "assets": [
+        "research_todo.json"
+      ],
+      "asset_title": "Research To-Do List"
+    },
+    "outline": {
+      "name": "Collaborative Outline",
+      "does": "Structure hook → intro → main sections → conclusion for the fixed audience and goal.",
+      "from_inputs": [],
+      "from_steps": [
+        "understand_project"
+      ],
+      "assets": [
+        "outline.json"
+      ],
+      "asset_title": "Draft Outline"
+    },
+    "research_collect": {
+      "name": "Conduct Research",
+      "does": "Resolve each to-do into a credible source with extracted fact, quote or datum and a citation.",
+      "from_inputs": [],
+      "from_steps": [
+        "research_todo"
+      ],
+      "assets": [
+        "research.json"
+      ],
+      "asset_title": "Research Findings + Sources"
+    },
+    "outline_final": {
+      "name": "Iterate Outline",
+      "does": "Fold the research back into the outline; close gaps, fix flow, lock section order.",
+      "from_inputs": [],
+      "from_steps": [
+        "outline",
+        "research_collect"
+      ],
+      "assets": [
+        "outline_final.json"
+      ],
+      "asset_title": "Final Outline"
+    },
+    "draft": {
+      "name": "Draft Sections",
+      "does": "Write the body section by section against the locked outline and sourced research.",
+      "from_inputs": [],
+      "from_steps": [
+        "outline_final"
+      ],
+      "assets": [
+        "draft.md"
+      ],
+      "asset_title": "Section Draft"
+    },
+    "hook_rewrite": {
+      "name": "Improve Hook",
+      "does": "Analyze the opening and offer three stronger hooks (bold statement / story / surprising data).",
+      "from_inputs": [],
+      "from_steps": [
+        "draft"
+      ],
+      "assets": [
+        "hooks.json"
+      ],
+      "asset_title": "Hook Candidates"
+    },
+    "section_review": {
+      "name": "Section-by-Section Review",
+      "does": "Review every section for clarity, flow, evidence and style; record line edits.",
+      "from_inputs": [],
+      "from_steps": [
+        "draft"
+      ],
+      "assets": [
+        "section_review.json"
+      ],
+      "asset_title": "Section Feedback"
+    },
+    "voice_check": {
+      "name": "Preserve Voice",
+      "does": "Apply the review as suggestions, not rewrites; keep the writer's tone and POV intact.",
+      "from_inputs": [],
+      "from_steps": [
+        "section_review"
+      ],
+      "assets": [
+        "voice_check.json"
+      ],
+      "asset_title": "Voice Preservation Pass"
+    },
+    "polish_citations": {
+      "name": "Polish + Citations",
+      "does": "Apply the chosen hook and voice-checked edits, format citations and a references list, final polish.",
+      "from_inputs": [],
+      "from_steps": [
+        "voice_check",
+        "hook_rewrite"
+      ],
+      "assets": [
+        "report.md"
+      ],
+      "asset_title": "Publication-Ready Report"
+    },
+    "prepub_checklist": {
+      "name": "Pre-Publish Checklist",
+      "does": "Run the final-review checklist: every claim sourced, citations formatted, transitions smooth, CTA present.",
+      "from_inputs": [],
+      "from_steps": [
+        "polish_citations"
+      ],
+      "assets": [
+        "checklist.json"
+      ],
+      "asset_title": "Pre-Publish Checklist"
+    }
+  },
+  "deliverable": {
+    "description": "A publication-ready industry deep-dive (report.md) written for the audience fixed in understand_project, plus the locked outline and the project brief that every section was computed against. The trace shows how the deep-dive was researched, drafted, reviewed and polished — and, because every node reads the brief, exactly what would go stale if the audience judgment changed.",
+    "assets": [
+      "polish_citations/report.md",
+      "outline_final/outline_final.json",
+      "understand_project/project.json",
+      "prepub_checklist/checklist.json"
+    ]
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

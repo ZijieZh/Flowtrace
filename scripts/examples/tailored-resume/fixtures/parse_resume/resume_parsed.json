@@ -2,37 +2,67 @@
   "contact": {
     "name": "Jordan Lee",
     "email": "jordan.lee@email.com",
-    "links": ["linkedin.com/in/jordanlee"]
+    "phone": "555-0123",
+    "location": "Portland, OR",
+    "links": ["linkedin.com/in/jordanlee", "github.com/jordanlee"]
   },
-  "summary": "Passionate software engineer with experience building web applications and a love for clean code. Eager to take on new challenges and grow as a developer.",
+  "summary": "Software engineer with around 6 years of experience building and shipping web applications across the stack. Comfortable jumping between frontend and backend work, enjoy clean code, and care about shipping features users actually use. Looking for my next role on a product-focused engineering team where I can keep growing.",
   "experience": [
     {
       "company": "Brightwave Apps",
       "title": "Software Engineer",
       "dates": "2021 - present",
       "bullets": [
-        { "id": "exp1_b1", "text": "Worked on various features for the company's web platform" },
-        { "id": "exp1_b2", "text": "Built React components for the user dashboard" },
-        { "id": "exp1_b3", "text": "Helped improve API response times" },
-        { "id": "exp1_b4", "text": "Participated in code reviews and agile ceremonies" },
-        { "id": "exp1_b5", "text": "Fixed bugs reported by customers" }
+        { "id": "exp1_b1", "text": "Worked on various features across the company's customer-facing web platform" },
+        { "id": "exp1_b2", "text": "Built and maintained React components for the user dashboard and account settings pages" },
+        { "id": "exp1_b3", "text": "Helped improve API response times for several slow endpoints" },
+        { "id": "exp1_b4", "text": "Integrated a third-party payments provider (Stripe) into the checkout flow" },
+        { "id": "exp1_b5", "text": "Wrote and maintained backend endpoints in Python (Flask) backing the dashboard" },
+        { "id": "exp1_b6", "text": "Participated in code reviews, sprint planning, and other agile ceremonies" },
+        { "id": "exp1_b7", "text": "Fixed bugs reported by customers and triaged incoming support tickets" }
       ]
     },
     {
       "company": "NovaSoft",
-      "title": "Junior Developer",
+      "title": "Software Engineer",
       "dates": "2019 - 2021",
       "bullets": [
-        { "id": "exp2_b1", "text": "Developed internal tools using Python" },
-        { "id": "exp2_b2", "text": "Wrote scripts to automate data processing" },
-        { "id": "exp2_b3", "text": "Maintained a MySQL database" },
-        { "id": "exp2_b4", "text": "Assisted senior engineers with backend tasks" }
+        { "id": "exp2_b1", "text": "Developed internal tools and services using Python" },
+        { "id": "exp2_b2", "text": "Wrote scripts to automate nightly data-processing and reporting jobs" },
+        { "id": "exp2_b3", "text": "Maintained and tuned a production MySQL database backing the analytics product" },
+        { "id": "exp2_b4", "text": "Built a small REST API to expose reporting data to other internal teams" },
+        { "id": "exp2_b5", "text": "Assisted senior engineers with backend tasks and on-call investigations" },
+        { "id": "exp2_b6", "text": "Added logging and basic dashboards to help debug a recurring data pipeline issue" }
+      ]
+    },
+    {
+      "company": "Pixel & Co",
+      "title": "Junior Web Developer",
+      "dates": "2017 - 2019",
+      "bullets": [
+        { "id": "exp3_b1", "text": "Built responsive marketing websites for small-business clients using HTML, CSS, and JavaScript" },
+        { "id": "exp3_b2", "text": "Customized WordPress themes and plugins to client specifications" },
+        { "id": "exp3_b3", "text": "Optimized page load times and improved Lighthouse scores for client sites" },
+        { "id": "exp3_b4", "text": "Coordinated with designers to translate Figma mockups into pixel-perfect pages" },
+        { "id": "exp3_b5", "text": "Set up basic Google Analytics tracking and SEO metadata for launched sites" }
       ]
     }
   ],
-  "education": [
-    { "degree": "B.S. in Computer Science", "school": "State University", "year": "2019" }
+  "projects": [
+    { "id": "proj1", "name": "devlog", "text": "Self-hosted markdown blogging tool (Python/Flask + SQLite); ~300 GitHub stars, used by a handful of other developers" },
+    { "id": "proj2", "name": "commute-timer", "text": "Small React + TypeScript app that estimates transit times; built to learn the Maps API" },
+    { "id": "proj3", "name": "open-source", "text": "Occasional open-source contributor — small bug-fix PRs to a few Python libraries" }
   ],
-  "skills": ["JavaScript", "React", "Python", "HTML/CSS", "Git", "MySQL", "problem-solving", "teamwork"],
-  "certifications": []
+  "education": [
+    { "degree": "B.S. in Computer Science", "school": "State University", "year": "2017" }
+  ],
+  "skills": [
+    "JavaScript", "TypeScript", "Python", "HTML/CSS", "SQL",
+    "React", "Redux", "responsive design", "WordPress",
+    "Flask", "REST APIs", "Node.js",
+    "MySQL", "SQLite", "data processing",
+    "Git", "GitHub", "Docker", "Jira", "Figma",
+    "problem-solving", "teamwork", "code review"
+  ],
+  "certifications": ["AWS Certified Cloud Practitioner (2022)"]
 }

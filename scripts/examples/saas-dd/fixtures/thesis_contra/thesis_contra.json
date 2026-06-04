@@ -1,0 +1,24 @@
+{
+  "side": "CONTRA (devil's advocate) — the strongest case NOT to do the deal (or to walk on price)",
+  "fans_in_from": ["lens_cfo", "lens_ceo", "lens_cto", "lens_cro", "lens_gc"],
+  "built_before_valuation": true,
+  "rationale_for_ordering": "Built before valuation so the contra case is argued on the facts, not reverse-engineered from a number we want to hit.",
+  "vote": "DEFER — do not approve at ask; walk unless price + conditions move",
+  "confidence": "High",
+  "strongest_points": [
+    {"point": "8.0x ARR for a Rule-of-40 of 31 with DECELERATING growth fails the hurdle", "from": "CFO", "evidence": "bear case (rev 50% of plan) FAILS 20% IRR at ask; only PASSES <= 6.5x ARR"},
+    {"point": "The revenue synergy is gated on the SAME tech-debt the integration must fix", "from": "CRO + CTO", "evidence": "$9M cross-sell needs SSO/SCIM + multi-region; both are unfunded P1 debt"},
+    {"point": "Integration is ~55% more expensive than the deal model carries", "from": "CTO", "evidence": "$7M true vs $4.5M priced; erodes synergy NPV to ~$2M in the bear case"},
+    {"point": "NRR 109% sits on GRR 88% with 12%/yr logo churn — less durable than it looks", "from": "CRO", "evidence": "expansion is masking churn; win rate down 38%->34%, discount creep 9%->14%"},
+    {"point": "Legal/compliance stack is material and unresolved", "from": "GC", "evidence": "uncapped IP indemnity on top customer + 2 missing EU DPAs + unassigned contractor IP + ungoverned AI on EU data"}
+  ],
+  "the_one_thing_that_kills_it": "We pay a platform multiple, the auth/tenancy debt slips, the cross-sell never lands, and we're left owning a decelerating mid-market asset at an enterprise price (CEO's own stated fear).",
+  "key_assumptions": [
+    "Seller may not move enough on price inside the window",
+    "Top-customer (9% ARR) change-of-control consent + renewal is a real revenue cliff",
+    "Compliance remediation may not complete before close -> the gate could veto"
+  ],
+  "what_would_make_this_a_clear_NO": "Seller holds at >= 7.5x ARR, OR the co-founder CTO won't sign retention, OR the compliance gate comes back BLOCK on the EU AI Act / DPA exposure.",
+  "where_lenses_disagree": "CEO says strategic GO; CFO/CRO/CTO say YELLOW/GAP/SHARPEN (price + integration); GC says DO-NOT-SIGN-AS-IS. The disagreement is real and is the signal: it's a yes on the asset, a no on the terms.",
+  "source": "cross-eval devil's-advocate pass (must find 3 critical concerns; assume the memo's reasoning is flawed until proven otherwise) reconciled across the five independent lens verdicts"
+}

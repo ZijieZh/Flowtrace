@@ -1,0 +1,25 @@
+{
+  "stage": "code-quality",
+  "reviewer": "fresh code-quality reviewer subagent (subagent-driven-development, stage 2 of 2)",
+  "note": "Run after spec compliance is addressed; judges how well it's built, not whether it matches spec.",
+  "strengths": [
+    "Race fixed at the shared store, not with an in-process lock - correct under multiple workers/pods.",
+    "Defense-in-depth: even if reserve_or_get regresses, the UNIQUE constraint blocks a second row.",
+    "Regression test exercises real concurrency against a fake PSP (tests real behavior, not a mock's call count) - aligns with TDD anti-patterns guidance."
+  ],
+  "findings": [
+    {
+      "severity": "Important",
+      "issue": "await_charge() busy-waits on the owner's record with a fixed `await asyncio.sleep(0.05)` poll loop and no timeout. If the owner crashes after INSERT 'in_progress' but before mark_charged(), the row is stuck non-terminal and the non-owner loops forever -> the retry hangs until the request times out.",
+      "fix": "Replace the arbitrary sleep with condition-based waiting against the record status AND add a bounded deadline; on deadline, fail the reservation so a stale 'in_progress' (crashed owner) is reclaimable rather than hanging.",
+      "ref": "systematic-debugging/condition-based-waiting.md (wait for the condition, not a guessed duration; document/limit any timeout)"
+    },
+    {
+      "severity": "Minor",
+      "issue": "request_hash is computed but not compared on a HIT, so a same-key request with a DIFFERENT body silently returns the original charge.",
+      "fix": "Optionally compare request_hash and 422 on mismatch (key reuse with different payload). Note for later - not blocking for this bug."
+    }
+  ],
+  "assessment": "approve-after-fixes",
+  "source": "subagent-driven-development code-quality reviewer + requesting-code-review severity buckets (Critical/Important/Minor)"
+}

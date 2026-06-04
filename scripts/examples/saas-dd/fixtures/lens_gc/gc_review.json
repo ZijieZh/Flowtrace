@@ -1,0 +1,53 @@
+{
+  "lens": "GC",
+  "role": "General Counsel — surfaces the questions for outside counsel; not legal advice",
+  "reads": ["ingest_legal/legal_pack.json"],
+  "bottom_line": "Do not sign as-is. None of these are deal-killers individually, but the stack — uncapped IP indemnity on the top customer, two missing DPAs on EU data, unassigned contractor IP, and an ungoverned AI feature on EU personal data — is a material risk that has to be papered into the SPA as conditions and reps/warranties before any signature.",
+  "verdict": "DO NOT SIGN AS-IS",
+  "verdict_scale": "SIGN AS-IS (rare) / NEGOTIATE / DO NOT SIGN — material risk",
+  "six_questions": {
+    "1_ip_ownership": {
+      "finding": "Two 2025 contractors (enrichment + analytics modules) have NO signed IP assignment; one AGPL dependency in analytics with unaddressed copyleft",
+      "risk": "HIGH",
+      "remedy": "Pre-close: obtain signed IP assignments; remove or license-clear the AGPL dependency; condition to closing"
+    },
+    "2_liability_indemnity": {
+      "finding": "Top-customer MSA (9% of ARR) carries an UNCAPPED IP indemnity in the customer's favor",
+      "risk": "HIGH",
+      "remedy": "Cap at 12 months' fees with standard carve-outs; if customer won't amend, price the tail risk into the deal"
+    },
+    "3_data_processing": {
+      "finding": "TWO subprocessors (enrichment + email delivery) handle EU personal data with NO DPA; all EU data stored in us-east-1 (no residency option)",
+      "risk": "HIGH",
+      "remedy": "DPAs in place before EU data continues to flow; map data residency exposure"
+    },
+    "4_termination_renewal": {
+      "finding": "3 enterprise MSAs auto-renew on 90-day notice; 4 of top-10 require change-of-control consent",
+      "risk": "MED",
+      "remedy": "Obtain change-of-control consents pre-close; calendar the auto-renew notice windows"
+    },
+    "5_regulatory_surface": {
+      "finding": "EU personal data -> GDPR (mandatory, program is informal, no Art. 30 records, no DPIA); AI feature on EU personal data -> EU AI Act surface + GDPR Art. 22",
+      "risk": "HIGH",
+      "remedy": "Engage EU privacy + AI-product counsel BEFORE close; this is the compliance gate's domain"
+    },
+    "6_employment_equity": {
+      "finding": "Co-founder CTO holds critical AI IP knowledge with no bus-factor mitigation; 1x non-participating pref + broad-based weighted-average anti-dilution (founder-standard, not hostile)",
+      "risk": "MED",
+      "remedy": "Retention + earn-out for the co-founder CTO; cap-table mechanics are clean"
+    }
+  },
+  "regulatory_trigger": {
+    "new_regime_triggered": true,
+    "frameworks": ["GDPR", "EU AI Act", "SOC 2 (with exception)", "ISO 27001 (buyer-expected, not held)"],
+    "first_step": "EU privacy counsel + AI-product counsel before committing — hand to the compliance gate"
+  },
+  "outside_counsel_action_items": [
+    "Draft IP-assignment remediation + AGPL clearance as conditions to closing",
+    "Negotiate liability cap on the top-customer MSA or price the tail",
+    "DPAs for the two EU subprocessors before signing",
+    "GDPR Art. 30 records + DPIA on the AI feature; EU AI Act risk classification"
+  ],
+  "your_decision": "The IC's call: whether the conditions-to-close are achievable inside the exclusivity window, and whether the residual tail risk is priced.",
+  "source": "gc-review (six GC forcing questions + SIGN/NEGOTIATE/DO-NOT-SIGN verdict) + general-counsel-advisor (12 founder-killer clauses, liability cap norms, DPA requirement, regulatory trigger table, IP assignment discipline)"
+}

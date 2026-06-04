@@ -1,0 +1,102 @@
+{
+  "subject": "Mira Tan (fictional)",
+  "disclaimer": "Fabricated for illustration; verification of an invented corpus.",
+  "rolls_up": [
+    "research_1/01-writings.json",
+    "research_2/02-conversations.json",
+    "research_3/03-expression-dna.json",
+    "research_4/04-external-views.json",
+    "research_5/05-decisions.json",
+    "research_6/06-timeline.json"
+  ],
+  "candidate_count_before": 17,
+  "triple_test": {
+    "tests": ["cross_domain_recurrence (>=2 domains)", "generativity (predicts a new stance)", "exclusivity (not how every smart designer thinks)"],
+    "rule": "3/3 -> mental_model; 1-2/3 -> downgrade to heuristic; 0/3 -> drop"
+  },
+  "candidates": [
+    {
+      "claim": "Friction is a feature you didn't choose (friction audit)",
+      "cross_domain": true,
+      "generativity": true,
+      "exclusivity": true,
+      "tier": "mental_model",
+      "corroborating_lanes": ["01-writings", "02-conversations", "03-expression-dna"],
+      "note": "Strongest survivor — 4 domains in writings, drives her crit verbs, distinctive framing of friction as chosen-vs-unchosen."
+    },
+    {
+      "claim": "The second draft is the real first draft",
+      "cross_domain": true,
+      "generativity": true,
+      "exclusivity": true,
+      "tier": "mental_model",
+      "corroborating_lanes": ["01-writings", "05-decisions"],
+      "note": "Corroborated by the 'embarrassing onboarding' decision — a model, not a slogan."
+    },
+    {
+      "claim": "Subtract before you add (removal is the default)",
+      "cross_domain": true,
+      "generativity": true,
+      "exclusivity": true,
+      "tier": "mental_model",
+      "corroborating_lanes": ["01-writings", "05-decisions", "04-external-views"],
+      "note": "Survives, but external-views + decision 3 attach a hard limit (accessibility / the kept setting). Limit recorded, not smoothed."
+    },
+    {
+      "claim": "Watch the hands, not the survey (behavior > stated preference)",
+      "cross_domain": true,
+      "generativity": true,
+      "exclusivity": true,
+      "tier": "mental_model",
+      "corroborating_lanes": ["02-conversations", "05-decisions", "04-external-views"],
+      "note": "Distinctive (she distrusts A/B as truth where growth designers trust it). Carries its own critique from lane 4 (misses value users rarely act on)."
+    },
+    {
+      "claim": "Design the empty state first",
+      "cross_domain": true,
+      "generativity": true,
+      "exclusivity": false,
+      "tier": "heuristic",
+      "corroborating_lanes": ["01-writings", "02-conversations", "04-external-views"],
+      "note": "Recurs and generates, but not exclusive — common good practice. Downgraded to a strong heuristic, not a signature model."
+    },
+    {
+      "claim": "If you can't name the one job, cut the screen",
+      "cross_domain": true,
+      "generativity": true,
+      "exclusivity": false,
+      "tier": "heuristic",
+      "corroborating_lanes": ["01-writings", "05-decisions"],
+      "note": "Operational rule downstream of the friction-audit model; lives as a heuristic, with the killed-filters decision as its case."
+    },
+    {
+      "claim": "Ship the embarrassing version",
+      "cross_domain": false,
+      "generativity": true,
+      "exclusivity": false,
+      "tier": "heuristic",
+      "corroborating_lanes": ["01-writings", "05-decisions"],
+      "note": "Application of the second-draft model; heuristic."
+    },
+    {
+      "claim": "Cooking analogies = a rigorous method",
+      "cross_domain": true,
+      "generativity": false,
+      "exclusivity": true,
+      "tier": "dropped",
+      "corroborating_lanes": ["03-expression-dna", "04-external-views"],
+      "note": "Dropped as a *model*: it's a voice trait, not a reasoning framework (lane 4: 'a metaphor is not a measurement'). Kept in expression DNA, not as a mental model."
+    }
+  ],
+  "tiers_after": {"mental_model": 4, "heuristic": 3, "dropped": 1},
+  "tensions": [
+    {"type": "essential", "tension": "Subtract-everything vs accessibility — the kept 'compact mode' toggle (decision 3) overrides the stated default when behavior proves two real jobs.", "kept": true},
+    {"type": "essential", "tension": "Watch-the-hands (behavior) vs trusts-her-own-gut on first read — and she bans 'intuitive' while relying on intuition.", "kept": true},
+    {"type": "temporal", "tension": "'Never blame the user' (early) -> 'mostly the design, but some flows are honestly hard' (post-2020).", "kept": true}
+  ],
+  "thin_dimensions": [
+    "Timeline years are deliberately fuzzy (invented, marked '~'); treated as low-confidence.",
+    "No quantitative usability data in the corpus — her behavioral read is qualitative, a real limit."
+  ],
+  "source": "huashu-nuwa Phase 1.5 review + extraction-framework §一 (triple test) and §三 (keep contradictions)"
+}

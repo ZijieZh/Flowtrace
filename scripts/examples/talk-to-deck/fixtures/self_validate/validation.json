@@ -1,0 +1,30 @@
+{
+  "target_ref": "assemble_deck/deck.html",
+  "checklist": "references/checklist.md (最终自检清单) categories: 预检 / 内容 / 排版 / 视觉, P0–P3 severity",
+  "checks": [
+    { "item": "structure", "category": "预检", "passed": true, "severity": null,
+      "note": "9 slides = page_budget (9). Cover (开场封面, s1) and closing (悬念收束, s9) both present; chrome shows 01/09…09/09, cover carries no duplicate big '01' number." },
+    { "item": "theme_rhythm", "category": "内容", "passed": true, "severity": null,
+      "note": "Theme sequence hero-dark, light, dark, light, hero-light, dark, light, dark, hero-dark — longest same-theme run is 1; 3 heroes at 1/5/9 (≥1 required in 8+ pages). Matches rhythm.json." },
+    { "item": "typography_serif", "category": "排版", "passed": true, "severity": null,
+      "note": "Style-A serif stack drives all headlines/quotes (--serif: Iowan/Palatino/Georgia); sans (--sans) only on kickers, meta, labels, stats captions — the editorial role split." },
+    { "item": "title_orphans", "category": "排版", "passed": true, "severity": null,
+      "note": "No headline breaks to a single dangling character; headlines are clamp()-sized with max-width in ch so they wrap on words, not orphan a glyph." },
+    { "item": "image_handling", "category": "排版", "passed": true, "severity": null,
+      "note": "Every image slot is a CSS placeholder block (.ph) at a standard aspect (r-16x9 / r-4x3) — slots 01-hero,02-side,04-lead,08-side,09(hero). NO <img>, no real image, no raw source ratios. Placeholder labels match image_prompts.json." },
+    { "item": "must_keep", "category": "内容", "passed": true, "severity": null,
+      "note": "All 5 must-keep phrases present in the deck (case-insensitive; some capitalized at sentence start): 'slowness is a design budget' (s3, as 'Slowness is a design budget'), 'the demo-driven roadmap' / 'the metric monoculture' / 'the novelty treadmill' (s6, verbatim), 'measure time-to-out-of-the-way' (s8, as 'Measure time-to-out-of-the-way')." },
+    { "item": "self_contained", "category": "预检", "passed": true, "severity": null,
+      "note": "One file. Inline <style>; system-font stacks only; no <link>, no http(s):// URL, no CDN, no web font fetch. Renders fully with JavaScript disabled — scroll-snap handles paging; the <script> only adds optional arrow-key nav." },
+    { "item": "single_accent", "category": "视觉", "passed": true, "severity": null,
+      "note": "One ink accent (#1f3a5f) anchors kickers, rules, stat numbers, pipeline rules — no polychrome highlight collage; consistent with choose_style.accent and reused by social_cover." },
+    { "item": "contrast_overflow", "category": "视觉", "passed": true, "severity": null,
+      "note": "Dark slides use --on-dark (#f2ede1) on #1c1b18 (high contrast); light slides ink-on-paper. Each slide is height:100vh with overflow:hidden and bottom padding — no bottom-edge collision; chrome counter top-right clears content." },
+    { "item": "no_emoji", "category": "内容", "passed": true, "severity": null,
+      "note": "No emoji used anywhere; section labels are text kickers (FORCE 01…), per the skill's icon-not-emoji rule." }
+  ],
+  "p0_p1_failures": 0,
+  "ready": true,
+  "note": "All checklist items pass against the deck AS BUILT (Style A, 9 slides). If choose_style were switched to B, typography_serif and single_accent would re-open (Swiss is sans-serif throughout with its own contrast/grid rules) and this report would have to be re-run — which is exactly the steer this trace makes one-click.",
+  "source": "audit per op7418/guizang-ppt-skill SKILL.md Step 4 · 对照检查清单自检 + references/checklist.md (最终自检清单: 预检 / 内容 / 排版 / 视觉, P0–P3)."
+}

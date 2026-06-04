@@ -1,0 +1,108 @@
+{
+  "as_of": "2026-06-03",
+  "pr": 482,
+  "inputs": { "scanners": 6, "raw_findings": 7 },
+  "raw_count": 7,
+  "deduped_count": 6,
+  "dedup": [
+    {
+      "merged": ["F-SAST-001", "F-VAR-001"],
+      "into": "T-001",
+      "reason": "Same tainted source (header:Stripe-Event-Id -> evtID) reaching two sinks (idempotency query :147 and audit insert :201). One root cause, surfaced by the single-pattern SAST rule and again by taint analysis. Merged so red-team validates one defect, not two — fixing source sanitization closes both sinks.",
+      "duplicate_cost_avoided": "Validating both as separate PoCs would re-prove the same injection; ~50% of this finding's red-team budget saved by merging."
+    }
+  ],
+  "scoring_model": "CVSS v4.0 base -> EPSS (FIRST) -> CISA KEV -> multi-factor priority matrix -> SLA (prioritizing-vulnerabilities-with-cvss-scoring Step 4-5; KEV/EPSS decision matrix)",
+  "findings": [
+    {
+      "id": "T-001",
+      "title": "SQL injection via Stripe-Event-Id (idempotency query + audit insert)",
+      "from_scanners": ["scan_sast:F-SAST-001", "scan_variant:F-VAR-001"],
+      "cwe": ["CWE-89"],
+      "cve": null,
+      "cvss_v4": 9.3,
+      "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:L/SC:N/SI:N/SA:N",
+      "severity": "Critical",
+      "epss": null,
+      "in_kev": false,
+      "priority": "P1",
+      "sla_days": 2,
+      "blocking_candidate": true,
+      "rationale": "Network, no privileges, full read + write to the idempotency/audit tables. Critical by CVSS v4.0; reachable from the new endpoint."
+    },
+    {
+      "id": "T-002",
+      "title": "Forgeable webhook signature: leaked signing secret + non-constant-time HMAC compare",
+      "from_scanners": ["scan_secrets:F-SEC-001", "scan_crypto_timing:F-CRY-001"],
+      "cwe": ["CWE-798", "CWE-208", "CWE-347"],
+      "cve": null,
+      "cvss_v4": 8.7,
+      "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N",
+      "severity": "High",
+      "epss": null,
+      "in_kev": false,
+      "priority": "P1",
+      "sla_days": 2,
+      "blocking_candidate": true,
+      "rationale": "Two findings kept distinct in code (rotate the secret AND fix the compare) but scored as one risk: either alone lets an attacker present a valid Stripe-Signature for attacker-authored events. This is the gate the whole endpoint's trust rests on.",
+      "composed_from_note": "Neither half is High alone in isolation-by-tool; the combination is. The arrow between scan_secrets and scan_crypto_timing is the severity."
+    },
+    {
+      "id": "T-003",
+      "title": "golang-jwt v3.2.0 algorithm confusion on the service-token check",
+      "from_scanners": ["scan_sca:F-SCA-001"],
+      "cwe": ["CWE-347"],
+      "cve": "CVE-2022-29217",
+      "cvss_v4": 7.5,
+      "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "severity": "High",
+      "epss": 0.18,
+      "epss_percentile": 0.84,
+      "in_kev": false,
+      "priority": "P2",
+      "sla_days": 7,
+      "blocking_candidate": true,
+      "rationale": "Reachable (webhook validates X-Internal-Token with the vulnerable parser). Not KEV, EPSS 0.18 -> P2 by the KEV+EPSS matrix; High and reachable, so a blocking candidate pending red-team reproduction.",
+      "fix": "Upgrade to jwt/v4 >= 4.4.3 + pin signing method."
+    },
+    {
+      "id": "T-004",
+      "title": "Out-of-bounds read in Stripe-Signature header parser",
+      "from_scanners": ["scan_mutation:F-FUZ-001"],
+      "cwe": ["CWE-125"],
+      "cve": null,
+      "cvss_v4": 5.3,
+      "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+      "severity": "Medium",
+      "epss": null,
+      "in_kev": false,
+      "priority": "P4",
+      "sla_days": 30,
+      "blocking_candidate": false,
+      "rationale": "Availability-only (panic -> 500). Real and remotely triggerable, but no confidentiality/integrity impact and not part of an exploit chain -> Medium, P4, ships as tracked debt."
+    },
+    {
+      "id": "T-005",
+      "title": "Insecure RNG for replay nonce",
+      "from_scanners": ["scan_sast:F-SAST-002"],
+      "cwe": ["CWE-330"],
+      "cve": null,
+      "cvss_v4": 3.7,
+      "cvss_vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "severity": "Low",
+      "epss": null,
+      "in_kev": false,
+      "priority": "P5",
+      "sla_days": 90,
+      "blocking_candidate": false,
+      "rationale": "math/rand nonce weakens replay protection but is not directly exploitable on its own. Low, P5."
+    }
+  ],
+  "blocking_candidates": ["T-001", "T-002", "T-003"],
+  "handoff": {
+    "to_red_team": ["T-001", "T-002", "T-003"],
+    "to_blue_team": ["T-001", "T-002", "T-003"],
+    "note": "Only the deduped blocking candidates go to the expensive red-team lane. T-004/T-005 are tracked, not emulated."
+  },
+  "source": "prioritizing-vulnerabilities-with-cvss-scoring + performing-cve-prioritization-with-kev-catalog + implementing-epss-score-for-vulnerability-prioritization"
+}

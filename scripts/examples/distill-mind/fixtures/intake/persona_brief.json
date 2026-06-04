@@ -1,0 +1,31 @@
+{
+  "subject": "Mira Tan",
+  "subject_note": "FICTIONAL figure — a veteran product-design mentor invented for this illustration; the corpus below does not exist and characterizes no real person.",
+  "focus": "design-judgment lens only — how she critiques and simplifies product flows (not org-building / hiring views)",
+  "intended_use": "thinking advisor — a design-crit lens the studio can run on a pasted flow",
+  "mode": {
+    "build": "new",
+    "corpus_mode": "pure-local",
+    "corpus_mode_reason": "Phase 1 mode table: subject is a fictional non-public figure, so no web search is run; the six lanes mine only the supplied invented corpus."
+  },
+  "research_plan": {
+    "research_1_writings": "Notes on Friction essay series (~80 essays) — repeated core claims (>=3x), coined terms, reading list",
+    "research_2_conversations": "The Second Draft podcast (~60 teardown episodes) — answers under follow-up, improvised analogies, position shifts",
+    "research_3_expression_dna": "'Mira's margins' short posts — sentence fingerprint, signature vocabulary, taboo words, humor, certainty register",
+    "research_4_external_views": "studio write-ups + conference recaps — observed patterns, real criticisms, peer contrast",
+    "research_5_decisions": "three narrated case studies — actual logic, hindsight, say/do consistency",
+    "research_6_timeline": "invented career timeline — milestones, inflection points, last 12 months"
+  },
+  "rules": [
+    "Capture HOW she thinks, not WHAT she said — frameworks over quotes.",
+    "Keep contradictions; do not smooth them — her tensions are the signal.",
+    "Honest 60 over fake 90 — flag gaps rather than fabricate.",
+    "Long-form > soundbites; controversy > consensus; change > constancy."
+  ],
+  "honest_boundary_seed": [
+    "This skill is a lens, not Mira; it cannot predict her on a genuinely new problem.",
+    "Public voice may diverge from private view.",
+    "Information is fictional and frozen at the (invented) research date."
+  ],
+  "source": "intake framing per huashu-nuwa Phase 0A 需求澄清 + the 核心理念 HOW-not-WHAT distinction"
+}

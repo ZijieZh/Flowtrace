@@ -1,0 +1,24 @@
+{
+  "lane": "06-timeline",
+  "subject": "Mira Tan (fictional)",
+  "corpus": "invented career timeline (does not exist)",
+  "disclaimer": "Fabricated for illustration. All dates and events invented.",
+  "research_date": "2026-05 (fictional cutoff)",
+  "milestones": [
+    {"when": "~2001", "event": "starts as a junior product designer on consumer software", "influence_on_thinking": "watches polished v1s fail in the wild — seeds 'the second draft is the real first draft'"},
+    {"when": "~2011", "event": "runs her own small design practice", "influence_on_thinking": "client work forces 'name the one job' as a way to kill scope creep"},
+    {"when": "~2018", "event": "starts the Notes on Friction essay series", "influence_on_thinking": "formalizes the friction-audit lens in writing"},
+    {"when": "~2021", "event": "launches The Second Draft podcast (teardowns)", "influence_on_thinking": "teardown format hardens 'show me the hands' into a habit"}
+  ],
+  "inflection_points": [
+    {"when": "~2020", "shift": "moves from 'never blame the user' to 'mostly the design, but some flows are honestly hard'", "aligns_with": "research_2 position shift around ep40"}
+  ],
+  "latest_12_months": [
+    {"when": "fictional last year", "event": "essay 'The Setting I Kept' — publicly defends one toggle", "note": "the subtraction-isn't-absolute turn, on the record"},
+    {"when": "fictional recent", "event": "begins mentoring independently; this very skill is requested by a studio that worked with her"}
+  ],
+  "contradictions_noted": [
+    "Exact years are deliberately fuzzy ('~') — invented and not to be treated as precise; flagged rather than guessed."
+  ],
+  "source": "huashu-nuwa Phase 1 Agent 6 时间线; last-12-months is the anti-staleness guard; entries carry influence-on-thinking, not bare chronology"
+}

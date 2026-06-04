@@ -1,0 +1,42 @@
+{
+  "lane": "funnel_cro",
+  "headline": "Post-click is largely healthy — the quiz path held; the small PDP dip is downstream of weaker traffic, not a broken page.",
+  "paths": [
+    {
+      "path": "Quiz funnel",
+      "cvr": 3.9,
+      "delta_pct": 3,
+      "cro_read": "Message-matched and converting; gift-intent over-indexes here. Value-prop clarity and CTA both strong. No action needed.",
+      "verdict": "healthy",
+      "confidence": "High"
+    },
+    {
+      "path": "Product page (PDP)",
+      "cvr": 2.1,
+      "delta_pct": -13,
+      "cro_read": "Dip is modest and coincides with lower-quality, fatigued-creative clicks landing here. Headline still matches the durable static-creative promise; the loss is upstream-driven, not a new on-page defect.",
+      "verdict": "soft, but downstream of the creative problem",
+      "confidence": "Medium"
+    }
+  ],
+  "cro_framework_pass": {
+    "value_prop_clarity": "OK on both paths",
+    "headline_match": "OK — but a fresh ad angle must keep PDP headline match to avoid introducing drift",
+    "cta": "OK",
+    "trust_social_proof": "Reviews present near CTA",
+    "friction": "No new friction this week (no changes shipped)"
+  },
+  "quick_wins": [
+    "Route more gift-intent traffic to the quiz funnel (it converts ~2x PDP) rather than PDP."
+  ],
+  "high_impact_changes": [
+    "None warranted this week — do not refactor a healthy funnel while the constraint is upstream (avoid local-optimum work)."
+  ],
+  "seed_test_ideas": [
+    "If a fresh creative angle is chosen, ensure landing headline matches it (message-match test ride-along).",
+    "Quiz-first vs PDP-first routing for gift-intent (park for a later week)."
+  ],
+  "implication": "Funnel is not the binding constraint. Surfacing the quiz-routing quick win, but the page does not need a redesign this week.",
+  "hands_to": "problem_tree",
+  "source": "cro / CRO Analysis Framework (value-prop -> friction, Quick Wins vs High-Impact, Test Ideas)"
+}

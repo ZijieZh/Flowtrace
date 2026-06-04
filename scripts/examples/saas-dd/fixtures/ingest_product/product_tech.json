@@ -1,0 +1,56 @@
+{
+  "as_of": "2026-06-01",
+  "target": "Acme RevOps, Inc.",
+  "product": "RevOps / workflow-automation platform for mid-market GTM teams",
+  "architecture": {
+    "topology": "modular monolith (Rails) + 3 Go microservices (sequencing, enrichment, webhooks)",
+    "datastores": "PostgreSQL (primary), Redis (queues), ClickHouse (analytics)",
+    "cloud": "single-region AWS us-east-1 (no active multi-region)",
+    "multitenancy": "shared-schema with tenant_id; no per-tenant data isolation at the row-encryption level"
+  },
+  "scale_today": {
+    "tenants": 1140,
+    "peak_rps": 2400,
+    "largest_tenant_share_of_load_pct": 11,
+    "db_primary_write_utilization_pct": 62
+  },
+  "scaling_cliff": {
+    "hypothesis": "primary Postgres write path saturates near ~3x current write load (~7,200 rps) — single-writer ceiling",
+    "headroom_months_at_current_growth": 14,
+    "mitigation": "read-replica offload done; write-sharding / Citus not started"
+  },
+  "tech_debt": [
+    {"item": "auth service still on v1 API, blocks SSO/SCIM for enterprise", "severity": "P1", "cost_to_fix_eng_days": 45, "blast_radius": "all enterprise deals"},
+    {"item": "shared-schema tenancy (no row-level encryption)", "severity": "P1", "cost_to_fix_eng_days": 60, "blast_radius": "security + EU data isolation"},
+    {"item": "single-region, no tested DR failover", "severity": "P2", "cost_to_fix_eng_days": 30, "blast_radius": "availability SLA"},
+    {"item": "AI sequencing service has no eval harness / model governance", "severity": "P2", "cost_to_fix_eng_days": 25, "blast_radius": "AI feature + EU AI Act"}
+  ],
+  "tech_debt_ratio_pct": 31,
+  "dora": {
+    "deploy_frequency": "2-3x/week",
+    "lead_time_for_changes": "~2 days",
+    "change_failure_rate_pct": 9,
+    "mttr_hours": 3.5
+  },
+  "security_posture": {
+    "soc2_type2": "report exists, ONE exception (access-review control skipped a quarter)",
+    "iso27001": "not certified",
+    "pen_test": "last external pen test 16 months ago (overdue)",
+    "sso_scim": "not available (blocked by v1 auth)",
+    "encryption_at_rest": "volume-level only; no per-tenant/row-level"
+  },
+  "ai_feature": {
+    "name": "auto-sequencing",
+    "function": "LLM-assisted outreach-sequence generation + send-time optimization",
+    "data_used": "customer CRM data including EU personal data (training + inference)",
+    "governance": "no model card, no eval harness, no documented data-retention for training set",
+    "regulatory_flag": "EU personal data in an AI system -> EU AI Act + GDPR surface"
+  },
+  "integration_view": {
+    "build_vs_buy_for_us": "BUY (this IS the capability we would otherwise build ~18 months to replicate)",
+    "estimated_integration_eng_quarters": 6,
+    "estimated_integration_cost_usd_m": 4.5,
+    "key_dependency": "must put auth/tenancy debt on the critical path before cross-sell to our enterprise base"
+  },
+  "source": "cto-advisor (tech-debt scoring, DORA, build-vs-buy, scaling-cliff) + cto-review Q1/Q2/Q4/Q6 (scaling cliff, tech-debt inventory, build-vs-buy TCO, security & compliance surface)"
+}

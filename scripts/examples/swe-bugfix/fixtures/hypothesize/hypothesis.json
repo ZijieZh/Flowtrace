@@ -1,0 +1,15 @@
+{
+  "phase": "3 - Hypothesis and Testing (ONE single hypothesis)",
+  "statement": "The duplicate charge is a check-then-act (TOCTOU) race on the idempotency cache: lookup() and reserve() are two non-atomic operations with no per-key mutual exclusion, so two concurrent requests with the same key both observe MISS and both proceed to charge.",
+  "because": "The boundary evidence shows both lookup() calls for ik_3af91c complete and return MISS (t=1.40ms, 1.55ms) before either reserve() writes (t=3.55ms, 3.70ms). The working inventory path that avoids this uses one atomic INSERT ... ON CONFLICT instead.",
+  "single_variable": "presence/absence of a per-key critical section spanning lookup..reserve. Nothing else will be changed by the test.",
+  "prediction_if_true": "If I serialize the two requests through a single per-key lock around lookup+reserve (test-only), the duplicate rate drops to 0% at every concurrency level, with no other code touched.",
+  "would_falsify": "If duplicates persist even with a correct per-key lock held across lookup..reserve, then the race is NOT the (sole) cause - look elsewhere (e.g. PSP retry, or reserve() writing two rows for another reason).",
+  "explicitly_not_doing": [
+    "not changing the PSP client",
+    "not adding retries",
+    "not touching Redis config",
+    "not bundling a refactor"
+  ],
+  "source": "systematic-debugging Phase 3.1 'Form Single Hypothesis' (state X is root cause because Y; be specific; write the kill condition)"
+}

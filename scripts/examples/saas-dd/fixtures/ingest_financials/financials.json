@@ -1,0 +1,54 @@
+{
+  "as_of": "2026-06-01",
+  "target": "Acme RevOps, Inc.",
+  "currency": "USD",
+  "scale": "millions unless noted",
+  "income_statement_ttm": {
+    "revenue": 39.8,
+    "arr_exit": 42.0,
+    "cost_of_revenue": 10.3,
+    "gross_profit": 29.5,
+    "gross_margin_pct": 74.1,
+    "sales_and_marketing": 19.9,
+    "research_and_development": 11.1,
+    "general_and_admin": 6.4,
+    "operating_income": -7.9,
+    "operating_margin_pct": -19.8,
+    "free_cash_flow": -2.8,
+    "fcf_margin_pct": -7.0
+  },
+  "arr_bridge_ttm": {
+    "opening_arr": 30.4,
+    "new_logo_arr": 9.1,
+    "expansion_arr": 4.0,
+    "contraction_arr": -0.9,
+    "churned_arr": -2.7,
+    "closing_arr": 42.0,
+    "net_new_arr": 11.6,
+    "yoy_growth_pct": 38.2
+  },
+  "unit_economics": {
+    "nrr_pct": 109,
+    "grr_pct": 88,
+    "ltv_to_cac": 3.2,
+    "cac_payback_months": 19,
+    "magic_number": 0.72,
+    "rule_of_40": 31,
+    "rule_of_40_components": "growth 38 + FCF margin -7 = 31",
+    "burn_multiple": 1.8,
+    "net_burn_ttm": 8.5,
+    "cash_on_hand": 14.0,
+    "runway_months_standalone": 20
+  },
+  "cohort_note": "Gross retention has slipped from 91% (2024 cohorts) to 88% (2025 cohorts); expansion is carrying NRR.",
+  "concentration": {
+    "top_3_customers_pct_arr": 22,
+    "largest_customer_pct_arr": 9,
+    "largest_customer_renewal_months": 7
+  },
+  "data_room_gaps": [
+    "Q4 deferred-revenue schedule not yet reconciled to GL",
+    "S&M spend not split clean by channel (blended CAC only)"
+  ],
+  "source": "financial-analyst Phase 1-2 (data validation + 5-category ratios) + saas-metrics-coach Step 1-2 (ARR/NRR/GRR/CAC/LTV)"
+}

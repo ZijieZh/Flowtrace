@@ -1,0 +1,23 @@
+{
+  "id": "PAY-4815",
+  "title": "Intermittent duplicate charges under load (payments-service)",
+  "service": "payments-service",
+  "stack": "Python 3.11, FastAPI + asyncio, Postgres, Redis",
+  "symptom": "A fraction of checkouts charge the customer twice; the second PSP charge posts ~40ms after the first and carries the SAME client-supplied Idempotency-Key. Idempotency should make the retried POST /charges a no-op returning the original charge.",
+  "business_impact": "Customer money double-debited; 3 customer tickets; on-call paged.",
+  "log_excerpt": [
+    "POST /charges idem=ik_3af91c -> psp_charge ch_A 201",
+    "POST /charges idem=ik_3af91c -> psp_charge ch_B 201   # DUPLICATE",
+    "app/payments/idempotency.py:48  cache MISS for ik_3af91c -> proceeding to charge   (logged by BOTH requests)"
+  ],
+  "suspect_file": "app/payments/idempotency.py:48",
+  "repro_signal": "Concurrency-dependent. Serial or >250ms apart: never duplicates. Two same-key requests within ~50ms: duplicates; higher concurrency -> higher rate (~0.3% at spike, 0 at low traffic). Mobile client retries on a 2s timeout while the first request is still in flight.",
+  "constraints": [
+    "no double-charging",
+    "retried request must return the ORIGINAL charge",
+    "fix must hold under concurrency, not just the happy path"
+  ],
+  "key_observation": "BOTH concurrent requests log a cache MISS for the same key before either records a charge -> smells like check-then-act with no per-key mutual exclusion.",
+  "fix_proposed": false,
+  "source": "systematic-debugging Phase 1.1 (read the error carefully); Iron Law holds at entry (no fix yet)"
+}

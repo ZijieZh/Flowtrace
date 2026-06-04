@@ -10,7 +10,9 @@ writes:
 
 # Score Bullets
 
-The skill's **Experience Mapping**. This is the **fan-in**: it needs *both* the weighted keywords (`extract_keywords`) and the structured resume (`parse_resume`). It cannot start until both upstream branches finish.
+Source skill: **tailored-resume-generator** (Experience Mapping).
+
+This is the **fan-in**: it needs *both* the weighted keywords (`extract_keywords`) and the structured resume (`parse_resume`). It cannot start until both upstream branches finish.
 
 ## What this step does
 

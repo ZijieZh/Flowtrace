@@ -1,0 +1,119 @@
+{
+  "id": "talk-to-deck",
+  "title": "Talk → Magazine Slide Deck",
+  "description": "Turn a talk's content + a short brief into a single-file HTML magazine slide deck. A faithful WORKFLOW-ONLY lift of the 歸藏 slide-deck skill (op7418/guizang-ppt-skill, 歸藏). AGPL source — we lift only the workflow (the stages + DAG topology) and ship our OWN renderer; NO source files, templates, CSS, prompts, or scripts are copied. The skill's long sequential SKILL.md becomes 7 openable nodes: 需求澄清's first question (Style A editorial vs Style B Swiss) becomes choose_style; 规划主题节奏 / '先做主题节奏表' becomes rhythm_table; 挑布局 (layouts.md 页面布局库) becomes select_layouts, running in parallel with image_prompts (image-prompts.md 配图提示词 — text prompts ONLY, no real image generation, placeholder blocks stand in); 拷贝模板+填充内容 becomes assemble_deck (our own renderer emits the single-file HTML); 对照检查清单自检 (checklist.md 最终自检清单) becomes self_validate; and the README's 平台封面 pipeline (公众号 21:9 / 1:1 分享卡 / 小红书 3:4) becomes the terminal social_cover branch. Most of the pipeline is an honest straight line — only image_prompts and the cover pair are genuine branches. choose_style and rhythm_table are judgment nodes you can override mid-run, and the layouts + deck re-render off them. The talk — 'The Quiet Architecture of Slow Software' by a fictional speaker at a fictional conference — is invented and purely illustrative; nothing here is a real person's talk.",
+  "version": "0.1.0",
+  "steps": {
+    "intake": {
+      "name": "Intake",
+      "does": "Frame the deck: ingest the talk's source content + the short brief (audience, duration→page budget, hard must-keep points, color theme, image needs).",
+      "from_inputs": [
+        "request"
+      ],
+      "from_steps": [],
+      "assets": [
+        "brief.json"
+      ],
+      "asset_title": "Deck Brief"
+    },
+    "choose_style": {
+      "name": "Choose Style",
+      "does": "The first, governing judgment: pick the visual system — Style A (editorial × e-ink) or Style B (Swiss international) — from the brief's tone, audience, and content type.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "style_decision.json"
+      ],
+      "asset_title": "Style Decision"
+    },
+    "rhythm_table": {
+      "name": "Rhythm Table",
+      "does": "Plan the slide sequence & pacing BEFORE any layout: one row per slide with its theme (light / dark / hero) so hero pages set the rhythm and no 3+ same-theme slides run together.",
+      "from_inputs": [],
+      "from_steps": [
+        "choose_style"
+      ],
+      "assets": [
+        "rhythm.json"
+      ],
+      "asset_title": "Rhythm Table"
+    },
+    "select_layouts": {
+      "name": "Select Layouts",
+      "does": "Per section, pick a named layout from the chosen style's layout library and bind each slide's copy/data/image slots to it.",
+      "from_inputs": [],
+      "from_steps": [
+        "rhythm_table"
+      ],
+      "assets": [
+        "layouts.json"
+      ],
+      "asset_title": "Per-Section Layouts"
+    },
+    "image_prompts": {
+      "name": "Image Prompts",
+      "does": "Write text-only image-generation prompts (style-matched, target aspect ratio per slot) for the hero/figure slots. NO real image generation — the deck uses CSS placeholder blocks.",
+      "from_inputs": [],
+      "from_steps": [
+        "rhythm_table"
+      ],
+      "assets": [
+        "image_prompts.json"
+      ],
+      "asset_title": "Image Prompts (text only)"
+    },
+    "assemble_deck": {
+      "name": "Assemble Deck",
+      "does": "Render the single-file, self-contained HTML deck from the rhythm + layouts (inline CSS, no external deps, placeholder blocks for images). Our own renderer / template.",
+      "from_inputs": [],
+      "from_steps": [
+        "select_layouts",
+        "image_prompts"
+      ],
+      "assets": [
+        "deck.html"
+      ],
+      "asset_title": "Magazine Deck (single-file HTML)"
+    },
+    "self_validate": {
+      "name": "Self-Validate",
+      "does": "Audit the assembled deck against the checklist (structure, typography, image cropping, theme rhythm, contrast, overflow) and record pass/fail per item.",
+      "from_inputs": [],
+      "from_steps": [
+        "assemble_deck"
+      ],
+      "assets": [
+        "validation.json"
+      ],
+      "asset_title": "Self-Check Report"
+    },
+    "social_cover": {
+      "name": "Social Cover",
+      "does": "Terminal branch: from the same core message, spec a matching social-cover pair (e.g. WeChat 21:9 + Xiaohongshu 3:4) and render them as a single self-contained HTML sheet.",
+      "from_inputs": [],
+      "from_steps": [
+        "assemble_deck"
+      ],
+      "assets": [
+        "covers.html"
+      ],
+      "asset_title": "Social Cover Pair"
+    }
+  },
+  "deliverable": {
+    "description": "A single-file HTML magazine slide deck (assemble_deck/deck.html — self-contained, inline CSS, no external deps, placeholder blocks for images), plus the style + rhythm + layout decisions that produced it, the self-check report, and a matching social-cover pair. AGPL source — we lift only the workflow and ship our own renderer; no source files are copied.",
+    "assets": [
+      "assemble_deck/deck.html",
+      "choose_style/style_decision.json",
+      "rhythm_table/rhythm.json",
+      "self_validate/validation.json",
+      "social_cover/covers.html"
+    ]
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

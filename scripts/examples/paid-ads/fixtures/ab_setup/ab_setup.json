@@ -1,0 +1,53 @@
+{
+  "week": 7,
+  "tests": [
+    {
+      "id": "H1",
+      "name": "Fresh long-story 'before/after sleep-score' video vs. fatigued hero video",
+      "type": "A/B",
+      "single_variable": "Prospecting video creative (control = current 0:30 hero video; treatment = new long-story video built on the before/after sleep-score structure). Audience, placement, bid, landing all held constant.",
+      "hypothesis_restated": "New on-pattern creative lifts prospecting CTR back toward 1.3%+ and lowers prospecting CPA for LAL-1%.",
+      "metrics": {
+        "primary": "Prospecting CTR (impression -> outbound click)",
+        "secondary": ["Prospecting CPA", "Hook rate (3-sec video view)", "Frequency"],
+        "guardrail": ["Blended CPA must not rise", "Refund rate steady", "Landing CVR must not fall (message-match check)"]
+      },
+      "sample_size": {
+        "baseline_metric": "CTR ~0.9% (fatigued) / ~1.3% target",
+        "mde": "relative +20% (0.9% -> ~1.1%)",
+        "per_variant": "~39,000 clicks-equivalent; at ~1% CTR ≈ 3.9M impressions/variant per ab-testing baseline×lift table (1% baseline, 20% lift = 39k/variant)",
+        "note": "CTR sample is impression-driven and reached fast at this spend; CPA significance is the slower read."
+      },
+      "duration": {
+        "estimate": "~10-14 days",
+        "reason": "Meta prospecting delivers the impression volume for CTR significance within ~1 week; hold to ~2 weeks so CPA (the slower, conversion-based metric) also reaches its sample. Do not call early."
+      },
+      "allocation": "50/50 (standard A/B; treatment is on-pattern, low risk)",
+      "pre_commit": "Sample size fixed in advance; no peeking-and-stopping. Call only at the pre-committed sample (the Peeking Problem)."
+    },
+    {
+      "id": "H2",
+      "name": "Frequency cap + LAL-3% -> LAL-1% reallocation",
+      "type": "settings change (isolated from H1)",
+      "single_variable": "Delivery: cap prospecting frequency at ~3/wk and shift LAL-3% budget into LAL-1%.",
+      "hypothesis_restated": "Fewer wasted impressions lower blended CPA without losing valued reach.",
+      "metrics": {
+        "primary": "Prospecting frequency (-> target ~3.0)",
+        "secondary": ["Blended CPA", "Reach"],
+        "guardrail": ["Purchase volume must not fall", "ROAS must not drop"]
+      },
+      "isolation": "Applied at the audience/budget layer, not the creative layer — does not confound the H1 creative read. Tracked as a parallel observed change, not a clean RCT.",
+      "note": "Lightweight; reversible if purchase volume dips."
+    }
+  ],
+  "pre_launch_checklist": [
+    "Hypothesis + primary metric documented (done)",
+    "Sample size calculated and pre-committed (done)",
+    "Both video variants QA'd; treatment specs validated downstream in variant_gen",
+    "Tracking verified before spend (handled in launch_plan)",
+    "Guardrail thresholds set with stop rules"
+  ],
+  "confound_control": "H1 isolates creative; H2 isolates delivery. H3 (quiz routing) deliberately deferred to week 8 so it doesn't muddy either read.",
+  "hands_to": "variant_gen",
+  "source": "ab-testing / Test One Thing + Metrics Selection + Sample Size table + Traffic Allocation + Pre-Launch Checklist + Peeking Problem"
+}

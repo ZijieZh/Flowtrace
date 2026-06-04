@@ -1,0 +1,40 @@
+{
+  "style": "A",
+  "style_vocabulary": "editorial × e-ink — documentary or grayscale-infographic, warm restraint, no stock gloss",
+  "generated_images": false,
+  "policy": "TEXT PROMPTS ONLY. No image model is called. The deck ships CSS placeholder blocks; these prompts are what a user would hand to an image model later to fill these exact slots.",
+  "prompts": [
+    {
+      "slot": "01-hero", "aspect": "16:9",
+      "prompt": "Editorial cover image, electronic-ink aesthetic: a single quiet object — an old mechanical metronome at rest — on warm off-white paper, soft raking light, generous negative space on the right for the title. Muted, almost monochrome, one faint ink-blue cast. Documentary, unstyled, no gloss.",
+      "negative": "no logos, no brands, no UI screenshots, no stock-photo sheen, no neon, no 3D render",
+      "placeholder": "HERO · metronome at rest, warm paper, space for title"
+    },
+    {
+      "slot": "02-side", "aspect": "4:3",
+      "prompt": "Grayscale editorial infographic: two side-by-side gauges, one labelled 'machine' pinned high, one labelled 'attention' left blank/un-instrumented. E-ink texture, thin hairline rules, serif numerals. Restrained, paper background.",
+      "negative": "no color fills beyond a single ink accent, no drop shadows, no glossy 3D dials",
+      "placeholder": "FIGURE · two gauges — 'machine' measured, 'attention' blank"
+    },
+    {
+      "slot": "04-lead", "aspect": "16:9",
+      "prompt": "Documentary still, e-ink palette: three small paper arrows on a desk all pointing away from a central worn object, suggesting forces pulling outward. Warm paper, soft shadow, lots of air. Quiet and analog.",
+      "negative": "no text baked into the image, no brand marks, no vivid saturation",
+      "placeholder": "LEAD · three arrows pulling away from the center"
+    },
+    {
+      "slot": "08-side", "aspect": "4:3",
+      "prompt": "Editorial close-up, grayscale with one ink accent: a stopwatch whose dial is relabelled 'time-to-out-of-the-way', resting on warm paper. Tactile, documentary, restrained.",
+      "negative": "no real brand stopwatch, no glossy product render, no rainbow color",
+      "placeholder": "FIGURE · stopwatch relabelled 'time-to-out-of-the-way'"
+    },
+    {
+      "slot": "09-hero", "aspect": "16:9",
+      "prompt": "Closing editorial image, e-ink: an empty, calm desk with a single closed notebook in soft warm light, wide negative space for one centered question. Minimal, contemplative, paper texture.",
+      "negative": "no people, no logos, no busy props, no high-key glossy lighting",
+      "placeholder": "HERO · calm empty desk, space for the closing question"
+    }
+  ],
+  "ratio_note": "Every slot's aspect ratio matches the slot defined in select_layouts (16:9 heroes, 4:3 side figures) — standardized ratios per Step 3.2 图片比例规范; no raw source ratios.",
+  "source": "prompts per op7418/guizang-ppt-skill references/image-prompts.md (GPT-M 2.0 配图提示词: 通用规则 / 比例选择 / Style-A 电子杂志 × 电子墨水 types) + SKILL.md 可选配图 (this branch is optional and, here, prompts-only)."
+}

@@ -10,7 +10,9 @@ writes:
 
 # Strategic Recommendations
 
-The skill's **Strategic Recommendations**. A **parallel terminal branch** — it depends on the keywords and the scoring, **not** on the formatted resume, so it runs alongside `rewrite_bullets`/`reorder_format`, not after them.
+Source skill: **tailored-resume-generator** (Strategic Recommendations).
+
+A **parallel terminal branch** — it depends on the keywords and the scoring, **not** on the formatted resume, so it runs alongside `rewrite_bullets`/`reorder_format`, not after them.
 
 ## What this step does
 

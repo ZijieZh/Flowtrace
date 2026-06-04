@@ -1,0 +1,32 @@
+{
+  "lens": "CEO",
+  "role": "the strategic allocator",
+  "reads": ["ingest_financials/financials.json", "ingest_market/market_gtm.json"],
+  "bottom_line": "This is the right kind of bet: it buys a capability we'd otherwise spend ~18 months building, into an adjacent buyer we already sell to. Strategically a GO — the disagreement with the CFO is about price, not about whether.",
+  "verdict": "GO",
+  "verdict_scale": "GO / GO-WITH-CONDITIONS / NO-GO (executive Go/No-Go framework)",
+  "capital_allocation_fit": {
+    "priority_bucket": "Grow the core / Fund new bets — extends what already works into an adjacent segment",
+    "build_vs_buy_vs_partner": "BUY beats BUILD (18-month lead) and PARTNER (we'd cede the AI roadmap); this is core enough to own",
+    "strategic_fit_score_1to5": 5
+  },
+  "tree_of_thought_paths": [
+    {"path": "Acquire now at a negotiated price", "upside": "platform completeness + cross-sell + AI talent", "downside": "integration drag, pay for decelerating growth", "reversibility": "low — hard to unwind", "second_order": "signals to market we own RevOps"},
+    {"path": "Partner / reseller first, option to buy", "upside": "lower risk, learn the integration", "downside": "competitor could buy them; we cede AI control", "reversibility": "high", "second_order": "slower, telegraphs intent"},
+    {"path": "Walk and build internally", "upside": "no acquisition premium, full control", "downside": "18-month delay, opportunity cost in a fast category", "reversibility": "n/a", "second_order": "incumbents consolidate while we build"}
+  ],
+  "chosen_path": "Acquire — but only at a price that survives the CFO bear case; pursue the negotiated-entry path, not buy-at-ask.",
+  "the_one_thing_that_kills_it": "Integration stalls because the auth/tenancy tech-debt isn't funded on day one, so we can't carry Acme RevOps upmarket and we've paid a platform price for a mid-market asset. This is the question I am most afraid of.",
+  "stakeholder_view": {
+    "customers": "cross-sell to our base is the prize; their top customer's change-of-control consent is a real risk to manage",
+    "team": "retaining the co-founder CTO (AI IP) is non-negotiable — structure earn-out + retention",
+    "board": "a markdown-round acquisition of a strategic asset is a defensible board narrative IF price is disciplined"
+  },
+  "conditions": [
+    "Retention package for the co-founder CTO and top 3 AI engineers before close",
+    "Integration plan with auth/tenancy on the critical path, funded in the deal model",
+    "Defer to CFO on the walk-away price; strategy says yes, the number must still work"
+  ],
+  "reasoning_technique": "Tree of Thought — generate >=3 paths, score on upside/downside/reversibility/second-order effects",
+  "source": "ceo-advisor (capital allocation priorities, Go/No-Go decision framework, 'the one thing that kills us', stakeholder priority order, Tree-of-Thought)"
+}

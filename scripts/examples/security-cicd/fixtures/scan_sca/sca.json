@@ -1,0 +1,32 @@
+{
+  "tool": "snyk",
+  "manifest": "go.mod",
+  "scan_date": "2026-06-03",
+  "dependencies": { "total": 138, "direct": 24, "transitive": 114 },
+  "summary": { "critical": 0, "high": 1, "medium": 0, "low": 0 },
+  "findings": [
+    {
+      "id": "F-SCA-001",
+      "snyk_id": "SNYK-GOLANG-GITHUBCOMGOLANGJWTJWT-2848499",
+      "package": "github.com/golang-jwt/jwt",
+      "version": "v3.2.0+incompatible",
+      "direct": true,
+      "introduced_by_pr": true,
+      "cve": "CVE-2022-29217",
+      "cwe": ["CWE-347"],
+      "title": "Algorithm confusion: jwt.Parse accepts a token signed with a key type the caller did not expect, enabling signature bypass",
+      "cvss": 7.5,
+      "cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "exploit_maturity": "Proof of Concept",
+      "reachable": true,
+      "reachability_note": "Reachable: internal/webhooks/stripe.go calls jwt.Parse on the X-Internal-Token header to authorize the webhook write path. The vulnerable verifier is on a live code path, so 'we don't use that function' does not apply.",
+      "fix": "Upgrade to github.com/golang-jwt/jwt/v4 >= 4.4.3 (or v5) and pin the expected signing method via jwt.WithValidMethods.",
+      "path": "acme/payments-gateway > github.com/golang-jwt/jwt@v3.2.0+incompatible",
+      "blocking_candidate": true,
+      "source": "performing-sca-dependency-scanning-with-snyk (Output Format: CVE / CVSS / Exploit maturity / Fix / Path; Reachable Vulnerability)"
+    }
+  ],
+  "license_issues": [],
+  "quality_gate": "FAILED (1 High, reachable, fix available)",
+  "source": "performing-sca-dependency-scanning-with-snyk + implementing-devsecops-security-scanning (SCA job)"
+}

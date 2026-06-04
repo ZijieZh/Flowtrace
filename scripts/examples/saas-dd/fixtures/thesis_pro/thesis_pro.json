@@ -1,0 +1,24 @@
+{
+  "side": "PRO (steelman) — the strongest case TO DO the deal",
+  "fans_in_from": ["lens_cfo", "lens_ceo", "lens_cto", "lens_cro", "lens_gc"],
+  "built_before_valuation": true,
+  "rationale_for_ordering": "The thesis is built before the valuation so the price cannot anchor the argument (cross-eval discipline).",
+  "vote": "APPROVE — conditional on price + conditions to close",
+  "confidence": "Medium",
+  "strongest_points": [
+    {"point": "Buy beats build by ~18 months in a fast-consolidating category", "from": "CEO", "evidence": "strategic-fit 5/5; BUY > BUILD($16M 3yr TCO) > PARTNER"},
+    {"point": "The AI sequencing team + IP is the durable prize", "from": "CEO + CTO", "evidence": "40% of new logos cite the AI feature; team is genuinely hard to replicate"},
+    {"point": "NRR 109% and 74% gross margin are real and healthy", "from": "CFO + CRO", "evidence": "expansion is working; cost-of-revenue grows slower than revenue"},
+    {"point": "Cross-sell into our enterprise base is incremental ARR we can actually land", "from": "CRO", "evidence": "$9M 3yr opportunity; ICP overlap is high"},
+    {"point": "Seller is motivated — ask $336M is BELOW the $390M Series C post", "from": "CFO", "evidence": "a markdown round; price is negotiable"}
+  ],
+  "key_assumptions": [
+    "We get entry price down to <= 6.5x ARR so the return clears the 20% hurdle",
+    "Auth/tenancy tech-debt is funded day one so the cross-sell synergy can be realized",
+    "Co-founder CTO and core AI engineers are retained",
+    "Conditions to close (DPAs, IP assignments, indemnity cap) are achievable in the window"
+  ],
+  "what_would_make_this_a_clear_yes": "Price at ~6.0-6.5x ARR + binding retention for the AI team + the four GC conditions papered into the SPA.",
+  "where_lenses_agree": "CEO + CRO + CTO all agree the capability and the AI talent are worth owning; even the CFO agrees the asset is good — the fight is only about price.",
+  "source": "cross-eval steelman pass (must find the 3 strongest reasons to approve) + ceo-advisor reasoning, reconciled across the five independent lens verdicts"
+}

@@ -1,0 +1,49 @@
+{
+  "as_of": "2026-06-01",
+  "target": "Acme RevOps, Inc.",
+  "purpose": "Roll the operating lenses (CFO, CRO, CTO) into a synergy + integration model, net of dis-synergy, as the cash-flow input to valuation.",
+  "rolls_up": ["lens_cfo/cfo_review.json", "lens_cro/cro_review.json", "lens_cto/cto_review.json"],
+  "standalone_baseline": {
+    "arr_usd_m": 42.0,
+    "yoy_growth_pct": 38,
+    "growth_decel_assumption": "38% -> 30% -> 24% over 3 years (CFO: bought for growth, growth decelerating)",
+    "gross_margin_pct": 74
+  },
+  "revenue_synergy": {
+    "source": "cross-sell Acme RevOps into acquirer enterprise base (CRO)",
+    "gross_opportunity_usd_m_3yr": 9.0,
+    "gating_dependency": "SSO/SCIM + multi-region (CTO P1 debt) — credited ONLY after the tech-debt workstream ships",
+    "credited_underwriting": {
+      "base": 4.0,
+      "bull": 9.0,
+      "bear": 1.0
+    },
+    "discipline_note": "Underwritten on GRR 88%, not NRR 109% (CRO condition) — expansion is not assumed permanent."
+  },
+  "cost_synergy": {
+    "source": "consolidate duplicated G&A, cloud, and overlapping tooling",
+    "annual_run_rate_usd_m": {
+      "base": 2.2,
+      "bull": 3.0,
+      "bear": 1.5
+    }
+  },
+  "integration_cost": {
+    "deal_model_original_usd_m": 4.5,
+    "rebaselined_usd_m": 7.0,
+    "rebaseline_reason": "CTO: auth (45d) + tenancy/row-encryption (60d) + tested DR (30d) add ~2 quarters beyond the 4.5 budget",
+    "phasing": "year 1 $4.5M, year 2 $2.5M"
+  },
+  "dis_synergy_risk": {
+    "items": ["logo churn 12%/yr on small accounts", "top-customer change-of-control consent risk", "discount creep compressing new-logo ARR"],
+    "annual_drag_usd_m_bear": 1.8
+  },
+  "three_year_synergy_npv_usd_m": {
+    "discount_rate_pct": 12,
+    "base": 14.5,
+    "bull": 27.0,
+    "bear": 2.0,
+    "note": "Bear NPV barely positive after the re-baselined integration cost — the synergy case is real but fragile, exactly as the lenses flagged."
+  },
+  "source": "financial-analyst Phase 2-3 (driver-based forecast, base/bull/bear scenario modeling) + cfo-advisor (scenario planning, model the downside first) + business-investment-advisor (downside case at 50% of projected revenue, name the strategic reason)"
+}

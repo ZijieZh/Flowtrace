@@ -1,0 +1,39 @@
+{
+  "adjudication": "receiving-code-review Response Pattern: READ -> UNDERSTAND -> VERIFY -> EVALUATE -> RESPOND -> IMPLEMENT (one item at a time). No performative agreement.",
+  "fan_in": ["review_spec/spec_review.json", "review_quality/quality_review.json"],
+  "items": [
+    {
+      "from": "spec",
+      "finding": "Test does not assert the non-owner returns the SAME charge id (the original).",
+      "verified": "Confirmed against the diff - the test only counted PSP charges.",
+      "decision": "fix",
+      "resolution": "Extended the regression test: collect all 50 response charge ids, assert len(set(ids)) == 1 and it equals the owner's charge id. Re-ran -> still green. Spec reviewer re-reviewed: compliant.",
+      "order": "blocking-correctness, done first"
+    },
+    {
+      "from": "quality",
+      "finding": "await_charge() busy-waits with a fixed sleep and no timeout; a crashed owner hangs the retry forever.",
+      "verified": "Reproduced: killed the owner task after INSERT 'in_progress' -> non-owner looped indefinitely.",
+      "decision": "fix",
+      "resolution": "Replaced the fixed sleep with condition-based waiting on record status + a 5s bounded deadline; on deadline a stale 'in_progress' older than the lease is reclaimable (re-runs reserve_or_get). Added a test for the crashed-owner path. Green.",
+      "order": "Important, done after the spec fix"
+    },
+    {
+      "from": "quality",
+      "finding": "request_hash not compared on HIT (Minor).",
+      "verified": "True.",
+      "decision": "defer",
+      "resolution": "Logged as follow-up PAY-4823 (key-reuse-with-different-body 422). Not blocking this duplicate-charge fix; YAGNI for the page."
+    },
+    {
+      "from": "quality (implied 'be safe, add a global lock')",
+      "finding": "Suggestion floated in review thread: 'just take a global lock around the charge path to be safe.'",
+      "verified": "Checked: throughput impact + it is per-process, so it would not even serialize across pods.",
+      "decision": "pushback",
+      "resolution": "Declined with technical reasoning: the per-key atomic INSERT already serializes correctly at the shared store; a global lock would serialize ALL charges (throughput cliff) and still not be cross-process. Pushback accepted."
+    }
+  ],
+  "all_blocking_resolved": true,
+  "note": "Two real fixes applied + one reasoned pushback + one deferred Minor. Stated as fixes, not 'you're absolutely right'.",
+  "source": "receiving-code-review (verify before implementing; push back with technical reasoning; YAGNI) + requesting-code-review (act by severity)"
+}

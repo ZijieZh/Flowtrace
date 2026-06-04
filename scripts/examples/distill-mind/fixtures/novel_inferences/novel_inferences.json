@@ -1,0 +1,27 @@
+{
+  "subject": "Mira Tan (fictional)",
+  "disclaimer": "Fabricated for illustration. These are EXTRAPOLATIONS from the framework to questions the (fictional) subject never addressed — not her stated views, and she is not a real person. Hedged on purpose.",
+  "tested_against": "synthesize/framework.json",
+  "method": "huashu-nuwa Phase 4.2 边缘测试 / Edge Case — run independently; produce a HEDGED inference per probe; an answer that sounds certain is a failure.",
+  "probes": [
+    {
+      "question": "How would she design a voice-only interface (no screen to audit)?",
+      "inference": "Probably reframes 'friction audit' as counting conversational turns and dead-ends instead of taps, and asks 'what's the one job this conversation is for' — but voice removes the visible hands she relies on, so she'd likely flag her own behavioral read as weaker here.",
+      "models_used": ["Friction is a feature you didn't choose", "Watch the hands, not the survey"],
+      "confidence": "low-to-moderate",
+      "would_falsify": "If she ever argued voice UIs need MORE prompts/options for safety, the subtract-default would not transfer cleanly.",
+      "hedge": "stated as a likely direction, not a fact"
+    },
+    {
+      "question": "Her take on an AI agent that auto-completes a multi-step flow for the user?",
+      "inference": "Likely split: applauds removing friction the user didn't choose (the agent does the taps), but distrusts hiding the 'one job' behind automation he can't see or correct — probably 'cut the steps, don't hide them.' Genuinely uncertain; this pits two of her models against each other.",
+      "models_used": ["Subtract before you add", "Friction is a feature you didn't choose", "The second draft is the real first draft"],
+      "confidence": "low — models point in tension",
+      "would_falsify": "If she fully endorsed opaque automation, the 'name the one job' model would be weaker than distilled.",
+      "hedge": "explicitly flagged as a model-vs-model tension, not a settled position"
+    }
+  ],
+  "generativity_check": "PASS — the framework produces credible hedged inferences on unseen questions; the models are generative, not decorative (Phase 4.2 / extraction-framework generativity test).",
+  "standing_disclaimer": "Everything in this file is inference, kept visibly separate from known_traits.json; the persona must present these with the subject's own hedge ('Probably.'), never as on-record fact.",
+  "source": "huashu-nuwa Phase 4.2; the newly-derived layer — hedged, falsifiable, and separated from the on-record core."
+}

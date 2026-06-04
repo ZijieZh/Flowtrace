@@ -1,0 +1,35 @@
+{
+  "lens": "CFO",
+  "role": "the numerate skeptic",
+  "reads": ["ingest_financials/financials.json"],
+  "bottom_line": "The unit economics clear the bar but only just; at 8.0x ARR the deal underwrites to a sub-hurdle return unless we get price down. Fund with conditions, not at ask.",
+  "verdict": "YELLOW",
+  "verdict_scale": "GREEN fund it / YELLOW fund with cut triggers / RED kill or revise",
+  "numbers": {
+    "burn_multiple": 1.8,
+    "burn_multiple_read": "below the 2.0x problem line, but not efficient — every $1 of net-new ARR costs $1.80 of burn",
+    "ltv_to_cac": 3.2,
+    "cac_payback_months": 19,
+    "cac_payback_read": "19 months is over the <18mo healthy line; acceptable but not a green light",
+    "rule_of_40": 31,
+    "rule_of_40_read": "below 40 — growth 38 + FCF margin -7; the company is bought for growth, and growth is decelerating",
+    "gross_margin_pct": 74,
+    "gross_margin_read": "healthy for the category and stable; cost-of-revenue grows slower than revenue",
+    "magic_number": 0.72,
+    "asking_multiple_arr": 8.0,
+    "implied_multiple_vs_last_round": "ask $336M < Series C $390M post -> a markdown round, seller is motivated"
+  },
+  "bear_case_survival": {
+    "test": "revenue at 50% of plan, does the combined thesis still clear 20% IRR?",
+    "result": "FAIL at ask price; PASS if entry <= 6.5x ARR",
+    "detail": "Standalone runway is only 20 months; if we don't fund the integration, the asset stalls. The downside case must be the primary input, not the bull case."
+  },
+  "capital_allocation_alternative": "Same ~$300M could fund 2 years of internal build of the RevOps capability OR a buyback; the deal must beat both on risk-adjusted IRR, and at 8.0x it does not.",
+  "conditions_if_yellow": [
+    "Entry price <= 6.5x ARR ($273M) so the synergy case carries a >=20% IRR",
+    "Cut trigger: combined NRR < 105% at 12 months -> pause integration spend",
+    "Reconcile Q4 deferred-revenue schedule to GL before signing (data-room gap)"
+  ],
+  "reasoning_technique": "Chain of Thought — model the downside first, then the upside; never round in our favor",
+  "source": "cfo-review (six CFO forcing questions: burn & runway, unit economics, capital allocation alternative, revenue quality, bear-case survival) + cfo-advisor (burn multiple, Rule of 40, LTV:CAC, CAC payback thresholds)"
+}

@@ -1,0 +1,24 @@
+{
+  "framing_ref": "understand_project/project.json",
+  "hook": {
+    "slot": "[placeholder — sharpened later by hook_rewrite]",
+    "why_reader_cares": "an investor reading this is deciding where the next check goes in the agent stack; the hook has to make the money question feel urgent and contrarian"
+  },
+  "introduction": [
+    "context: 2026 framed everywhere as the year agents 'go to work'",
+    "problem: most of what investors see is demos; budgets and moats are the real signal",
+    "what_this_covers: where the money is, who is winning, what is still vaporware, and which layer to underwrite"
+  ],
+  "sections": [
+    { "id": "s1", "title": "From Demo to Budget Line", "key_points": ["pilots → production budgets in 2026", "the spend is real and concentrated"], "research_needed": ["enterprise agent spend figure (rt1)"] },
+    { "id": "s2", "title": "Follow the Money, Not the Models", "key_points": ["funding tilting to orchestration vs raw model bets", "token prices collapsing → margin moves up the stack"], "research_needed": ["agent-layer funding share (rt2)", "token price decline (rt3)"] },
+    { "id": "s3", "title": "Reliability Is the Whole Game", "key_points": ["capability is not the constraint; multi-step success is", "a named production proof-point with a number"], "research_needed": ["agent task-success stat (rt4)", "enterprise proof-point (rt5)"] },
+    { "id": "s4", "title": "Will Agents Eat the SaaS Seat?", "key_points": ["incumbents repricing to outcome-based", "pressure-test the replace-seats thesis"], "research_needed": ["incumbent repricing example (rt6)", "thesis quote (rt7)"] },
+    { "id": "s5", "title": "The Investable Layer", "key_points": ["moat sits in orchestration / eval / integration", "what to underwrite and what to avoid"], "research_needed": ["moat-location quote (rt8)"] }
+  ],
+  "conclusion": {
+    "summary": "agents are real, the money is moving up the stack, and reliability is the moat",
+    "call_to_action": "underwrite the orchestration-and-reliability layer; demand task-completion metrics from founders"
+  },
+  "source": "content-research-writer step 2 — Collaborative Outlining (Hook / Introduction / Main Sections + research-needed markers / Conclusion)"
+}

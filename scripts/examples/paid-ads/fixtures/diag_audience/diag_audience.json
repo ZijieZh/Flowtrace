@@ -1,0 +1,40 @@
+{
+  "lane": "audience",
+  "headline": "Gift-intent is the durable, high-LTV winner; hot-sleeper softness is a seasonal JTBD shift, not a targeting failure.",
+  "segments": [
+    {
+      "segment": "gift-intent",
+      "cvr": 4.4,
+      "jtbd": "Give a thoughtful, premium, low-risk gift",
+      "verdict": "scale — best converter, over-indexes in quiz funnel",
+      "confidence": "High",
+      "why": "Highest CVR in the account and aligns with the week-4 memory that gift-intent is highest-LTV; the quiz funnel converts them ~2x the PDP."
+    },
+    {
+      "segment": "hot-sleeper interest stack",
+      "cvr": 1.6,
+      "was": 2.9,
+      "jtbd": "Stop overheating at night (seasonal — peaks in summer heat)",
+      "verdict": "down-weight, do not over-correct targeting",
+      "confidence": "Medium",
+      "why": "CVR halved as spring warms AND a competitor is contesting the cooling angle. This is a seasonal JTBD trough plus auction pressure, not broken targeting. Chasing it now is a global-optimum trap."
+    },
+    {
+      "segment": "LAL-1% (purchasers)",
+      "roas": 3.1,
+      "verdict": "keep as core prospecting seed",
+      "confidence": "High",
+      "why": "Best prospecting ROAS; correctly seeded on purchasers (LTV-based per ads guidance)."
+    },
+    {
+      "segment": "LAL-3%",
+      "roas": 1.9,
+      "verdict": "trim — widening is dragging efficiency",
+      "confidence": "Medium",
+      "why": "Wider lookalike below blended ROAS; ads rule is base lookalikes on best customers by LTV, not reach. Pull budget back toward LAL-1%."
+    }
+  ],
+  "implication": "Audience is not this week's binding problem — the best segment (gift-intent) is healthy and reachable. The losses are concentrated where creative is carrying the message.",
+  "hands_to": "problem_tree",
+  "source": "customer-research / Extraction Framework (JTBD + confidence labels) + ads / Audience Targeting (LTV-based lookalikes)"
+}

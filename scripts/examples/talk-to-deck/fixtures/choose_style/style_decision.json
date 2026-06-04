@@ -1,0 +1,22 @@
+{
+  "style": "A",
+  "style_name": "editorial-eink",
+  "theme_preset": "warm-paper / ink",
+  "accent": "#1f3a5f",
+  "paper": "#f5f1e8",
+  "ink": "#1c1b18",
+  "rationale": [
+    "The talk is an argument in human voice, not a data or product walkthrough — Style A's restraint, serif hierarchy, and whitespace carry an argument better than a hard grid.",
+    "Audience is a craft conference in a dark room: warm paper + one ink accent reads as considered, on-theme with the talk's own thesis (subtraction, restraint).",
+    "Only one genuinely numeric beat (the worked contrast) — not enough data density to want Swiss's grid-and-KPI machinery.",
+    "The brief leaned editorial; nothing in the content overrides that, so the lean is honored with a stated reason rather than reflexively."
+  ],
+  "rejected": {
+    "style": "B",
+    "why": "Swiss international (sans-serif, single accent, hard 12-col grid, extreme contrast) is built for factual / product / data-dense decks. Here it would fight the talk's narrative voice and over-formalize a 9-slide argument — the wrong tool for THIS brief."
+  },
+  "theme_note": "One preset chosen (no custom hex beyond the preset's own tokens), per the skill's 'pick a preset, not a colour' rule. The accent is the single anchor carried into assemble_deck and social_cover.",
+  "downstream_locked": ["rhythm_table", "select_layouts", "assemble_deck", "social_cover"],
+  "steer_hint": "This is the headline steer node: switch style to B and rhythm_table, select_layouts, assemble_deck (and the cover) all go stale — run `flowtrace show --downstream choose_style`.",
+  "source": "judgment per op7418/guizang-ppt-skill SKILL.md Step 1 · 需求澄清 (first question: Style A or B) + the two systems' guiding principles (Style A editorial × e-ink vs Style B Swiss international)."
+}

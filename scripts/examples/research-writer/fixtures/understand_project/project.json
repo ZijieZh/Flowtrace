@@ -1,0 +1,26 @@
+{
+  "topic": "AI agents in the enterprise — the 2026 inflection from demo to deployed",
+  "main_argument": "2026 is the year enterprise AI agents cross from pilots into production budgets, and the durable value accrues not to the foundation-model labs but to the orchestration, evaluation and integration layer that makes agents reliable enough to trust with real workflows.",
+  "audience": {
+    "who": "VC and growth-stage investors evaluating where to deploy capital in the AI-agent stack",
+    "what_they_know": "fluent in SaaS metrics and the model landscape (Anthropic, OpenAI); skeptical of demo-driven hype; have heard the 'agents replace SaaS seats' thesis and want it pressure-tested",
+    "what_they_want": "a defensible read on where margin and moat actually sit in the stack, what is real revenue vs. vaporware, and which layer to underwrite"
+  },
+  "goal": "persuade",
+  "length_format": "long-form analytical article, ~2,000-2,500 words, Markdown, inline numbered citations + references list, Substack/industry-blog ready",
+  "style": {
+    "tone": "confident, analytical, mildly contrarian — opinions welcome, every number sourced",
+    "person": "first person singular with direct second-person address to the investor",
+    "pov": "the value migrates up the stack to orchestration/eval/integration; foundation models commoditize into infrastructure"
+  },
+  "call_to_action": "underwrite the orchestration-and-reliability layer, not another foundation-model bet or a thin GPT wrapper; ask portfolio companies for agent task-completion and rollback metrics, not demo videos",
+  "source_questions_resolved": [
+    "topic & main argument",
+    "target audience",
+    "desired length/format",
+    "goal (persuade)",
+    "existing sources (none yet — research branch supplies them)",
+    "writing style (tone/person/POV)"
+  ],
+  "source": "content-research-writer step 1 — Understand the Writing Project (six clarifying questions resolved into explicit decisions)"
+}

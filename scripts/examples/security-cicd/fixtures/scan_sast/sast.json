@@ -1,0 +1,39 @@
+{
+  "tool": "semgrep",
+  "version": "1.102.0",
+  "ruleset": ["p/security-audit", "p/owasp-top-ten", "org/payments-custom"],
+  "target": "internal/webhooks/stripe.go, internal/config/webhooks.go",
+  "summary": { "error": 1, "warning": 1, "info": 0 },
+  "findings": [
+    {
+      "id": "F-SAST-001",
+      "rule": "org.payments.go-sql-string-format",
+      "severity": "ERROR",
+      "file": "internal/webhooks/stripe.go:147",
+      "code": "db.Query(\"SELECT processed FROM idempotency WHERE event_id = '\" + evtID + \"'\")",
+      "cwe": ["CWE-89"],
+      "owasp": "A03:2021",
+      "message": "Idempotency lookup concatenates the Stripe-Event-Id header into a SQL string. Use a parameterized query (pgx supports $1 placeholders).",
+      "tainted_source": "header:Stripe-Event-Id -> evtID",
+      "fix": "db.Query(\"SELECT processed FROM idempotency WHERE event_id = $1\", evtID)",
+      "blocking_candidate": true,
+      "source": "implementing-semgrep-for-custom-sast-rules (sql-injection-string-format, cwe CWE-89)"
+    },
+    {
+      "id": "F-SAST-002",
+      "rule": "go.lang.security.audit.math-random",
+      "severity": "WARNING",
+      "file": "internal/webhooks/stripe.go:58",
+      "code": "nonce := fmt.Sprintf(\"%d\", rand.Int())",
+      "cwe": ["CWE-330"],
+      "owasp": "A02:2021",
+      "message": "math/rand used to build a replay nonce. Use crypto/rand for security-sensitive values.",
+      "tainted_source": null,
+      "fix": "use crypto/rand.Read",
+      "blocking_candidate": false,
+      "source": "implementing-semgrep-for-custom-sast-rules (insecure-random, cwe CWE-330)"
+    }
+  ],
+  "note": "tainted_source on F-SAST-001 is the join key: scan_variant follows the same source to a second sink; triage will merge them.",
+  "source": "implementing-semgrep-for-custom-sast-rules + implementing-devsecops-security-scanning (Semgrep SAST job)"
+}

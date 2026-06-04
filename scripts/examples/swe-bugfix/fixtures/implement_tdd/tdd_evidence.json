@@ -1,0 +1,25 @@
+{
+  "cycle": "RED -> GREEN -> REFACTOR",
+  "iron_law": "NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST - honored (regression test written and run before the fix)",
+  "regression_test": "tests/load/test_idempotency_race.py::test_concurrent_same_key_charges_once",
+  "red": {
+    "when": "before fix",
+    "command": "pytest tests/load/test_idempotency_race.py -q",
+    "output": "FAILED test_concurrent_same_key_charges_once - AssertionError: expected exactly 1 PSP charge for ik_test, got 7",
+    "fails_for_right_reason": true,
+    "note": "fails because of the duplicate (feature missing), not a typo/import error"
+  },
+  "green": {
+    "when": "after minimal fix (atomic reserve_or_get)",
+    "command": "pytest tests/load/test_idempotency_race.py -q",
+    "output": "1 passed in 2.31s",
+    "full_suite": { "command": "pytest -q", "passed": 212, "failed": 0, "warnings": 0 }
+  },
+  "refactor": {
+    "changes": ["extracted reserve_or_get()/await_charge()", "added UNIQUE migration 0042", "added L1 header validation"],
+    "behavior_changed": false,
+    "full_suite_after": { "passed": 212, "failed": 0 }
+  },
+  "duplicate_rate_under_load": { "before": "74% @ concurrency 8", "after": "0% @ concurrency 8 and 16" },
+  "source": "test-driven-development (RED/GREEN/REFACTOR + Verify RED / Verify GREEN are MANDATORY) executed under subagent-driven-development"
+}

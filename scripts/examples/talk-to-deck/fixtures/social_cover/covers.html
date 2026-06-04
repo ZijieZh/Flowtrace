@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Social Covers — The Quiet Architecture of Slow Software</title>
+<!--
+  talk-to-deck · social_cover/covers.html
+  A matching social-cover PAIR for the deck: WeChat 公众号 21:9 banner + Xiaohongshu 小红书 3:4 card.
+  Single-file, self-contained; inline CSS; system fonts; no external deps; no real images
+  (CSS placeholder backgrounds). Reuses the deck's accent + type family so the set reads as one family.
+  ORIGINAL renderer/template — workflow-only lift of op7418/guizang-ppt-skill (歸藏, AGPL-3.0);
+  no source files copied. Illustrative example: a fictional talk.
+-->
+<style>
+  :root{
+    --paper:#f5f1e8; --ink:#1c1b18; --ink-soft:#46433c; --muted:#7c776c;
+    --accent:#1f3a5f; --on-dark:#f2ede1; --on-dark-soft:#bfb7a6; --line:#d9d2c2;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#e7e0d0;color:var(--ink);font-family:var(--serif);
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:28px;padding:40px 20px 56px}
+  .pagehead{font-family:var(--sans);text-align:center;color:var(--muted);max-width:64ch}
+  .pagehead h1{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:.06em;color:var(--ink-soft)}
+  .pagehead p{font-size:12.5px;margin-top:6px;line-height:1.5}
+
+  .cardwrap{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .tag{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .tag b{color:var(--accent)}
+
+  /* placeholder background — no real images */
+  .phbg{position:absolute;inset:0;z-index:0;
+    background:repeating-linear-gradient(45deg,rgba(31,58,95,.07) 0 12px,rgba(31,58,95,.02) 12px 24px)}
+  .phtag{position:absolute;z-index:2;top:12px;right:14px;font-family:var(--sans);font-size:10px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-soft)}
+
+  /* WeChat 公众号 banner — 21:9 */
+  .wechat{position:relative;width:min(86vw,900px);aspect-ratio:21/9;overflow:hidden;border-radius:8px;
+    background:radial-gradient(120% 150% at 82% 0%,#23211d,#161512);color:var(--on-dark);
+    box-shadow:0 18px 40px rgba(0,0,0,.18)}
+  .wechat .inner{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;justify-content:center;
+    padding:0 7% }
+  .wechat .kick{font-family:var(--sans);font-size:13px;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:#9fb6d6;margin-bottom:14px}
+  .wechat .ttl{font-size:clamp(26px,4.4vw,52px);font-weight:600;line-height:1.05;max-width:18ch;letter-spacing:-.01em}
+  .wechat .sub{font-family:var(--sans);font-size:clamp(12px,1.4vw,16px);color:var(--on-dark-soft);
+    margin-top:16px;max-width:46ch}
+  .wechat .foot{position:absolute;z-index:1;left:7%;bottom:7%;font-family:var(--sans);font-size:12px;color:var(--on-dark-soft)}
+
+  /* Xiaohongshu 小红书 card — 3:4 */
+  .xhs{position:relative;width:min(60vw,420px);aspect-ratio:3/4;overflow:hidden;border-radius:8px;
+    background:linear-gradient(180deg,#fbf7ee,var(--paper));color:var(--ink);
+    box-shadow:0 18px 40px rgba(0,0,0,.14);border:1px solid var(--line)}
+  .xhs .phtag{color:var(--muted)}
+  .xhs .phbg{background:repeating-linear-gradient(45deg,rgba(31,58,95,.06) 0 12px,rgba(31,58,95,.015) 12px 24px)}
+  .xhs .inner{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;padding:9% 8%}
+  .xhs .kick{font-family:var(--sans);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--accent)}
+  .xhs hr{width:40px;height:2px;background:var(--accent);border:0;margin:14px 0}
+  .xhs .ttl{font-size:clamp(26px,6vw,40px);font-weight:600;line-height:1.06;letter-spacing:-.01em;margin-top:2px}
+  .xhs .spacer{flex:1 1 auto}
+  .xhs .pull{font-size:clamp(15px,3.4vw,20px);color:var(--ink-soft);line-height:1.4;max-width:22ch}
+  .xhs .pull em{font-style:normal;color:var(--accent);font-weight:600}
+  .xhs .meta{font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-top:16px}
+
+  .disc{font-family:var(--sans);font-size:10.5px;color:#8b8576;text-align:center;max-width:70ch;margin-top:8px}
+</style>
+</head>
+<body>
+  <div class="pagehead">
+    <h1>Social cover pair — matching the deck</h1>
+    <p>One core message, two platform formats, one accent + type family. Placeholder backgrounds only — no real images embedded.</p>
+  </div>
+
+  <!-- WeChat 公众号 header · 21:9 -->
+  <div class="cardwrap">
+    <div class="tag"><b>WeChat 公众号</b> &nbsp;·&nbsp; 21:9 banner</div>
+    <div class="wechat">
+      <div class="phbg" aria-hidden="true"></div>
+      <div class="phtag">bg placeholder · 21:9</div>
+      <div class="inner">
+        <div class="kick">Cadence 2026 · a talk</div>
+        <div class="ttl">The Quiet Architecture of Slow Software</div>
+        <div class="sub">A second kind of speed: how fast a tool gets out of your way. Slowness is a design budget, not a defect.</div>
+      </div>
+      <div class="foot">Mara Vint</div>
+    </div>
+  </div>
+
+  <!-- Xiaohongshu 小红书 card · 3:4 -->
+  <div class="cardwrap">
+    <div class="tag"><b>小红书 Xiaohongshu</b> &nbsp;·&nbsp; 3:4 card</div>
+    <div class="xhs">
+      <div class="phbg" aria-hidden="true"></div>
+      <div class="phtag">bg placeholder · 3:4</div>
+      <div class="inner">
+        <div class="kick">Slow software</div>
+        <hr>
+        <div class="ttl">The Quiet Architecture of Slow Software</div>
+        <div class="spacer"></div>
+        <div class="pull">“Slowness is a <em>design budget</em>, not a defect.”</div>
+        <div class="meta">Mara Vint · Cadence 2026 · 6 beats, 9 slides</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disc">Illustrative example — a fictional talk by a fictional speaker. Covers rendered by talk-to-deck's own renderer (workflow-only lift of 歸藏 / op7418/guizang-ppt-skill, AGPL-3.0; no source files copied).</div>
+</body>
+</html>

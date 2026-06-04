@@ -1,0 +1,35 @@
+{
+  "talk": {
+    "title": "The Quiet Architecture of Slow Software",
+    "speaker": "Mara Vint (fictional)",
+    "venue": "Cadence 2026 (fictional craft-in-software conference)",
+    "beats": [
+      "Hook — we measure machine speed (p99 latency) but never the speed at which a tool gets out of your way.",
+      "Claim — 'slow software' is software designed at the pace of understanding; slowness is a design budget, not a defect.",
+      "Three forces push the other way: the demo-driven roadmap, the metric monoculture, the novelty treadmill.",
+      "Worked contrast — a 'fast' tool with 40 unnameable features vs a 'slow' tool with 9 that compose; same job, fewer moves.",
+      "The turn — this is subtraction under constraint, and it is fundable if you can price the surface you didn't cut.",
+      "The ask — budget for refinement, not just features; measure time-to-out-of-the-way."
+    ]
+  },
+  "audience": "Design-literate engineers and EMs at a craft conference; presented live from a laptop in a dark room.",
+  "duration_min": 15,
+  "page_budget": 9,
+  "must_keep": [
+    "slowness is a design budget",
+    "the demo-driven roadmap",
+    "the metric monoculture",
+    "the novelty treadmill",
+    "measure time-to-out-of-the-way"
+  ],
+  "avoid": [
+    "real company names",
+    "real benchmarks or made-up precise metrics presented as real"
+  ],
+  "images": {
+    "supplied": false,
+    "policy": "placeholder blocks; image prompts only; do NOT generate real images"
+  },
+  "theme_hint": "editorial restraint — warm paper + a single ink accent",
+  "source": "fields per op7418/guizang-ppt-skill SKILL.md Step 1 · 需求澄清 (the seven clarification questions: style, audience, duration→pages, materials, images, theme, hard constraints). Talk is fictional; figures illustrative."
+}

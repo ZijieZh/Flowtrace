@@ -1,0 +1,28 @@
+{
+  "phase": "1 - Root Cause Investigation (gather evidence at component boundaries)",
+  "method": "Added boundary instrumentation (console-level, with monotonic-clock timestamps + idempotency key) at each layer, then ran the concurrent repro ONCE and read the interleave.",
+  "boundaries_instrumented": [
+    "handler_entry  (charge_handler received request)",
+    "idem.lookup()  (cache read result: HIT/MISS)",
+    "idem.reserve() (cache write of the in-progress/charged record)",
+    "psp.charge()   (side effect at the payment processor)"
+  ],
+  "interleave_for_ik_3af91c": [
+    { "t_ms": 0.00, "req": "A", "boundary": "handler_entry", "note": "POST /charges idem=ik_3af91c" },
+    { "t_ms": 0.12, "req": "B", "boundary": "handler_entry", "note": "POST /charges idem=ik_3af91c (client retry, A still in flight)" },
+    { "t_ms": 1.40, "req": "A", "boundary": "idem.lookup",   "note": "MISS" },
+    { "t_ms": 1.55, "req": "B", "boundary": "idem.lookup",   "note": "MISS  <-- B reads before A has written" },
+    { "t_ms": 3.10, "req": "A", "boundary": "psp.charge",    "note": "ch_A 201" },
+    { "t_ms": 3.20, "req": "B", "boundary": "psp.charge",    "note": "ch_B 201  <-- DUPLICATE side effect" },
+    { "t_ms": 3.55, "req": "A", "boundary": "idem.reserve",  "note": "INSERT record(ik_3af91c -> ch_A)" },
+    { "t_ms": 3.70, "req": "B", "boundary": "idem.reserve",  "note": "INSERT record(ik_3af91c -> ch_B)  <-- second row written" }
+  ],
+  "where_it_breaks": "Between idem.lookup() and idem.reserve(). Both lookups (t=1.40, 1.55) complete and return MISS BEFORE either reserve() runs (t=3.55, 3.70). The window [lookup .. reserve] is ~2ms wide and is NOT mutually exclusive per key, so two requests both pass the gate.",
+  "layer_verdict": {
+    "handler -> lookup": "ok (data propagates; same key seen)",
+    "lookup -> charge": "BROKEN: the MISS gate is not exclusive; two requests pass it for one key",
+    "reserve -> db": "ok mechanically, but writes a 2nd row because the 1st reserve hadn't happened when B was gated"
+  },
+  "conclusion": "Evidence localizes the failure to the lookup/reserve split in app/payments/idempotency.py. Not the PSP, not Redis, not the handler. Proceed to Phase 2 (compare against a path that gets concurrency right).",
+  "source": "systematic-debugging Phase 1.4 'Gather Evidence in Multi-Component Systems' (log each boundary; run once; see WHERE it breaks)"
+}

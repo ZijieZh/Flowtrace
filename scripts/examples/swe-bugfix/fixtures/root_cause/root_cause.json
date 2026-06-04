@@ -1,0 +1,17 @@
+{
+  "id": "PAY-4815",
+  "root_cause": "Check-then-act (TOCTOU) race in the idempotency layer: IdempotencyStore.lookup() and IdempotencyStore.reserve() are two non-atomic operations with the PSP charge in between, and nothing provides per-key mutual exclusion. Two concurrent requests with the same Idempotency-Key both observe a cache MISS and both proceed to charge.",
+  "source_location": "app/payments/idempotency.py - the lookup() / reserve() split (gate at line 48); idempotency table has an index but NO UNIQUE constraint on idempotency_key.",
+  "symptom": "Two PSP charges for one idempotency key (duplicate customer debit) under concurrency.",
+  "confirmed_by": "Backward trace from the second psp_charge to the missing critical section + a one-variable probe: a per-key lock across lookup+reserve drops the duplicate rate from 74% to 0% with nothing else changed.",
+  "why_intermittent": "The vulnerable window [lookup .. reserve] is ~2ms wide; duplicates require two same-key requests to overlap inside it, which only happens under load (mobile client retries an in-flight request on a 2s timeout).",
+  "not_the_fix": [
+    "PSP-side dedupe / retry handling (treats the symptom; the local race remains and other side effects stay unguarded)",
+    "client-side debounce (cannot guarantee server-side once-only; other clients exist)",
+    "a global/process lock (kills throughput AND is per-process - multiple workers each hold their own, so it does not actually serialize across pods)",
+    "raising cache TTL or moving to Redis (does not make check-and-claim atomic)"
+  ],
+  "correct_fix_shape": "Make check-and-claim a single atomic operation at the shared store (reserve-or-get), backed by a UNIQUE constraint. Detailed in fix_design.",
+  "iron_law_satisfied": true,
+  "source": "systematic-debugging Iron Law ('NO FIXES WITHOUT ROOT CAUSE INVESTIGATION FIRST') + root-cause-tracing.md ('fix at source, not symptom')"
+}

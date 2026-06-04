@@ -1,0 +1,38 @@
+{
+  "subject": "Mira Tan (fictional)",
+  "disclaimer": "Fabricated for illustration; 'known positions' are invented on-record stances from the fictional corpus.",
+  "tested_against": "synthesize/framework.json",
+  "method": "huashu-nuwa Phase 4.1 已知测试 / Sanity Check — run independently of synthesis; direction-match the framework's prediction to the subject's actual on-record stance.",
+  "probes": [
+    {
+      "question": "A team wants to add a third onboarding screen. What does she say?",
+      "framework_prediction": "Subtract before you add + 'name the one job' fire -> she asks what job the third screen does that the first two don't, and cuts it if no one can name it.",
+      "models_used": ["Subtract before you add", "Friction is a feature you didn't choose"],
+      "known_position": "On record (essay 'Counting Taps'): 'A third screen is a third chance to lose someone. Earn it or cut it.'",
+      "verdict": "match",
+      "weight_adjustment": "none — model is load-bearing"
+    },
+    {
+      "question": "Metrics look fine but the team feels the flow is off. Trust the metrics?",
+      "framework_prediction": "Watch the hands fires -> distrust the aggregate, go look at where people hesitate / back out.",
+      "models_used": ["Watch the hands, not the survey"],
+      "known_position": "On record (podcast ep31): 'Don't read me the survey. Show me the hands.'",
+      "verdict": "match",
+      "weight_adjustment": "none"
+    },
+    {
+      "question": "Polish the rough feature before launch, or ship it now?",
+      "framework_prediction": "The second draft fires -> ship the rough version to get real hands on it, fix in v2.",
+      "known_position": "On record: shipped the 'embarrassing' onboarding deliberately.",
+      "verdict": "partial",
+      "note": "Direction right, but the model as stated is more absolute than she is — on record she carves out hard-to-reverse / high-stakes flows where she will NOT ship rough. The framework's 'limit' field already captures this; weight kept, limit emphasized.",
+      "weight_adjustment": "tighten the model's limit note (high-stakes exception), per the Phase 4.1 'real position allowed a middle path' flag"
+    }
+  ],
+  "established_traits_confirmed": [
+    "Cuts un-nameable screens (subtraction + one-job).",
+    "Trusts observed behavior over self-report.",
+    "Ships to learn — but not on irreversible flows."
+  ],
+  "source": "huashu-nuwa Phase 4.1; these are the on-record traits the persona may assert with confidence (not hedged)."
+}

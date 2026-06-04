@@ -1,0 +1,33 @@
+{
+  "gate": "verification-before-completion: NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE",
+  "why_rerun": "code_review applied two fixes (return-original-charge assertion; crashed-owner timeout). The earlier green from implement_tdd is now STALE; re-verify fresh.",
+  "steps": [
+    {
+      "gate_step": "IDENTIFY",
+      "what_proves_it": "full pytest suite (no regressions) + the concurrency regression test + a red-green revert check"
+    },
+    {
+      "gate_step": "RUN + READ (fresh, full)",
+      "command": "pytest -q",
+      "output": "215 passed in 18.74s",
+      "exit_code": 0,
+      "note": "212 + return-original-charge test + crashed-owner test = 215"
+    },
+    {
+      "gate_step": "RED-GREEN revert proof",
+      "procedure": "git stash the source fix in idempotency.py/charge_handler.py -> run regression test -> MUST FAIL -> restore -> run -> MUST PASS",
+      "reverted_run": "FAILED test_concurrent_same_key_charges_once: expected 1 charge, got 6  (proves the test actually catches the bug)",
+      "restored_run": "1 passed",
+      "verified": true
+    }
+  ],
+  "requirements_checklist": [
+    { "requirement": "no double-charging under concurrency", "evidence": "50 concurrent same-key -> exactly 1 PSP charge; load probe 0% duplicates at concurrency 8 & 16", "met": true },
+    { "requirement": "retried request returns the ORIGINAL charge", "evidence": "all 50 responses carry the identical charge id (the owner's)", "met": true },
+    { "requirement": "holds under concurrency, not just happy path", "evidence": "regression test is concurrent by construction; red-green revert proves it", "met": true },
+    { "requirement": "no new regressions", "evidence": "215/215 suite green, 0 warnings", "met": true },
+    { "requirement": "crashed owner does not hang the retry", "evidence": "bounded-deadline test passes; stale in_progress reclaimable", "met": true }
+  ],
+  "claim": "Verified: bug fixed, zero regressions, all requirements met - stated WITH fresh evidence, not assertion.",
+  "source": "verification-before-completion Gate Function + 'Regression tests (TDD Red-Green)' revert pattern"
+}

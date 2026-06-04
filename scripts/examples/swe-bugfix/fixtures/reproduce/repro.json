@@ -1,0 +1,23 @@
+{
+  "phase": "1 - Root Cause Investigation (reproduce consistently)",
+  "error_read_carefully": "Both racing requests emit 'cache MISS for ik_3af91c' at app/payments/idempotency.py:48 BEFORE either writes a record. The duplicate is not random: it is fully determined by whether request B's lookup() runs before request A's reserve() write.",
+  "repro_recipe": {
+    "harness": "tests/load/test_idempotency_race.py (new)",
+    "method": "Fire N concurrent POST /charges with one shared Idempotency-Key inside a time window W; count distinct psp_charge ids the fake PSP receives.",
+    "fake_psp": "records every (idempotency_key -> charge_id); asserting len==1 means no duplicate."
+  },
+  "results": [
+    { "concurrency": 1, "window_ms": 0,   "runs": 200, "duplicate_rate": "0%" },
+    { "concurrency": 2, "window_ms": 300, "runs": 200, "duplicate_rate": "0%" },
+    { "concurrency": 2, "window_ms": 40,  "runs": 200, "duplicate_rate": "31%" },
+    { "concurrency": 8, "window_ms": 20,  "runs": 200, "duplicate_rate": "74%" },
+    { "concurrency": 16,"window_ms": 10,  "runs": 200, "duplicate_rate": "92%" }
+  ],
+  "boundary_conditions": {
+    "safe": "serial, or same-key requests spaced > 250ms apart",
+    "fails": "two-or-more same-key requests overlapping within ~50ms; duplicate rate rises with concurrency and shrinks with window"
+  },
+  "now_reliably_reproducible": true,
+  "verdict": "Reproduction is deterministic at concurrency>=8/window<=20ms. The intermittent production bug is a load-dependent race, not data corruption. Proceed to evidence gathering.",
+  "source": "systematic-debugging Phase 1.2 'Reproduce Consistently' (if not reproducible -> gather more data, don't guess)"
+}

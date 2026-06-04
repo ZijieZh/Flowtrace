@@ -1,0 +1,24 @@
+{
+  "tool": "crypto-audit",
+  "target": "internal/webhooks/stripe.go",
+  "checks": ["weak-hash", "insecure-cipher-mode", "hardcoded-key", "weak-kdf", "rng", "constant-time-compare", "tls-config"],
+  "summary": { "critical": 0, "high": 1, "medium": 0, "false_positive_rate": "<10%" },
+  "findings": [
+    {
+      "id": "F-CRY-001",
+      "category": "timing-unsafe-compare",
+      "file": "internal/webhooks/stripe.go:96",
+      "code": "if computedMAC == headerMAC { /* accept event */ }",
+      "detail": "The webhook compares the computed HMAC-SHA256 to the attacker-supplied Stripe-Signature value with Go's built-in `==` on the hex strings. `==` short-circuits on the first differing byte, so comparison time leaks how many leading bytes match — a classic timing oracle for forging a valid signature byte by byte.",
+      "cwe": ["CWE-208", "CWE-347"],
+      "severity": "High",
+      "remediation": "Compare with crypto/subtle.ConstantTimeCompare (or hmac.Equal), which runs in time independent of the data.",
+      "chains_with": "F-SEC-001",
+      "chain_note": "With the signing secret already leaked (F-SEC-001), the attacker does not even need the oracle — but the timing-unsafe compare is independently exploitable and is the code-level defect to fix.",
+      "blocking_candidate": true,
+      "source": "performing-cryptographic-audit-of-application (Cryptographic Weakness Categories; Objectives: validate comparison/RNG)"
+    }
+  ],
+  "also_checked_clean": ["HMAC algorithm is SHA-256 (ok)", "TLS 1.2+ enforced at ALB (ok)", "no ECB/DES/MD5 on this path"],
+  "source": "performing-cryptographic-audit-of-application"
+}

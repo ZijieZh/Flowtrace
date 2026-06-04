@@ -1,0 +1,62 @@
+{
+  "week": 7,
+  "binding_constraint": "Hero-video creative fatigue in Meta prospecting",
+  "memory_read_first": true,
+  "memory_entries_applied": [
+    "wk2: long-story video beats short hooks ~1.8x — do NOT re-test short punchy hooks",
+    "wk5: free-shipping framing > %-off framing (+11% CVR) — %-off retired",
+    "wk6: static before/after sleep-score creative is fatigue-resistant; refresh hero video ~every 4 weeks",
+    "wk4: gift-intent is highest-LTV; quiz funnel converts them ~2x PDP",
+    "wk3: Wednesday 9am ET is the best launch slot"
+  ],
+  "candidates": [
+    {
+      "id": "H1",
+      "hypothesis": "Because the hero video is fatigued (CTR -50% at freq 4.8) and memory wk6 says refresh every ~4 weeks (we are at 5) AND that the static 'before/after sleep-score' is our fatigue-resistant winner, we believe shipping a NEW long-story video built on the before/after sleep-score structure will lift prospecting CTR back toward 1.3%+ and cut prospecting CPA for the LAL-1% audience. We'll know when prospecting CTR and CPA recover at 95% confidence.",
+      "leans_on_memory": ["wk6 (refresh cadence + before/after is the durable pattern)", "wk2 (long-story format, not short hooks)"],
+      "ice": { "impact": 9, "confidence": 8, "ease": 7, "score": 8.0 },
+      "confidence_basis": "Two settled learnings point the same way; this is not a guess — it is the brand's proven pattern applied to the binding constraint.",
+      "rank": 1
+    },
+    {
+      "id": "H2",
+      "hypothesis": "Because frequency is +55% (4.8) and LAL-3% ROAS fell to 1.9x, we believe a frequency cap (~3/wk) plus reallocating LAL-3% budget into LAL-1% will reduce wasted impressions and lower blended CPA, without losing reach we value. We'll know when prospecting frequency and CPA fall while purchase volume holds.",
+      "leans_on_memory": ["wk4 (concentrate on the high-LTV seed)"],
+      "ice": { "impact": 6, "confidence": 7, "ease": 9, "score": 7.3 },
+      "confidence_basis": "Settings change, very low effort; supports H1 by relieving delivery pressure. Good co-ship.",
+      "rank": 2
+    },
+    {
+      "id": "H3",
+      "hypothesis": "Because gift-intent converts ~2x on the quiz funnel (memory wk4), we believe routing more gift-intent prospecting traffic to the quiz funnel instead of the PDP will lift blended CVR. We'll know when quiz-funnel share of gift-intent sessions rises and blended CVR improves.",
+      "leans_on_memory": ["wk4 (quiz funnel converts gift-intent ~2x PDP)"],
+      "ice": { "impact": 7, "confidence": 7, "ease": 5, "score": 6.3 },
+      "confidence_basis": "Strong logic, but a routing/UTM change that confounds with H1 if shipped same week; park for week 8.",
+      "rank": 3
+    }
+  ],
+  "explicitly_pruned": [
+    {
+      "candidate": "Re-test short, punchy hook videos to win back CTR",
+      "ruled_out_by": "memory wk2 — long-story video beats short hooks ~1.8x for this audience",
+      "note": "Generic playbooks reach for snappy hooks when CTR drops; this brand has already proven that loses. Skipped."
+    },
+    {
+      "candidate": "Run a 15-20% off sale to match Competitor A / Competitor B",
+      "ruled_out_by": "memory wk5 — free-shipping framing beat %-off (+11% CVR); %-off retired",
+      "note": "Do not chase a competitor discount war the brand already tested its way out of. Skipped."
+    },
+    {
+      "candidate": "Double down on the hot-sleeper / cooling angle to defend it",
+      "ruled_out_by": "problem_tree — seasonal + contested + transient; not the binding constraint",
+      "note": "Reinforced by the audience diagnosis (seasonal JTBD trough). Skipped to avoid a local-optimum chase."
+    }
+  ],
+  "recommendation": {
+    "ship_now": ["H1", "H2"],
+    "rationale": "H1 attacks the binding constraint with the brand's proven creative pattern; H2 is a near-free delivery fix that amplifies H1. Both isolate cleanly (one is creative, one is a delivery setting). H3 parked for week 8 to avoid confounding.",
+    "launch_slot": "Wednesday 9am ET (memory wk3)"
+  },
+  "grow_note": "Compare to a generic week-1 output ('try new creative; consider a sale; test shorter hooks'). Week 7's hypothesis is brand-specific: it names the exact winning creative pattern, refuses the sale and the short-hook reflex by citing the weeks that settled them, and schedules to the proven slot. That delta IS the playbook compounding.",
+  "source": "ab-testing / Hypothesis Framework + ICE + Hypothesis Generation; product-marketing / context-doc read-first"
+}

@@ -1,0 +1,173 @@
+{
+  "id": "distill-mind",
+  "title": "Distill a Mind into a Skill",
+  "description": "Distill how one thinker reasons — their mental models, decision heuristics, and expression DNA — into a runnable persona skill. A faithful lift of the '女娲 · Skill造人术' (huashu-nuwa) skill from alchaincyf/nuwa-skill (MIT): the source's pipeline becomes the DAG. One intake frames the persona brief; six research lanes then fan out IN PARALLEL — the skill's Phase 1 Agent swarm across the six fixed dimensions (writings, conversations, expression-DNA, external views, decisions, timeline) that each write 01-06; a verification node cross-checks them (the skill's Phase 1.5 review + the extraction-framework's triple test: cross-domain recurrence, generativity, exclusivity); a synthesis node integrates the survivors into the persona's models, heuristics, voice, values, tensions, and honest boundary (Phase 2); two validation lanes then split the skill's Phase 4 — a sanity check on KNOWN public positions versus an edge-case check on NEWLY-DERIVED inferences (which must hedge); and a final build assembles the runnable persona SKILL.md from the skill-template (Phase 3). The knowledge is in the arrows: a single 'be more like X' prompt collapses these stages — this trace pulls them back apart. ⚠️ Illustrative: the demo run distills a FICTIONAL figure ('Mira Tan') from invented source material — not a real person and not a real persona.",
+  "version": "0.1.0",
+  "steps": {
+    "intake": {
+      "name": "Persona Intake",
+      "does": "Frame the brief: who is being distilled, the focus dimension, the intended use, and whether local corpus is provided.",
+      "from_inputs": [
+        "request"
+      ],
+      "from_steps": [],
+      "assets": [
+        "persona_brief.json"
+      ],
+      "asset_title": "Persona Brief"
+    },
+    "research_1": {
+      "name": "Research — Writings",
+      "does": "Mine books, long-form essays, and papers for the core claims repeated ≥3 times (true beliefs), coined terms, and reading lists.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "01-writings.json"
+      ],
+      "asset_title": "Writings Research"
+    },
+    "research_2": {
+      "name": "Research — Conversations",
+      "does": "Mine long interviews, podcasts, and AMAs for how the subject answers when pushed, improvised analogies, and position shifts.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "02-conversations.json"
+      ],
+      "asset_title": "Conversations Research"
+    },
+    "research_3": {
+      "name": "Research — Expression DNA",
+      "does": "Mine short-form posts and talks for sentence fingerprint, signature vocabulary, taboo words, humor, and certainty register.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "03-expression-dna.json"
+      ],
+      "asset_title": "Expression DNA Research"
+    },
+    "research_4": {
+      "name": "Research — External Views",
+      "does": "Mine others' analyses, reviews, and critiques for externally observed patterns, the real criticisms, and peer contrast.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "04-external-views.json"
+      ],
+      "asset_title": "External Views Research"
+    },
+    "research_5": {
+      "name": "Research — Decisions",
+      "does": "Mine major decisions and turning points for the actual logic, hindsight reflection, and say/do (in)consistency.",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "05-decisions.json"
+      ],
+      "asset_title": "Decisions Research"
+    },
+    "research_6": {
+      "name": "Research — Timeline",
+      "does": "Build the timeline from start to now: milestones, inflection points, and the most recent twelve months (anti-staleness).",
+      "from_inputs": [],
+      "from_steps": [
+        "intake"
+      ],
+      "assets": [
+        "06-timeline.json"
+      ],
+      "asset_title": "Timeline Research"
+    },
+    "triple_verify": {
+      "name": "Triple-Verify Research",
+      "does": "Cross-check the six lanes; run each candidate claim through the triple test (cross-domain recurrence, generativity, exclusivity); keep contradictions.",
+      "from_inputs": [],
+      "from_steps": [
+        "research_1",
+        "research_2",
+        "research_3",
+        "research_4",
+        "research_5",
+        "research_6"
+      ],
+      "assets": [
+        "verification.json"
+      ],
+      "asset_title": "Verification Report"
+    },
+    "synthesize": {
+      "name": "Synthesize the Framework",
+      "does": "Integrate the survivors into mental models, decision heuristics, expression DNA, values & anti-patterns, inner tensions, lineage, and the honest boundary.",
+      "from_inputs": [],
+      "from_steps": [
+        "triple_verify"
+      ],
+      "assets": [
+        "framework.json"
+      ],
+      "asset_title": "Distilled Framework"
+    },
+    "known_traits": {
+      "name": "Sanity Check — Known Positions",
+      "does": "Replay the framework against positions the subject has stated publicly; direction-match each. Established, on-record traits.",
+      "from_inputs": [],
+      "from_steps": [
+        "synthesize"
+      ],
+      "assets": [
+        "known_traits.json"
+      ],
+      "asset_title": "Known-Position Sanity Check"
+    },
+    "novel_inferences": {
+      "name": "Edge Case — Novel Inferences",
+      "does": "Apply the framework to questions the subject never addressed; derive a hedged inference per model. Newly-derived, must not be stated as fact.",
+      "from_inputs": [],
+      "from_steps": [
+        "synthesize"
+      ],
+      "assets": [
+        "novel_inferences.json"
+      ],
+      "asset_title": "Edge-Case Inferences"
+    },
+    "persona_skill": {
+      "name": "Build the Persona Skill",
+      "does": "Assemble the runnable persona SKILL.md from the template: role rules, models, heuristics, voice, timeline, values, lineage, and honest boundary.",
+      "from_inputs": [],
+      "from_steps": [
+        "synthesize",
+        "known_traits",
+        "novel_inferences"
+      ],
+      "assets": [
+        "SKILL.md"
+      ],
+      "asset_title": "Persona Skill (runnable)"
+    }
+  },
+  "deliverable": {
+    "description": "A runnable persona skill (SKILL.md) that reasons in the subject's voice — mental models, decision heuristics, and expression DNA — backed by the distilled framework, the triple-verification report that decided which claims survived, and the two-sided validation (known on-record positions vs hedged novel inferences). Illustrative: the demo distills a FICTIONAL figure from invented source material.",
+    "assets": [
+      "persona_skill/SKILL.md",
+      "synthesize/framework.json",
+      "triple_verify/verification.json",
+      "known_traits/known_traits.json",
+      "novel_inferences/novel_inferences.json"
+    ]
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "style": "A",
+  "library": "references/layouts.md (Style-A 页面布局库, 10 registered layouts)",
+  "slides": [
+    {
+      "n": 1, "layout": "开场封面 (Hero Cover)",
+      "slots": {
+        "title": "The Quiet Architecture of Slow Software",
+        "subtitle": "There is a second kind of speed — the speed at which a tool gets out of your way.",
+        "meta": "Mara Vint · Cadence 2026"
+      },
+      "image_slot": { "id": "01-hero", "aspect": "16:9" }
+    },
+    {
+      "n": 2, "layout": "左文右图 (Quote + Image)",
+      "slots": {
+        "kicker": "The hook",
+        "headline": "We measure the machine. We never measure the person.",
+        "body": "We tune p99 latency to the millisecond and ship it. The p99 of a human's attention — the tax a tool charges just to be used — goes unlogged. Two kinds of speed; we only instrument one."
+      },
+      "image_slot": { "id": "02-side", "aspect": "4:3" }
+    },
+    {
+      "n": 3, "layout": "大引用页 (Big Quote)",
+      "slots": {
+        "quote": "Slowness is a design budget, not a defect.",
+        "attribution": "Software designed at the pace of understanding: fewer surfaces, durable defaults, decisions made once and remembered."
+      },
+      "image_slot": null
+    },
+    {
+      "n": 4, "layout": "图文混排 (Lead Image + Side Text)",
+      "slots": {
+        "kicker": "The counter-current",
+        "headline": "Three forces push teams the other way.",
+        "body": "None of them is stupidity. Each is a rational response to how software gets funded and judged — which is exactly why they're hard to resist."
+      },
+      "image_slot": { "id": "04-lead", "aspect": "16:9" }
+    },
+    {
+      "n": 5, "layout": "数据大字报 (Big Numbers Grid)",
+      "slots": {
+        "kicker": "A worked contrast (illustrative)",
+        "stats": [
+          { "value": "40", "label": "features in the 'fast' tool nobody can name" },
+          { "value": "9", "label": "features in the 'slow' tool that compose" },
+          { "value": "fewer", "label": "moves to finish the same job" }
+        ],
+        "note": "Same job. The slow tool wins not by speed but by subtraction. (Numbers illustrative.)"
+      },
+      "image_slot": null
+    },
+    {
+      "n": 6, "layout": "两列流水线 (Pipeline)",
+      "slots": {
+        "kicker": "The three forces, named",
+        "steps": [
+          { "title": "the demo-driven roadmap", "body": "You build what shows well in a 30-second clip." },
+          { "title": "the metric monoculture",  "body": "Only what is logged is treated as real." },
+          { "title": "the novelty treadmill",   "body": "A redesign is easier to fund than a refinement." }
+        ]
+      },
+      "image_slot": null
+    },
+    {
+      "n": 7, "layout": "并列对比 (Before / After)",
+      "slots": {
+        "kicker": "The turn",
+        "left":  { "label": "Not this", "text": "Nostalgia. 'Software used to be better.'" },
+        "right": { "label": "This",     "text": "Subtraction under constraint — and it is fundable if you can price the surface you didn't cut." }
+      },
+      "image_slot": null
+    },
+    {
+      "n": 8, "layout": "左文右图 (Quote + Image)",
+      "slots": {
+        "kicker": "The ask",
+        "headline": "Measure time-to-out-of-the-way.",
+        "body": "Budget for refinement, not just features. Treat the interface a person didn't have to learn as the achievement — and put a number on it."
+      },
+      "image_slot": { "id": "08-side", "aspect": "4:3" }
+    },
+    {
+      "n": 9, "layout": "悬念收束 (Hero Question)",
+      "slots": {
+        "question": "What did your users not have to learn today?",
+        "meta": "The Quiet Architecture of Slow Software · Mara Vint · Cadence 2026"
+      },
+      "image_slot": { "id": "09-hero", "aspect": "16:9" }
+    }
+  ],
+  "registry_note": "Every layout above is one of the style's 10 registered Style-A layouts — no invented structures, per Step 3.1 挑布局.",
+  "source": "bindings per op7418/guizang-ppt-skill SKILL.md Step 3.1 · 挑布局 + references/layouts.md (开场封面 / 左文右图 / 大引用页 / 图文混排 / 数据大字报 / 两列流水线 / 并列对比 / 悬念收束)."
+}

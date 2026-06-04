@@ -1,0 +1,37 @@
+{
+  "process": "finishing-a-development-branch: Verify tests -> Detect environment -> Present options -> Execute choice -> Clean up",
+  "tests_verified_first": {
+    "carried_from": "verify_completion/verification.json",
+    "result": "215/215 green",
+    "gate": "do not present options until tests pass (they do)"
+  },
+  "environment": "named feature branch in a normal repo (not detached HEAD)",
+  "options_presented": [
+    "1. Merge back to main locally",
+    "2. Push and create a Pull Request",
+    "3. Keep the branch as-is",
+    "4. Discard this work"
+  ],
+  "chosen": "2. Push and create a Pull Request",
+  "branch": "fix/PAY-4815-idempotency-race",
+  "worktree": "preserved (Options 2 and 3 never clean up - needed for PR iteration)",
+  "pr": {
+    "title": "fix(payments): eliminate duplicate-charge race in idempotency layer (PAY-4815)",
+    "body": {
+      "summary": [
+        "Root cause: check-then-act TOCTOU race - lookup()+reserve() were not atomic and lacked per-key mutual exclusion, so concurrent same-key requests both MISSed and both charged.",
+        "Fix: atomic reserve-or-get (INSERT ... ON CONFLICT (idempotency_key) DO NOTHING RETURNING); only the winner charges, losers return the original charge.",
+        "Defense-in-depth: L1 header validation, L2 atomic claim, L3 UNIQUE(idempotency_key), L4 per-key boundary log.",
+        "Review fixes: assert non-owner returns original charge id; bounded-deadline wait so a crashed owner can't hang the retry."
+      ],
+      "test_plan": [
+        "[x] tests/load/test_idempotency_race.py: 50 concurrent same-key -> exactly 1 PSP charge; all responses share one charge id",
+        "[x] crashed-owner path: bounded wait, stale in_progress reclaimable",
+        "[x] red-green revert proof recorded",
+        "[x] full suite 215/215, 0 warnings"
+      ]
+    }
+  },
+  "next": "writing_skills (distill the reusable lesson now that the work is shipping)",
+  "source": "finishing-a-development-branch (verify tests -> 4-option menu -> push+PR with Summary/Test Plan)"
+}

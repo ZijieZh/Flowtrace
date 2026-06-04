@@ -1,0 +1,37 @@
+{
+  "deal": "Project Loom",
+  "target": "Acme RevOps, Inc.",
+  "acquirer": "Meridian Growth Partners",
+  "structure": "100% equity, cash-and-stock, control acquisition (platform extension)",
+  "ic_question": "Go / no-go on acquiring Acme RevOps, and at what price?",
+  "asking_price_usd_m": 336.0,
+  "asking_multiple_arr": 8.0,
+  "headline_metrics": {
+    "arr_usd_m": 42.0,
+    "yoy_growth_pct": 38,
+    "nrr_pct": 109,
+    "grr_pct": 88,
+    "gross_margin_pct": 74,
+    "burn_multiple": 1.8,
+    "eu_revenue_pct": 31
+  },
+  "constraints": {
+    "hurdle_irr_pct": 20,
+    "max_check_usd_m": 300.0,
+    "exclusivity": "decision required before window closes"
+  },
+  "known_hairs": [
+    "SOC 2 Type II carries one exception: access-review control skipped a quarter in the observation period",
+    "EU data flows to two subprocessors with no DPA on file",
+    "AI auto-sequencing feature processes EU personal data (training + inference)"
+  ],
+  "diligence_scope": {
+    "ingest_financials": "P&L, ARR bridge, unit economics, burn, cohort retention",
+    "ingest_product": "architecture, stack, tech-debt, security posture, AI feature",
+    "ingest_market": "TAM/segment, competition, pipeline, ICP fit, expansion motion",
+    "ingest_legal": "cap table, contracts, IP assignment, data/privacy, certifications"
+  },
+  "lenses_required": ["CFO", "CEO", "CTO", "CRO", "GC"],
+  "decision_rule": "Five lenses run in parallel (no cross-pollination); two-sided thesis before valuation; compliance gate may veto.",
+  "source": "intake framing per ceo-advisor Go/No-Go decision framework + business-investment-advisor 'Before Starting' scoping"
+}

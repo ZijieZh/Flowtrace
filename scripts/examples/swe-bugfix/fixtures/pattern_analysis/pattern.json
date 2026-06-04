@@ -1,0 +1,40 @@
+{
+  "phase": "2 - Pattern Analysis (find working example, compare, list every difference)",
+  "working_example": {
+    "file": "app/inventory/reservation.py:71 reserve_stock()",
+    "why_it_works": "Reserves stock correctly under concurrency: a single atomic statement `INSERT INTO stock_reservation (sku, order_id) VALUES (...) ON CONFLICT (sku, order_id) DO NOTHING RETURNING id`. The DB serializes concurrent inserts on the unique key; the loser's insert no-ops and the code reads the existing row. There is NO read-then-write gap.",
+    "concurrency_test": "tests/inventory/test_reservation_race.py already fires 32 concurrent reservations and asserts exactly one."
+  },
+  "reference": {
+    "name": "PSP idempotency guidance + Postgres ON CONFLICT docs",
+    "key_point": "An idempotency key must be RESERVED ATOMICALLY before the side effect, not merely looked up. 'Check then act' on a key is a textbook TOCTOU race."
+  },
+  "differences": [
+    {
+      "aspect": "atomicity of the gate",
+      "inventory_working": "single atomic INSERT ... ON CONFLICT (key) DO NOTHING RETURNING",
+      "idempotency_broken": "two separate ops: lookup() SELECT, then later reserve() INSERT, with PSP charge in between",
+      "load_bearing": true
+    },
+    {
+      "aspect": "per-key mutual exclusion",
+      "inventory_working": "DB unique-key insert provides it for free",
+      "idempotency_broken": "NONE - nothing serializes two requests with the same key",
+      "load_bearing": true
+    },
+    {
+      "aspect": "uniqueness constraint",
+      "inventory_working": "UNIQUE (sku, order_id) present",
+      "idempotency_broken": "idempotency table has an INDEX on idempotency_key but NO UNIQUE constraint -> a second row can be written",
+      "load_bearing": false
+    },
+    {
+      "aspect": "side effect ordering",
+      "inventory_working": "reservation row committed before any downstream effect",
+      "idempotency_broken": "PSP charge happens BEFORE reserve() writes the row",
+      "load_bearing": true
+    }
+  ],
+  "suspected_load_bearing_difference": "idempotency.py does check-then-act (lookup then reserve) with no per-key critical section, where the working inventory path uses one atomic reserve-or-get. Everything else is downstream of that.",
+  "source": "systematic-debugging Phase 2 'Find Working Examples' / 'Identify Differences' (list every difference, don't assume it can't matter)"
+}

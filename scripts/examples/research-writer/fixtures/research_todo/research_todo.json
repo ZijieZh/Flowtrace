@@ -1,0 +1,15 @@
+{
+  "framing_ref": "understand_project/project.json",
+  "audience_note": "Claims chosen for a VC reader: market size, funding flows, incumbent response, unit economics, and the 'replace SaaS seats' thesis must be sourced or killed — not asserted.",
+  "todos": [
+    { "id": "rt1", "claim": "Enterprise agent spending is crossing from pilot budgets into production line items in 2026", "evidence_needed": "market_data", "feeds_section": "s1", "status": "open" },
+    { "id": "rt2", "claim": "The agent / orchestration layer is attracting outsized venture funding vs. raw model bets", "evidence_needed": "market_data", "feeds_section": "s2", "status": "open" },
+    { "id": "rt3", "claim": "Foundation models are commoditizing — price-per-token has collapsed, so margin moves up the stack", "evidence_needed": "market_data", "feeds_section": "s2", "status": "open" },
+    { "id": "rt4", "claim": "Reliability, not capability, is the binding constraint — multi-step agent task success is still the gating metric", "evidence_needed": "stat", "feeds_section": "s3", "status": "open" },
+    { "id": "rt5", "claim": "A named enterprise is running agents in production with a quantified outcome (the proof-point example)", "evidence_needed": "example", "feeds_section": "s3", "status": "open" },
+    { "id": "rt6", "claim": "Incumbent SaaS vendors are repricing toward outcome/agent-based pricing in response", "evidence_needed": "example", "feeds_section": "s4", "status": "open" },
+    { "id": "rt7", "claim": "The 'agents replace SaaS seats' thesis — pressure-test it; is it real or vaporware?", "evidence_needed": "quote", "feeds_section": "s4", "status": "open" },
+    { "id": "rt8", "claim": "Where the defensible moat sits in the stack (the investable layer)", "evidence_needed": "quote", "feeds_section": "s5", "status": "open" }
+  ],
+  "source": "content-research-writer step 2 — Research To-Do subsection (Find data / Get examples / Source citation, one per load-bearing claim)"
+}

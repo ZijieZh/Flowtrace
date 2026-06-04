@@ -1,0 +1,133 @@
+{
+  "id": "security-cicd",
+  "title": "Security CI/CD Pipeline — PR Gate (red + blue, MITRE-aligned)",
+  "description": "An AppSec / DevSecOps pull-request gate, built as a faithful lift of skills from mukul975/Anthropic-Cybersecurity-Skills (Apache-2.0). The 'Anthropic' in that repo name is the maintainer's naming, not an official Anthropic repo. Each node lifts a specific source SKILL.md (cited in its STEP.md): the on-PR scan fan-out and security gate from implementing-devsecops-security-scanning; the six scans from implementing-semgrep-for-custom-sast-rules (SAST), performing-sca-dependency-scanning-with-snyk (SCA), implementing-secret-scanning-with-gitleaks (secrets), exploiting-sql-injection-vulnerabilities (variant/taint), performing-cryptographic-audit-of-application (crypto/timing), implementing-fuzz-testing-in-cicd-with-aflplusplus (mutation); triage from prioritizing-vulnerabilities-with-cvss-scoring + performing-cve-prioritization-with-kev-catalog + implementing-epss-score-for-vulnerability-prioritization; red-team from executing-red-team-exercise + performing-threat-emulation-with-atomic-red-team; blue-team from building-detection-rules-with-sigma + performing-yara-rule-development-for-detection; threat intel from analyzing-apt-group-with-mitre-navigator. The knowledge is in the arrows: six scans run in parallel, then triage dedups before red-team — running PoC validation on un-deduped findings wastes ~90% of cycles on false positives — so red-team emulation goes AFTER triage; blue-team synthesizes detections from the same triaged set in parallel with red-team; and the severity gate decides block/allow from the COMBINED red+blue result (confirmed-exploitable + detection coverage), never from any single tool's severity.",
+  "version": "0.1.0",
+  "steps": {
+    "intake": {
+      "name": "Intake PR",
+      "does": "Parse the pull-request diff and the dependency manifest into a scan target: changed files, the new endpoint/handler, the dependency bump, languages, and the commit range. This is the on-PR trigger that fans out to the six scanners.",
+      "from_inputs": ["pr_diff", "dependency_manifest"],
+      "from_steps": [],
+      "assets": ["scan_target.json"],
+      "asset_title": "Scan Target"
+    },
+    "threat_intel": {
+      "name": "Threat Intel Feed",
+      "does": "Pull the relevant ATT&CK technique set and advisory/KEV/EPSS feed for this stack (payment webhook handler): which techniques an adversary would chain against these weakness classes, and which advisories touch the bumped dependency.",
+      "from_inputs": ["attack_feed"],
+      "from_steps": [],
+      "assets": ["threat_intel.json"],
+      "asset_title": "ATT&CK / Advisory Feed"
+    },
+    "scan_sast": {
+      "name": "SAST (Semgrep)",
+      "does": "Run static analysis with security-audit + owasp-top-ten + custom org rules over the changed code. Emit SARIF-style findings with CWE/OWASP metadata and ERROR-severity gating candidates.",
+      "from_inputs": [],
+      "from_steps": ["intake"],
+      "assets": ["sast.json"],
+      "asset_title": "SAST Findings"
+    },
+    "scan_sca": {
+      "name": "SCA (Snyk / dependency scan)",
+      "does": "Software Composition Analysis over the manifest + lockfile. Resolve direct vs transitive, match against the vuln database, record CVE, CVSS, exploit maturity, reachability, and whether a fix exists.",
+      "from_inputs": [],
+      "from_steps": ["intake"],
+      "assets": ["sca.json"],
+      "asset_title": "SCA Findings"
+    },
+    "scan_secrets": {
+      "name": "Secret Scan (Gitleaks)",
+      "does": "Scan the PR commit range and diff for hardcoded credentials, keys, and tokens using default + custom org rules. Record rule, file:line, entropy, and whether the finding is new vs baseline.",
+      "from_inputs": [],
+      "from_steps": ["intake"],
+      "assets": ["secrets.json"],
+      "asset_title": "Secret Findings"
+    },
+    "scan_variant": {
+      "name": "Variant Analysis (taint)",
+      "does": "Taint-track the user-controlled sources flagged by SAST to every reachable sink to find sibling injection variants the single-pattern rule missed (e.g. the same tainted value flowing into a second query / a log sink).",
+      "from_inputs": [],
+      "from_steps": ["intake"],
+      "assets": ["variant.json"],
+      "asset_title": "Injection Variants"
+    },
+    "scan_crypto_timing": {
+      "name": "Crypto / Timing Audit",
+      "does": "Audit the cryptographic primitives the new handler uses: hashing/signature algorithms, cipher modes, key handling, and — critically — whether the HMAC/signature comparison is constant-time. Flags timing-unsafe compares and weak algorithms with CWE + remediation.",
+      "from_inputs": [],
+      "from_steps": ["intake"],
+      "assets": ["crypto_timing.json"],
+      "asset_title": "Crypto / Timing Findings"
+    },
+    "scan_mutation": {
+      "name": "Mutation / Fuzz",
+      "does": "Coverage-guided fuzzing of the new parser (the signature-header decoder) under ASan, seeded from valid inputs. Record crashes, the crashing input class, and the memory-safety CWE.",
+      "from_inputs": [],
+      "from_steps": ["intake"],
+      "assets": ["mutation.json"],
+      "asset_title": "Fuzzing Crashes"
+    },
+    "triage": {
+      "name": "Triage (dedup + CVSS/EPSS/KEV)",
+      "does": "Fan in all six scans. Deduplicate findings that share a root cause (the SAST SQLi and the taint variant are one tainted source), then score each surviving finding with CVSS v4.0, enrich with EPSS + CISA KEV, and assign a P-level + remediation SLA. This is what makes red-team cheap: PoC validation runs on the deduped set, not raw scanner output.",
+      "from_inputs": [],
+      "from_steps": ["scan_sast", "scan_sca", "scan_secrets", "scan_variant", "scan_crypto_timing", "scan_mutation"],
+      "assets": ["triage.json"],
+      "asset_title": "Triaged & Scored Findings"
+    },
+    "red_team": {
+      "name": "Red Team (ATT&CK emulation)",
+      "does": "Run authorized adversary emulation / PoC validation against the DEDUPED findings only, chaining them into an attack path and mapping each step to an ATT&CK technique. Marks each finding confirmed-exploitable or not-reproducible, with the chained business impact.",
+      "from_inputs": [],
+      "from_steps": ["triage", "threat_intel"],
+      "assets": ["red_team.json"],
+      "asset_title": "Exploitation / ATT&CK Result"
+    },
+    "blue_team": {
+      "name": "Blue Team (Sigma + YARA)",
+      "does": "Synthesize detection-as-code from the same triaged findings (purple-team output): Sigma rules for the exploitation behavior and a YARA rule for the secret/artifact, each mapped to its ATT&CK technique, so the gap the scan found also gets monitored.",
+      "from_inputs": [],
+      "from_steps": ["triage"],
+      "assets": ["detections.json"],
+      "asset_title": "Detection Rules (Sigma + YARA)"
+    },
+    "severity_gate": {
+      "name": "Severity Gate",
+      "does": "Compute the PR block/allow decision from the COMBINED red+blue result: any finding that is both High+ (triage CVSS) AND confirmed-exploitable (red-team) blocks; detection coverage (blue-team) is recorded as a compensating control but does not by itself unblock. Emits the gate decision.",
+      "from_inputs": [],
+      "from_steps": ["red_team", "blue_team"],
+      "assets": ["gate_decision.json"],
+      "asset_title": "Gate Decision"
+    },
+    "pr_comment": {
+      "name": "PR Comment",
+      "does": "Render the gate decision as the comment posted back on the pull request: the verdict, the blocking findings with fix guidance, and the deployed detections — what a developer sees on the PR.",
+      "from_inputs": [],
+      "from_steps": ["severity_gate"],
+      "assets": ["pr_comment.md"],
+      "asset_title": "PR Comment"
+    },
+    "posture_report": {
+      "name": "Posture Report",
+      "does": "Compose the long-running security-posture artifact: the full finding inventory, the red-team attack narrative + ATT&CK coverage, the blue-team detection coverage, MTTD/SLA posture, and the trend tie-back. The durable record behind the gate.",
+      "from_inputs": [],
+      "from_steps": ["severity_gate", "red_team", "blue_team"],
+      "assets": ["posture_report.md"],
+      "asset_title": "Security Posture Report"
+    }
+  },
+  "deliverable": {
+    "description": "A PR-gate verdict for the pull request under review: the security posture report (posture_report.md) and the PR comment (pr_comment.md) developers act on, backed by the triaged + scored finding set and the severity-gate's allow/block decision. The gate decision is derived from the combined red-team (confirmed-exploitable) and blue-team (detection coverage) result, not from any single scanner's severity.",
+    "assets": [
+      "posture_report/posture_report.md",
+      "pr_comment/pr_comment.md",
+      "triage/triage.json",
+      "severity_gate/gate_decision.json"
+    ]
+  },
+  "environment": {
+    "python": [],
+    "r": []
+  }
+}

@@ -81,23 +81,24 @@ cd flowtrace
 
 ## 示例
 
-<div align="center">
-<img src="assets/traces-grid.gif" width="720" alt="一组实时 trace，覆盖金融、医疗、研究、数据、营销、教育、视频、游戏、生活，每一个都作为一条流程逐步构建">
-<br><sub>人们跑的一些 trace，每一个都是一条逐步构建的流程</sub>
-</div>
-
-下面每一个都用一条命令就能建好并跑起来：
+**九个示例**，基于流行的开源 skill 构建，覆盖不同领域 —— 点开任意一个，在 [示例画廊](EXAMPLES.zh-CN.md) 看它的流程图和一条命令的 demo：
 
 <div align="center">
 <table><tr>
-<td align="center"><a href="EXAMPLES.zh-CN.md"><img src="assets/examples/iris-analysis.png" height="150" alt="iris-analysis 流程"></a><br><sub>24 步统计分析</sub></td>
-<td align="center"><a href="EXAMPLES.zh-CN.md"><img src="assets/examples/tailored-resume.png" height="150" alt="tailored-resume 流程"></a><br><sub>按岗位定制简历</sub></td>
-<td align="center"><a href="EXAMPLES.zh-CN.md"><img src="assets/examples/nested-deps.png" height="150" alt="research-synthesis 流程"></a><br><sub>带引用的研究综述</sub></td>
-<td align="center"><a href="EXAMPLES.zh-CN.md"><img src="assets/examples/dream-analysis.png" height="150" alt="dream-analysis 流程"></a><br><sub>梦境到一份符号分析 PDF</sub></td>
+<td align="center" valign="top"><a href="EXAMPLES.zh-CN.md#saas-dd"><img src="assets/examples/feat-saas-dd.png" height="240" alt="SaaS 收购尽职调查流程"></a><br><sub><a href="EXAMPLES.zh-CN.md#saas-dd">SaaS 尽职调查</a></sub></td>
+<td align="center" valign="top"><a href="EXAMPLES.zh-CN.md#security-cicd"><img src="assets/examples/feat-security-cicd.png" height="240" alt="安全 CI/CD 流水线流程"></a><br><sub><a href="EXAMPLES.zh-CN.md#security-cicd">安全 CI/CD</a></sub></td>
+<td align="center" valign="top"><a href="EXAMPLES.zh-CN.md#distill-mind"><img src="assets/examples/feat-distill-mind.png" height="240" alt="把一个人的思维蒸馏成 skill 流程"></a><br><sub><a href="EXAMPLES.zh-CN.md#distill-mind">蒸馏思维成 skill</a></sub></td>
 </tr></table>
 </div>
 
-完整列表（每个都画成流程）在 [示例画廊](EXAMPLES.zh-CN.md)。
+另外六个：
+
+- 📄 求职 — [简历定向优化](EXAMPLES.zh-CN.md#tailored-resume)
+- 💰 投资 — [个股综合分析](EXAMPLES.zh-CN.md#nvda-decision)
+- ✍️ 研究 / 写作 — [行业深度报告](EXAMPLES.zh-CN.md#research-writer)
+- 🐛 软件工程 — [Bug 修复学习循环](EXAMPLES.zh-CN.md#swe-bugfix)
+- 📈 增长 / 营销 — [每周付费广告优化](EXAMPLES.zh-CN.md#paid-ads)
+- 🖼 设计 / 演示 — [演讲 → 杂志风幻灯片](EXAMPLES.zh-CN.md#talk-to-deck)
 
 ## 文档
 

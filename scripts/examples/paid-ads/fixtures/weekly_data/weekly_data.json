@@ -1,0 +1,41 @@
+{
+  "brand": "Lumora",
+  "product": "Weighted Silk Duvet ($229)",
+  "week": 7,
+  "channels": ["Meta", "Google Ads"],
+  "spend": { "this_week": 14300, "budget": 15000, "pacing": "95% of budget" },
+  "targets": { "blended_cpa_max": 58, "blended_roas_min": 3.2 },
+  "efficiency": {
+    "blended_cpa": { "value": 71, "avg_4wk": 58, "delta_pct": 22, "status": "OVER target" },
+    "blended_roas": { "value": 2.6, "avg_4wk": 3.3, "delta_pct": -21, "status": "UNDER target" }
+  },
+  "funnel_rates": {
+    "meta_ctr_all": { "value": 0.9, "avg_4wk": 1.3, "delta_pct": -31 },
+    "meta_hero_video_ctr": { "value": 0.7, "avg_4wk": 1.4, "delta_pct": -50, "note": "biggest single mover" },
+    "meta_frequency_prospecting": { "value": 4.8, "avg_4wk": 3.1, "delta_pct": 55 },
+    "google_nonbrand_cpa": { "value": 66, "avg_4wk": 54, "delta_pct": 22 },
+    "google_brand_cpa": { "value": 19, "avg_4wk": 18, "delta_pct": 6, "note": "holding" },
+    "landing_cvr_pdp": { "value": 2.1, "avg_4wk": 2.4, "delta_pct": -13 },
+    "landing_cvr_quiz": { "value": 3.9, "avg_4wk": 3.8, "delta_pct": 3, "note": "holding" }
+  },
+  "audience_signals": [
+    { "segment": "gift-intent", "cvr": 4.4, "note": "best converter; over-indexes in quiz funnel" },
+    { "segment": "hot-sleeper interest stack", "cvr": 1.6, "was": 2.9, "note": "falling; likely seasonal as spring warms" },
+    { "segment": "LAL-1% (purchasers)", "roas": 3.1, "note": "top prospecting audience" },
+    { "segment": "LAL-3%", "roas": 1.9, "was": "higher", "note": "deteriorating; widening hurts efficiency" }
+  ],
+  "competitor_moves": [
+    { "competitor": "Competitor A", "move": "spring sale 15-20% off on Meta", "effect": "shared-interest CPMs up ~18%" },
+    { "competitor": "Competitor B", "move": "spring sale + new 'cooling' video angle", "effect": "auction pressure + angle land-grab on hot-sleeper" }
+  ],
+  "operational_notes": [
+    "Hero video (0:30 unboxing -> first night cut) live UNCHANGED for 5 weeks",
+    "No site or pricing changes shipped this week; quiz funnel and PDP unchanged"
+  ],
+  "biggest_movers": [
+    "Meta hero-video CTR -50% (with frequency +55%)",
+    "Blended CPA +22% over target",
+    "Google non-brand CPA +22% while brand holds"
+  ],
+  "source": "ads / Weekly Review — normalized from resources/request.md (week 7)"
+}

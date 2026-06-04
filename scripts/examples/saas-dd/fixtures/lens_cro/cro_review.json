@@ -1,0 +1,52 @@
+{
+  "lens": "CRO",
+  "role": "the pipeline-paranoid operator",
+  "reads": ["ingest_market/market_gtm.json"],
+  "bottom_line": "NRR 109% is genuinely good and the cross-sell into our base is real upside, but coverage is under 3x, win rate is softening, and discount creep + customer concentration say the standalone revenue is less durable than the headline. GAP — fixable, but priced as if it's already fixed.",
+  "verdict": "GAP",
+  "verdict_scale": "ON PLAN / GAP / PIPELINE CRISIS",
+  "pipeline": {
+    "coverage_next_q": 2.7,
+    "coverage_target": 3.0,
+    "read": "under 3x entering the quarter = already forecasting a miss on the standalone plan",
+    "win_rate_pct": 34,
+    "win_rate_trend": "down from 38% a year ago",
+    "top_leaking_stage": "enterprise eval — lost on 'no SSO/SCIM' and 'single-region'"
+  },
+  "retention_decomposition": {
+    "nrr_pct": 109,
+    "grr_pct": 88,
+    "expansion_pct": 21,
+    "contraction_pct": -3,
+    "read": "109% NRR on 88% GRR means expansion is masking real logo churn (12%/yr); a 109% NRR with 88% GRR is weaker than it looks"
+  },
+  "discount_discipline": {
+    "median_discount_pct": 14,
+    "trend": "creeping up from 9% a year ago",
+    "read": "discount creep is the leading indicator of pricing/positioning weakness — competitive pressure is showing up in price"
+  },
+  "source_mix": {
+    "marketing_pct": 30,
+    "sales_pct": 60,
+    "partner_pct": 10,
+    "read": "no single source >80%, healthy mix; partner motion is underbuilt and is where WE can add the most"
+  },
+  "concentration_risk": {
+    "top_3_pct_arr": 22,
+    "largest_pct_arr": 9,
+    "largest_renewal_months": 7,
+    "read": "top customer at 9% renewing in 7 months with change-of-control consent is a single-point revenue risk the board will flag"
+  },
+  "cross_sell_upside": {
+    "arr_opportunity_usd_m_3yr": 9.0,
+    "dependency": "requires SSO/SCIM + multi-region (the CTO P1 items) — revenue synergy is gated on the tech-debt fix",
+    "read": "the bull revenue case and the CTO's critical-path debt are the SAME bet"
+  },
+  "reasoning_technique": "Chain of Thought — pipeline math explicit, question anything above historical averages",
+  "conditions": [
+    "Underwrite the synergy case on GRR 88%, not NRR 109%",
+    "Confirm top-customer renewal + change-of-control consent before close",
+    "Hold cross-sell ARR credit until SSO/SCIM ships (gated on CTO workstream)"
+  ],
+  "source": "cro-review (six CRO forcing questions: pipeline coverage, win-rate trajectory, NRR decomposition, ramp time, discount discipline, source mix) + cro-advisor (NRR/GRR waterfall, magic number, concentration >15% flag, expansion share)"
+}

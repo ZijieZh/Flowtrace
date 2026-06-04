@@ -1,0 +1,60 @@
+{
+  "engagement": "PR-482 authorized adversary emulation (deduped finding set only)",
+  "as_of": "2026-06-03",
+  "rules_of_engagement": "Staging mirror of acme/payments-gateway @ f9e8d7c; PoC validation on triage.blocking_candidates only (T-001, T-002, T-003); no production traffic.",
+  "scope_in": ["T-001", "T-002", "T-003"],
+  "threat_model": "Internet-facing payment webhook; techniques from threat_intel.json (T1190, T1212, T1552.001).",
+  "attack_chain": [
+    {
+      "step": 1,
+      "technique": "T1552.001",
+      "name": "Unsecured Credentials: Credentials In Files",
+      "uses_finding": "T-002",
+      "action": "Recover the committed webhook signing secret (whsec_5f3b9c2a...) from the PR's config commit c4d5e6f.",
+      "result": "secret obtained"
+    },
+    {
+      "step": 2,
+      "technique": "T1212",
+      "name": "Exploitation for Credential Access",
+      "uses_finding": "T-002",
+      "action": "Author a malicious Stripe event and compute a valid HMAC-SHA256 with the recovered secret; the non-constant-time compare (:96) would also leak the signature byte-by-byte even without the secret.",
+      "result": "valid Stripe-Signature forged; webhook accepts attacker-authored event as genuine"
+    },
+    {
+      "step": 3,
+      "technique": "T1190",
+      "name": "Exploit Public-Facing Application",
+      "uses_finding": "T-001",
+      "action": "Inside the now-trusted event, set Stripe-Event-Id to a SQLi payload; it reaches the idempotency query (:147) and the audit insert (:201) unparameterized.",
+      "result": "read/write to idempotency + webhook_audit tables; demonstrated extraction of event-ledger rows (counts only, no real data exfiltrated per RoE)"
+    }
+  ],
+  "validated": [
+    {
+      "finding": "T-002",
+      "confirmed_exploitable": true,
+      "technique": ["T1552.001", "T1212"],
+      "severity": "High",
+      "note": "Forged a valid signature end-to-end on staging. This is the keystone: it converts the SQLi from 'requires a valid Stripe call' to 'remotely reachable by any attacker'."
+    },
+    {
+      "finding": "T-001",
+      "confirmed_exploitable": true,
+      "technique": ["T1190"],
+      "severity": "Critical",
+      "note": "Injection reproduced through the forged-signature path; both sinks (the merged root cause) reachable with one payload."
+    },
+    {
+      "finding": "T-003",
+      "confirmed_exploitable": false,
+      "technique": ["T1190"],
+      "severity": "High",
+      "note": "NOT reproducible: although the vulnerable golang-jwt v3.2.0 verifier is linked, the call site already pins HS256 via an explicit method check before Parse, so the algorithm-confusion PoC did not chain here. Still upgrade (latent + brittle), but it is not a merge blocker on this PR. This is exactly why red-team runs after triage: CVSS said High+reachable, emulation said not-exploitable-as-written."
+    }
+  ],
+  "objective_outcome": "OBJECTIVE ACHIEVED — attacker can forge webhook authenticity (T-002) and pivot to SQL injection (T-001), reaching the event ledger from the public internet with no credentials.",
+  "confirmed_exploitable_high_plus": ["T-001", "T-002"],
+  "handoff_to_blue": ["T1552.001", "T1212", "T1190"],
+  "source": "executing-red-team-exercise (adversary-emulation planning + ATT&CK coverage table) + performing-threat-emulation-with-atomic-red-team"
+}

@@ -9,7 +9,9 @@ writes:
 
 # Parse Resume
 
-The candidate-side ingest of the skill's **Information Gathering**. Runs **in parallel with `read_jd`** — it depends only on the existing resume, not on the JD.
+Source skill: **tailored-resume-generator** (Information Gathering — the candidate side).
+
+The candidate-side ingest. Runs **in parallel with `read_jd`** — it depends only on the existing resume, not on the JD.
 
 ## What this step does
 

@@ -1,0 +1,27 @@
+{
+  "lane": "timing_attribution",
+  "headline": "The CPA spike is real, not an attribution artefact; frequency confirms the fatigue read.",
+  "findings": [
+    {
+      "topic": "frequency / fatigue",
+      "verdict": "delivery is over-serving the same prospecting pool (freq 4.8 vs 3.1)",
+      "confidence": "High",
+      "why": "Frequency +55% on prospecting is the delivery-side fingerprint of the same fatigue the creative lane sees. One aging asset is being shown too often to too few."
+    },
+    {
+      "topic": "attribution sanity",
+      "verdict": "CPA rise survives the blended check — not a windowing artefact",
+      "confidence": "High",
+      "why": "Per analytics, platform CPA is inflated; but blended CPA itself moved +22% and ROAS -21%, and Google brand (cleanly attributed) held. A measurement glitch wouldn't spare brand and hit blended. The deterioration is genuine."
+    },
+    {
+      "topic": "dayparting",
+      "verdict": "respect Wed-9am-ET launch slot at go-live",
+      "confidence": "Medium",
+      "why": "No new intraday anomaly this week; defer to the established best-slot learning when scheduling the test rather than launching cold on a weekend."
+    }
+  ],
+  "implication": "Timing/attribution corroborate the creative diagnosis and rule out 'it's just measurement.' Frequency cap + fresh creative will relieve delivery pressure.",
+  "hands_to": "problem_tree",
+  "source": "analytics / Attribution + UTM (blended-CAC check) + ads / frequency & fatigue thresholds"
+}

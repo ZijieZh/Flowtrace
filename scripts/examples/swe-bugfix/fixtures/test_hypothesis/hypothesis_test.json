@@ -1,0 +1,26 @@
+{
+  "phase": "3 - Hypothesis and Testing (test minimally + backward trace to source)",
+  "experiment": {
+    "name": "per-key serialization probe (one variable)",
+    "change": "In the test harness ONLY, wrap lookup()+reserve() in an asyncio.Lock keyed by the idempotency key (a dict of locks). Production code untouched. This is the single variable: does adding a per-key critical section across the lookup..reserve window eliminate the duplicate?",
+    "everything_else_held_constant": true
+  },
+  "results": [
+    { "condition": "baseline (no per-key lock)",            "concurrency": 8,  "runs": 200, "duplicate_rate": "74%" },
+    { "condition": "per-key lock around lookup+reserve",     "concurrency": 8,  "runs": 200, "duplicate_rate": "0%" },
+    { "condition": "per-key lock around lookup+reserve",     "concurrency": 16, "runs": 200, "duplicate_rate": "0%" }
+  ],
+  "prediction_met": true,
+  "backward_trace": [
+    "symptom: second psp_charge ch_B for ik_3af91c",
+    "<- charge_handler() called psp.charge() because...",
+    "<- IdempotencyStore.lookup(ik_3af91c) returned MISS (the gate let it through)",
+    "<- lookup() ran a plain SELECT; the row from request A's reserve() did not exist yet",
+    "<- reserve() (the INSERT) happens AFTER psp.charge(), and AFTER the other request already passed lookup()",
+    "ORIGIN: there is no atomic step that both checks AND claims the key. The 'bad value' is not data - it is the ABSENT mutual exclusion between lookup and reserve."
+  ],
+  "source_of_bug": "app/payments/idempotency.py - lookup() and reserve() are a non-atomic check-then-act with the side effect in between; no per-key critical section.",
+  "verdict": "confirmed",
+  "note": "The probe used an in-process lock only to PROVE causation. The real fix must not be an in-process lock (multiple workers/pods would each have their own) - it must be atomic at the shared store. That decision belongs to fix_design.",
+  "source": "systematic-debugging Phase 3.2-3.3 'Test Minimally' + root-cause-tracing.md (trace backward to the original trigger, fix at source)"
+}

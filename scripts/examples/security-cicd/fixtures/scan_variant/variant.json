@@ -1,0 +1,28 @@
+{
+  "tool": "semgrep-taint",
+  "version": "1.102.0",
+  "mode": "taint",
+  "premise": "Take the user-controlled source SAST flagged on F-SAST-001 and follow it to every reachable sink, not just the one literal pattern matched.",
+  "pattern_sources": ["header:Stripe-Event-Id -> evtID"],
+  "pattern_sinks": ["db.Query(...)", "db.Exec(...)", "auditLog.Write(...)"],
+  "pattern_sanitizers": ["pgx parameterized $N args"],
+  "summary": { "variants_found": 1 },
+  "findings": [
+    {
+      "id": "F-VAR-001",
+      "cwe": ["CWE-89"],
+      "injection_type": "second-order / log-sink SQL injection",
+      "tainted_source": "header:Stripe-Event-Id -> evtID",
+      "flow": "evtID (untrusted) -> stored -> reused unparameterized in audit query",
+      "sink": "internal/webhooks/stripe.go:201",
+      "code": "auditLog.Write(\"INSERT INTO webhook_audit(event_id) VALUES('\" + evtID + \"')\")",
+      "shares_root_with": "F-SAST-001",
+      "severity": "ERROR",
+      "note": "Same tainted source as F-SAST-001 reaching a SECOND sink the single-pattern rule missed. This is one root cause, surfaced twice — triage must merge, not double-count.",
+      "fix": "Parameterize the audit insert the same way ($1); fixing the source sanitization closes both sinks.",
+      "blocking_candidate": true,
+      "source": "exploiting-sql-injection-vulnerabilities (Injection Point Discovery: map all sinks, second-order) + implementing-semgrep-for-custom-sast-rules (taint mode sources/sinks/sanitizers)"
+    }
+  ],
+  "source": "exploiting-sql-injection-vulnerabilities + implementing-semgrep-for-custom-sast-rules (Taint Analysis)"
+}

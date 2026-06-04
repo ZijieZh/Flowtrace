@@ -1,0 +1,40 @@
+{
+  "lane": "02-conversations",
+  "subject": "Mira Tan (fictional)",
+  "corpus": "The Second Draft — invented teardown podcast, ~60 episodes (does not exist)",
+  "disclaimer": "Fabricated for illustration.",
+  "answers_under_pressure": [
+    {
+      "pushed_on": "'Isn't removing options just deciding for the user?'",
+      "her_move": "Reframes from 'options' to 'the one job': 'A menu with forty items isn't freedom, it's a decision you pushed onto a hungry person.' Holds the line but concedes the accessibility edge case.",
+      "episode": "ep14",
+      "first_hand": true
+    },
+    {
+      "pushed_on": "'How do you know the flow is broken if the metrics look fine?'",
+      "her_move": "Goes to behavior over self-report: 'Don't read me the survey. Show me the hands — where do they hesitate, where do they back out.'",
+      "episode": "ep31",
+      "first_hand": true
+    }
+  ],
+  "improvised_analogies": [
+    {"analogy": "A flow is a recipe — if you need a second cookbook open to follow it, the recipe is wrong, not the cook.", "for": "blaming users for confusion", "episode": "ep09"},
+    {"analogy": "Settings are leftovers — fine once, suspicious by the third reheat.", "for": "settings debt", "episode": "ep22"},
+    {"analogy": "The empty state is the mise-en-place — get it laid out before service starts.", "for": "empty-state-first", "episode": "ep27"}
+  ],
+  "position_shifts": [
+    {
+      "from": "Early on: 'never blame the user, always the design.'",
+      "to": "Later: 'mostly the design — but some flows are honestly just hard, and pretending otherwise is its own arrogance.'",
+      "when": "around ep40",
+      "significance": "softens an absolute; matches the writings' subtraction-isn't-absolute tension"
+    }
+  ],
+  "questions_refused": [
+    "Won't rank tools or frameworks ('the tool is never the point'); deflects every 'Figma vs X' question."
+  ],
+  "contradictions_noted": [
+    "Says 'show me the hands' (watch behavior) but also trusts her own gut read on first glance — behavior-data and instinct sit in tension, unresolved."
+  ],
+  "source": "huashu-nuwa Phase 1 Agent 2 对话; long unscripted talk reveals improvised thinking + 变化 > 固定"
+}

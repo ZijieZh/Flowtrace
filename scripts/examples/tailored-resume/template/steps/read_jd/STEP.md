@@ -9,7 +9,9 @@ writes:
 
 # Read JD
 
-The JD-side ingest of the skill's **Information Gathering** + the front half of **Job Analysis**. Turn a raw job posting into a structured object the rest of the pipeline can reason over.
+Source skill: **tailored-resume-generator** (Information Gathering + the front half of Job Analysis — the JD side).
+
+The JD-side ingest. Turn a raw job posting into a structured object the rest of the pipeline can reason over.
 
 ## What this step does
 

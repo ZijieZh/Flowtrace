@@ -1,0 +1,41 @@
+{
+  "as_of": "2026-06-01",
+  "target": "Acme RevOps, Inc.",
+  "corporate": {
+    "entity": "Delaware C-corp",
+    "cap_table": "Series C (2023) at $390M post; preferred has 1x non-participating liquidation preference; standard broad-based weighted-average anti-dilution",
+    "option_pool_unallocated_pct": 4.5,
+    "founder_ownership_pct": 19,
+    "key_person": "CTO co-founder holds critical AI IP knowledge; no documented bus-factor mitigation"
+  },
+  "ip": {
+    "invention_assignment": "in place for employees; TWO 2025 contractors have NO signed IP assignment (the enrichment + analytics modules)",
+    "oss_compliance": "one AGPL dependency in the analytics service — copyleft obligation not addressed",
+    "trademarks": "word mark registered US; not registered EU",
+    "patents": "none filed on the AI sequencing method (disclosed publicly 5 months ago -> 12-month provisional clock running)"
+  },
+  "material_contracts": {
+    "largest_customer_msa": "9% of ARR; uncapped IP indemnity in favor of the customer; renewal in 7 months; change-of-control consent required",
+    "auto_renewal_traps": "3 enterprise MSAs auto-renew with 90-day notice",
+    "liability_caps": "standard 12-month fee cap on most paper, BUT the top-customer MSA is uncapped on IP",
+    "change_of_control": "4 of top-10 contracts require counterparty consent on a change of control"
+  },
+  "data_privacy": {
+    "eu_personal_data": true,
+    "eu_revenue_pct": 31,
+    "dpa_status": "in place with most subprocessors; TWO subprocessors (enrichment vendor + email-delivery vendor) have NO DPA",
+    "data_residency": "all EU data stored in us-east-1 — no EU residency option offered",
+    "ai_personal_data": "AI feature trains + infers on EU personal data with no documented lawful basis / retention policy"
+  },
+  "certifications": {
+    "soc2_type2": "report exists; ONE exception (access-review control skipped a cycle in the observation period)",
+    "iso27001": "none",
+    "gdpr_program": "informal; no Art. 30 records of processing; no DPIA on the AI feature"
+  },
+  "regulatory_triggers": [
+    "EU residents' personal data -> GDPR (mandatory)",
+    "AI deployed on EU personal data -> EU AI Act surface (risk-tiered) + GDPR Art. 22 / DPIA",
+    "Enterprise B2B SaaS procurement -> SOC 2 + (often) ISO 27001 expected by buyers"
+  ],
+  "source": "general-counsel-advisor (contract review, IP strategy, regulatory trigger table) + gc-review six questions (IP ownership, liability/indemnity, data/DPA, termination/renewal, regulatory surface, employment/equity)"
+}

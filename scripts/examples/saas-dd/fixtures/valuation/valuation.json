@@ -1,0 +1,54 @@
+{
+  "as_of": "2026-06-01",
+  "target": "Acme RevOps, Inc.",
+  "priced_after_thesis": true,
+  "ordering_note": "Valuation runs AFTER the two-sided thesis so the recommended range is reconciled to the argument, not used to anchor it.",
+  "reads": ["thesis_pro/thesis_pro.json", "thesis_contra/thesis_contra.json", "ingest_financials/financials.json", "synergy_model/synergy_model.json"],
+  "inputs": {
+    "arr_usd_m": 42.0,
+    "yoy_growth_pct": 38,
+    "gross_margin_pct": 74,
+    "rule_of_40": 31,
+    "asking_price_usd_m": 336.0,
+    "asking_multiple_arr": 8.0,
+    "last_round_post_usd_m": 390.0
+  },
+  "method_1_comps": {
+    "approach": "ARR multiple vs mid-market SaaS comps, adjusted for growth + Rule of 40",
+    "peer_multiple_range_arr": [5.5, 7.5],
+    "applied_multiple_arr": 6.2,
+    "rationale": "Decelerating 38% growth + Rule-of-40 of 31 + 88% GRR -> below-median multiple; AI feature earns a small premium",
+    "implied_ev_usd_m": 260.4
+  },
+  "method_2_dcf": {
+    "approach": "5-year standalone FCF + terminal value, WACC via CAPM",
+    "wacc_pct": 12.0,
+    "terminal_growth_pct": 4.0,
+    "standalone_ev_usd_m": 243.0,
+    "sanity_check": "implied exit multiple within the comps band -> passes cross-check (financial-analyst: cross-check DCF vs comparables)"
+  },
+  "method_3_npv_irr_on_synergies": {
+    "approach": "NPV/IRR on acquisition cash flows INCLUDING synergy model, net of re-baselined $7M integration",
+    "hurdle_irr_pct": 20,
+    "at_ask_price_336m": {"irr_pct": 11, "npv_usd_m": -44, "verdict": "FAILS hurdle and is negative-NPV"},
+    "at_273m_6_5x": {"irr_pct": 19, "npv_usd_m": -4, "verdict": "borderline — just under hurdle in base case"},
+    "at_252m_6_0x": {"irr_pct": 23, "npv_usd_m": 18, "verdict": "PASSES 20% hurdle in base case, positive NPV"},
+    "bear_case_at_252m": {"irr_pct": 9, "npv_usd_m": -22, "verdict": "downside still loses — size the deal for it"}
+  },
+  "reconciliation": {
+    "fair_value_range_usd_m": [243, 273],
+    "midpoint_usd_m": 258,
+    "recommended_offer_usd_m": 252,
+    "recommended_multiple_arr": 6.0,
+    "walk_away_above_usd_m": 285,
+    "walk_away_multiple_arr": 6.8,
+    "gap_to_ask": "ask $336M is $63-93M above fair value; the deal only works on a negotiated entry"
+  },
+  "the_number": "Offer $252M (6.0x ARR); structure cash-and-stock with an earn-out bridging to the seller's $336M ask on realized cross-sell + AI milestones; hard walk above $285M.",
+  "constraint_checks": {
+    "under_max_check_300m": true,
+    "clears_20pct_hurdle_at_offer": true,
+    "negative_npv_at_ask": true
+  },
+  "source": "financial-analyst (DCF + WACC + terminal value + comps cross-check) + business-investment-advisor (NPV/IRR vs 20% hurdle, downside case, walk-away discipline, earn-out to bridge price gap) + saas-metrics-coach (Rule-of-40-adjusted ARR multiple)"
+}

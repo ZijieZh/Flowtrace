@@ -1,0 +1,52 @@
+{
+  "as_of": "2026-06-01",
+  "target": "Acme RevOps, Inc.",
+  "role": "The veto gate. Sits last but can block a financially attractive deal. Not a substitute for binding legal advice.",
+  "reads": ["ingest_legal/legal_pack.json", "lens_gc/gc_review.json", "valuation/valuation.json"],
+  "decision_being_made": "certification-readiness / acquisition compliance clearance",
+  "framework_selection": {
+    "method": "company-profile -> applicable frameworks (compliance-os framework_selector logic)",
+    "profile": "B2B SaaS, EU personal data, customer-facing AI, enterprise procurement, US + EU market",
+    "applicable": [
+      {"framework": "GDPR", "binding": true, "status": "informal program — no Art. 30 records, no DPIA on AI", "trigger": "EU residents' personal data"},
+      {"framework": "EU AI Act", "binding": true, "status": "unassessed — AI on EU personal data, no risk classification", "trigger": "AI system deployed on EU personal data"},
+      {"framework": "SOC 2 Type II", "binding": false, "status": "held WITH one exception (access-review cycle skipped)", "trigger": "enterprise procurement expectation"},
+      {"framework": "ISO 27001", "binding": false, "status": "not held — buyer-expected for enterprise upmarket", "trigger": "enterprise security requirement"}
+    ],
+    "dependency_note": "GDPR + EU AI Act are the binding pair; SOC 2 <-> ISO 27001 share ~75% control overlap (evidence reuse anchor)."
+  },
+  "mock_audit": {
+    "method": "audit_simulator — finding scenarios with IIA severity distribution (<=15% critical/major healthy)",
+    "findings_total": 9,
+    "severity_distribution": {"critical": 2, "major": 2, "minor": 2, "observation": 3},
+    "severity_health": "UNHEALTHY for sign-as-is — 22% critical (2/9) exceeds the <=15% healthy ceiling; concentrated in EU data + AI",
+    "critical_findings": [
+      {"id": "F-01", "theme": "GDPR processor governance", "finding": "Two EU subprocessors operating with no DPA", "frameworks": ["GDPR"], "severity": "critical"},
+      {"id": "F-02", "theme": "AI governance", "finding": "AI feature trains/infers on EU personal data with no lawful basis, no DPIA, no EU AI Act risk classification", "frameworks": ["EU AI Act", "GDPR"], "severity": "critical"}
+    ],
+    "major_findings": [
+      {"id": "F-03", "theme": "SOC 2 Type II", "finding": "Access-review control skipped a cycle -> report exception; consistent operation not demonstrated", "frameworks": ["SOC 2"], "severity": "major"},
+      {"id": "F-04", "theme": "Data residency", "finding": "All EU data in us-east-1, no residency option", "frameworks": ["GDPR"], "severity": "major"}
+    ]
+  },
+  "evidence_pool": {
+    "high_leverage_artifacts": ["access-review log (SOC 2 + ISO 27001)", "subprocessor register + DPAs (GDPR + SOC 2 Privacy)", "AI system inventory + DPIA (EU AI Act + GDPR)"],
+    "reuse_note": "Fixing the DPA + access-review gaps satisfies controls across SOC 2, ISO 27001 and GDPR simultaneously."
+  },
+  "verdict": "CONDITIONAL — STAGE-2 CANDIDATE (this gate CAN return BLOCK; here it gates the deal on binding pre-close conditions rather than vetoing outright)",
+  "verdict_scale": "READY / CONDITIONAL (STAGE-2 candidate) / BLOCK",
+  "would_be_block_if": "Either critical finding (missing DPAs OR ungoverned AI on EU personal data) is unresolved at close, OR the seller will not warrant remediation -> BLOCK, regardless of how attractive the price is.",
+  "binding_conditions_to_close": [
+    "DPAs executed with both EU subprocessors BEFORE EU data continues to flow (clears F-01)",
+    "EU AI Act risk classification + DPIA on the AI feature completed and reviewed by EU counsel (clears F-02)",
+    "SOC 2 access-review exception remediated and bridge letter obtained (clears F-03)",
+    "Documented EU data-residency roadmap (addresses F-04)"
+  ],
+  "interaction_with_valuation": "Valuation found a workable price ($252M), but this gate makes that offer contingent: the conditions are reps/warranties + conditions precedent in the SPA, and the AI/DPA exposure is escrow-backed. Price does not buy past the gate.",
+  "top_3_actions": [
+    "Engage EU privacy + AI-product counsel this week (pre-exclusivity-close)",
+    "Make the four binding conditions reps/warranties with an indemnity escrow",
+    "Re-run audit_simulator post-remediation to confirm severity distribution is healthy before funding"
+  ],
+  "source": "compliance-os (framework_selector + audit_simulator severity distribution + evidence-pool reuse) + compliance-readiness (six forcing questions, READY/STAGE-2/NOT-READY verdict) + soc2-audit-prep (observation-period exception logic)"
+}

@@ -1,0 +1,24 @@
+{
+  "as_of": "2026-06-03",
+  "attack_domain": "enterprise-attack",
+  "scope": "Internet-facing payment webhook receiver (acme/payments-gateway PR #482)",
+  "relevant_techniques": [
+    { "id": "T1190", "tactic": "Initial Access", "name": "Exploit Public-Facing Application",
+      "why": "The new POST /v1/webhooks/stripe endpoint is internet-facing; injection + weak signature verification are directly reachable from the edge." },
+    { "id": "T1212", "tactic": "Credential Access", "name": "Exploitation for Credential Access",
+      "why": "A timing side-channel on the HMAC compare lets an attacker recover/forge a valid signature without the secret being transmitted." },
+    { "id": "T1552.001", "tactic": "Credential Access", "name": "Unsecured Credentials: Credentials In Files",
+      "why": "A signing secret committed to the repo is exactly the artifact this technique describes; pairs with the timing flaw to forge signatures outright." },
+    { "id": "T1499.004", "tactic": "Impact", "name": "Endpoint Denial of Service: Application Exhaustion",
+      "why": "A memory-safety crash in the header parser on the request path is a remotely-triggerable availability hit." }
+  ],
+  "advisories": [
+    { "cve": "CVE-2022-29217", "package": "github.com/golang-jwt/jwt", "affected": "< v3.2.1 / < v4.4.3",
+      "title": "Algorithm confusion (key type) in golang-jwt", "cwe": ["CWE-347"],
+      "in_kev": false, "epss": 0.18, "epss_percentile": 0.84,
+      "note": "Not in CISA KEV, but reachable here because the webhook path validates a service token with the vulnerable verifier; PoC public." }
+  ],
+  "navigator_layer_hint": "Overlay these 4 techniques against blue-team Sigma/YARA coverage to read the residual detection gap (analyzing-apt-group-with-mitre-navigator multi-layer analysis).",
+  "id_provenance": "T1190 appears verbatim in the source skills (executing-red-team-exercise, exploiting-sql-injection-vulnerabilities, the CVSS/KEV/EPSS skills). T1552.001 and T1212 are the standard ATT&CK technique IDs for the Credential Access tactic (TA0006) that executing-red-team-exercise Step 1 enumerates ('Credential Access (TA0006): ... credential stuffing'); the skill names the tactic, the IDs are the canonical mapping. T1499.004 maps the fuzz-found DoS to ATT&CK Impact.",
+  "source": "analyzing-apt-group-with-mitre-navigator (query ATT&CK data, multi-layer overlay) + performing-cve-prioritization-with-kev-catalog (KEV/EPSS advisory enrichment)"
+}

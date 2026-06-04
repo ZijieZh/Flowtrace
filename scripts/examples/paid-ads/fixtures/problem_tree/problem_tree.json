@@ -1,0 +1,44 @@
+{
+  "week": 7,
+  "method": "Theory of Constraints (marketing-psychology) + Occam's Razor",
+  "binding_constraint": {
+    "name": "Hero-video creative fatigue in Meta prospecting",
+    "statement": "A single 0:30 video, live unchanged for 5 weeks, is carrying most of prospecting reach. Its CTR halved (-50%) as frequency climbed +55%, which drags Meta CTR, inflates prospecting CPA, and cascades into blended CPA (+22%) and ROAS (-21%).",
+    "why_binding": "It is the one node that, left unfixed, caps the account regardless of other tuning. Fixing it relieves CTR, frequency, prospecting CPA, and blended CPA at once. Every other deterioration is either downstream of it or not controllable this week.",
+    "occams_razor": "The simplest cause that explains the most movers: one aging asset over-served. We do not need an attribution theory or a funnel-redesign theory to explain the week."
+  },
+  "ranked_contributors": [
+    {
+      "rank": 1,
+      "factor": "Competitor spring sales lifting shared-interest CPMs (+18%)",
+      "class": "contributing / transient",
+      "subordinate_because": "Real auction pressure, but not controllable and set to lapse when sales end. Spending to fight it now is low-leverage."
+    },
+    {
+      "rank": 2,
+      "factor": "Hot-sleeper segment CVR halving (2.9% -> 1.6%)",
+      "class": "seasonal / transient",
+      "subordinate_because": "A seasonal JTBD trough (spring warming) plus a contested angle, not a targeting defect. Optimizing it is a local-vs-global-optimum trap; the durable demand (gift-intent) is healthy."
+    },
+    {
+      "rank": 3,
+      "factor": "LAL-3% prospecting efficiency drag (ROAS 1.9x)",
+      "class": "contributing / structural-minor",
+      "subordinate_because": "Worth trimming back toward LAL-1%, but a budget reallocation, not the throughput cap."
+    },
+    {
+      "rank": 4,
+      "factor": "PDP CVR dip (-13%)",
+      "class": "downstream / noise",
+      "subordinate_because": "The quiz path held; the PDP dip tracks lower-quality fatigued-creative clicks. Fixing the page would be optimizing a non-constraint while the real bottleneck is upstream."
+    }
+  ],
+  "structural_vs_transient": {
+    "structural": ["hero-video fatigue (recurring — creative ages every ~4 weeks)"],
+    "transient": ["competitor-sale CPM inflation", "seasonal hot-sleeper softness"]
+  },
+  "where_lanes_disagree": "Channel lane weighted competitor CPMs heavily; timing + creative lanes showed the fatigue signal is larger and controllable. Weighted toward the controllable, recurring cause (creative) over the uncontrollable, transient one (CPMs). Funnel lane wanted a quiz-routing tweak — kept as a side win, not the headline.",
+  "verdict": "Bottleneck = hero-video creative fatigue. Fix it first; let CPMs normalise; trim LAL-3%; leave the funnel alone.",
+  "hands_to": "hypothesis",
+  "source": "marketing-psychology / Theory of Constraints + Local-vs-Global Optima + Occam's Razor"
+}

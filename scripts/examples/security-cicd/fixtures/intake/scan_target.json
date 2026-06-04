@@ -1,0 +1,32 @@
+{
+  "repo": "acme/payments-gateway",
+  "pr": 482,
+  "title": "Add Stripe webhook receiver + bump JWT lib",
+  "author": "dev-mira",
+  "base": { "ref": "main", "sha": "a1b2c3d" },
+  "head": { "ref": "feature/stripe-webhooks", "sha": "f9e8d7c" },
+  "commit_range": "a1b2c3d..f9e8d7c",
+  "commits_scanned": 4,
+  "stack": { "language": "go", "go_version": "1.22", "datastore": "postgres-15" },
+  "changed_files": [
+    { "path": "internal/webhooks/stripe.go", "language": "go", "kind": "added", "loc": 214 },
+    { "path": "internal/config/webhooks.go", "language": "go", "kind": "added", "loc": 31 },
+    { "path": "go.mod", "language": "gomod", "kind": "modified" },
+    { "path": "go.sum", "language": "gomod", "kind": "modified" }
+  ],
+  "new_endpoint": {
+    "route": "POST /v1/webhooks/stripe",
+    "handler": "internal/webhooks/stripe.go:HandleStripeWebhook",
+    "untrusted_inputs": ["body", "header:Stripe-Signature", "header:Stripe-Event-Id"]
+  },
+  "dependency_bump": {
+    "ecosystem": "go",
+    "package": "github.com/golang-jwt/jwt",
+    "from": "(unused)",
+    "to": "v3.2.0+incompatible",
+    "now_reachable_via": "internal/webhooks/stripe.go validates an internal service token"
+  },
+  "scanners": ["sast", "sca", "secrets", "variant", "crypto_timing", "mutation"],
+  "note": "On-PR trigger. The six scanners below are independent reads of this same target and run in parallel.",
+  "source": "implementing-devsecops-security-scanning (on: pull_request fan-out into per-scan jobs)"
+}

@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Quiet Architecture of Slow Software — Mara Vint · Cadence 2026</title>
+<!--
+  talk-to-deck · assemble_deck/deck.html
+  Single-file, self-contained magazine slide deck. Inline CSS only; system fonts;
+  no external dependencies; no network; no real images (CSS placeholder blocks).
+  ORIGINAL renderer/template — a workflow-only lift of op7418/guizang-ppt-skill (歸藏, AGPL-3.0).
+  We lift only the workflow and ship our own renderer; NO source files/templates/CSS are copied.
+  Illustrative example: a fictional talk by a fictional speaker.
+-->
+<style>
+  :root{
+    --paper:#f5f1e8;        /* warm paper            */
+    --paper-2:#efe9dc;      /* slightly deeper paper */
+    --ink:#1c1b18;          /* near-black ink        */
+    --ink-soft:#46433c;     /* secondary ink         */
+    --muted:#7c776c;        /* meta / labels         */
+    --accent:#1f3a5f;       /* single ink accent     */
+    --accent-soft:#33567f;
+    --line:#d9d2c2;         /* hairline              */
+    --dark:#1c1b18;         /* dark-slide ground     */
+    --dark-2:#23211d;
+    --on-dark:#f2ede1;
+    --on-dark-soft:#bfb7a6;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper-2);color:var(--ink)}
+  body{font-family:var(--serif);line-height:1.5;-webkit-font-smoothing:antialiased}
+
+  /* ── deck = a vertical stack of 16:9 slides; scroll-snap, no JS needed ── */
+  .deck{scroll-snap-type:y mandatory;height:100vh;overflow-y:scroll}
+  .slide{
+    scroll-snap-align:start;
+    position:relative;
+    height:100vh; width:100%;
+    display:flex; flex-direction:column;
+    padding:6.2vh 7vw 7vh;
+    overflow:hidden;
+  }
+  /* themes */
+  .light{background:var(--paper);color:var(--ink)}
+  .dark{background:var(--dark);color:var(--on-dark)}
+  .dark .kicker{color:var(--on-dark-soft)}
+  .dark .meta{color:var(--on-dark-soft)}
+  .dark .rule{background:rgba(242,237,225,.22)}
+  .hero{padding:0}
+  .hero-dark{background:radial-gradient(120% 120% at 80% 10%,var(--dark-2),var(--dark));color:var(--on-dark)}
+  .hero-light{background:radial-gradient(120% 120% at 15% 0%,#fbf7ee,var(--paper));color:var(--ink)}
+
+  /* chrome: page counter + progress, top-right */
+  .chrome{position:absolute;top:3.4vh;right:7vw;font-family:var(--sans);font-size:11px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .dark .chrome,.hero-dark .chrome{color:var(--on-dark-soft)}
+  .chrome b{font-weight:600;color:inherit}
+
+  .kicker{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.22em;
+    text-transform:uppercase;color:var(--accent);margin-bottom:2.4vh}
+  .hero-dark .kicker{color:#9fb6d6}
+  .rule{width:46px;height:2px;background:var(--accent);border:0;margin:0 0 3vh}
+
+  h1{font-weight:600;font-size:clamp(30px,5.2vw,72px);line-height:1.04;letter-spacing:-.01em}
+  h2{font-weight:600;font-size:clamp(24px,3.6vw,46px);line-height:1.12;letter-spacing:-.005em}
+  .body{font-size:clamp(16px,1.55vw,22px);color:var(--ink-soft);max-width:30ch;margin-top:2.4vh}
+  .dark .body{color:var(--on-dark-soft)}
+  .meta{font-family:var(--sans);font-size:13px;letter-spacing:.04em;color:var(--muted)}
+
+  .spacer{flex:1 1 auto}
+
+  /* placeholder image block — NO real images anywhere in this deck */
+  .ph{position:relative;background:
+        repeating-linear-gradient(45deg,rgba(31,58,95,.06) 0 10px,rgba(31,58,95,.02) 10px 20px);
+      border:1px solid var(--line);border-radius:6px;display:flex;align-items:flex-end;
+      overflow:hidden}
+  .dark .ph{border-color:rgba(242,237,225,.18);
+      background:repeating-linear-gradient(45deg,rgba(242,237,225,.06) 0 10px,rgba(242,237,225,.02) 10px 20px)}
+  .ph::before{content:"IMAGE PLACEHOLDER — no image embedded";position:absolute;top:10px;left:12px;
+      font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .ph .cap{font-family:var(--sans);font-size:12px;color:var(--ink-soft);
+      padding:10px 12px;background:rgba(245,241,232,.85);border-top:1px solid var(--line);width:100%}
+  .dark .ph .cap{color:var(--on-dark-soft);background:rgba(28,27,24,.6);border-top-color:rgba(242,237,225,.18)}
+  .ratio{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:600}
+
+  /* aspect-ratio helpers for slots */
+  .r-16x9{aspect-ratio:16/9}
+  .r-4x3{aspect-ratio:4/3}
+
+  /* layout: 左文右图 / 图文混排 — two columns */
+  .cols{display:grid;grid-template-columns:1.05fr .95fr;gap:5vw;align-items:center;flex:1 1 auto}
+  @media (max-width:760px){.cols{grid-template-columns:1fr;gap:3vh}}
+
+  /* layout: 大引用页 — big quote */
+  .quote{flex:1 1 auto;display:flex;flex-direction:column;justify-content:center;max-width:20ch}
+  .quote .q{font-size:clamp(30px,5vw,68px);font-weight:600;line-height:1.06;letter-spacing:-.01em}
+  .quote .q em{font-style:italic;color:var(--accent-soft)}
+  .hero-light .quote .q em,.dark .quote .q em{color:inherit;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:6px}
+  .quote .src{margin-top:3.4vh;font-size:clamp(15px,1.5vw,20px);color:var(--ink-soft);max-width:34ch}
+  .dark .quote .src{color:var(--on-dark-soft)}
+
+  /* layout: 数据大字报 — big numbers grid */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4vw;flex:1 1 auto;align-items:center}
+  @media (max-width:760px){.stats{grid-template-columns:1fr}}
+  .stat .v{font-size:clamp(48px,9vw,128px);font-weight:600;line-height:.9;letter-spacing:-.02em;color:var(--accent)}
+  .stat .l{margin-top:1.6vh;font-family:var(--sans);font-size:14px;color:var(--ink-soft);max-width:18ch}
+  .statnote{font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:3vh}
+
+  /* layout: 两列流水线 — pipeline (named forces) */
+  .pipe{display:grid;grid-template-columns:repeat(3,1fr);gap:3vw;flex:1 1 auto;align-items:stretch}
+  @media (max-width:760px){.pipe{grid-template-columns:1fr}}
+  .step{border-top:2px solid var(--accent);padding-top:2.4vh;display:flex;flex-direction:column}
+  .dark .step{border-top-color:#9fb6d6}
+  .step .n{font-family:var(--sans);font-size:12px;letter-spacing:.18em;color:var(--muted);margin-bottom:1.4vh}
+  .step .t{font-size:clamp(20px,2.3vw,30px);font-weight:600;line-height:1.12}
+  .step .b{margin-top:1.4vh;font-family:var(--sans);font-size:15px;color:var(--ink-soft)}
+  .dark .step .b{color:var(--on-dark-soft)}
+
+  /* layout: 并列对比 — before/after */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:4vw;flex:1 1 auto;align-items:center}
+  @media (max-width:760px){.vs{grid-template-columns:1fr}}
+  .vs .side .lab{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.18em;
+      text-transform:uppercase;color:var(--muted);margin-bottom:1.6vh}
+  .vs .side.bad .lab{color:var(--muted)}
+  .vs .side.good .lab{color:var(--accent)}
+  .vs .side .txt{font-size:clamp(20px,2.5vw,32px);font-weight:600;line-height:1.14;max-width:18ch}
+  .vs .side.bad .txt{color:var(--muted);font-weight:400}
+  .vs .divider{display:none}
+
+  /* hero cover + closing */
+  .cover{height:100vh;display:grid;grid-template-rows:auto 1fr auto;padding:6.2vh 7vw 7vh}
+  .cover .top{font-family:var(--sans);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#9fb6d6}
+  .cover .mid{display:flex;flex-direction:column;justify-content:center}
+  .cover h1{max-width:16ch}
+  .cover .sub{margin-top:3.2vh;font-size:clamp(17px,2vw,26px);color:var(--on-dark-soft);max-width:30ch;line-height:1.4}
+  .cover .foot{display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--sans);
+      font-size:13px;color:var(--on-dark-soft)}
+  .cover .ph{position:absolute;inset:auto 7vw 26vh auto;width:30vw;opacity:.5}
+
+  .ask{display:flex;flex-direction:column;justify-content:center;flex:1 1 auto}
+  .closing{height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+      padding:6.2vh 7vw}
+  .closing .q{font-size:clamp(30px,5.4vw,76px);font-weight:600;line-height:1.05;max-width:18ch;letter-spacing:-.01em}
+  .closing .meta{margin-top:4vh}
+
+  /* tiny print disclaimer, bottom-left of cover */
+  .disc{position:absolute;left:7vw;bottom:2.6vh;font-family:var(--sans);font-size:10.5px;
+      letter-spacing:.02em;color:#7f8aa0;max-width:60ch}
+
+  @media print{ .deck{height:auto;overflow:visible} .slide{height:100vh;page-break-after:always} }
+</style>
+</head>
+<body>
+<main class="deck">
+
+  <!-- 1 · 开场封面 (Hero Cover) — hero-dark -->
+  <section class="slide hero hero-dark cover" id="s1">
+    <div class="chrome"><b>01</b> / 09</div>
+    <div class="top">Cadence 2026 · Design × Engineering</div>
+    <div class="mid">
+      <h1>The Quiet Architecture of Slow Software</h1>
+      <p class="sub">There is a second kind of speed — the speed at which a tool gets out of your way. We almost never measure it.</p>
+    </div>
+    <div class="ph r-16x9" aria-hidden="true"><span class="cap">HERO · metronome at rest, warm paper &nbsp;·&nbsp; <span class="ratio">16:9</span></span></div>
+    <div class="foot"><span>Mara Vint</span><span>A talk in six beats</span></div>
+    <div class="disc">Illustrative example — a fictional talk by a fictional speaker. Not a real person's content. Magazine deck rendered by talk-to-deck's own renderer (workflow-only lift of 歸藏 / op7418/guizang-ppt-skill, AGPL-3.0; no source files copied).</div>
+  </section>
+
+  <!-- 2 · 左文右图 (Quote + Image) — light -->
+  <section class="slide light" id="s2">
+    <div class="chrome"><b>02</b> / 09</div>
+    <div class="cols">
+      <div>
+        <div class="kicker">The hook</div>
+        <hr class="rule">
+        <h2>We measure the machine. We never measure the person.</h2>
+        <p class="body">We tune p99 latency to the millisecond and ship it. The p99 of a human's attention — the tax a tool charges just to be used — goes unlogged. Two kinds of speed; we only instrument one.</p>
+      </div>
+      <div class="ph r-4x3" aria-hidden="true"><span class="cap">FIGURE · two gauges — “machine” measured, “attention” blank &nbsp;·&nbsp; <span class="ratio">4:3</span></span></div>
+    </div>
+  </section>
+
+  <!-- 3 · 大引用页 (Big Quote) — dark -->
+  <section class="slide dark" id="s3">
+    <div class="chrome"><b>03</b> / 09</div>
+    <div class="kicker">The claim</div>
+    <hr class="rule">
+    <div class="quote">
+      <div class="q"><em>slowness is a design budget</em>, not a defect.</div>
+      <div class="src">Slow software isn't software that runs slowly. It's software designed at the pace of understanding — fewer surfaces, durable defaults, decisions made once and remembered.</div>
+    </div>
+  </section>
+
+  <!-- 4 · 图文混排 (Lead Image + Side Text) — light -->
+  <section class="slide light" id="s4">
+    <div class="chrome"><b>04</b> / 09</div>
+    <div class="cols">
+      <div>
+        <div class="kicker">The counter-current</div>
+        <hr class="rule">
+        <h2>Three forces push teams the other way.</h2>
+        <p class="body">None of them is stupidity. Each is a rational response to how software gets funded and judged — which is exactly why they're hard to resist.</p>
+      </div>
+      <div class="ph r-16x9" aria-hidden="true"><span class="cap">LEAD · three arrows pulling away from the center &nbsp;·&nbsp; <span class="ratio">16:9</span></span></div>
+    </div>
+  </section>
+
+  <!-- 5 · 数据大字报 (Big Numbers Grid) — hero-light -->
+  <section class="slide hero-light" id="s5" style="padding:6.2vh 7vw 7vh">
+    <div class="chrome"><b>05</b> / 09</div>
+    <div class="kicker">A worked contrast — illustrative</div>
+    <hr class="rule">
+    <div class="stats">
+      <div class="stat"><div class="v">40</div><div class="l">features in the “fast” tool nobody can name</div></div>
+      <div class="stat"><div class="v">9</div><div class="l">features in the “slow” tool that compose</div></div>
+      <div class="stat"><div class="v">fewer</div><div class="l">moves to finish the very same job</div></div>
+    </div>
+    <p class="statnote">Same job. The slow tool wins not by speed but by subtraction. (Numbers illustrative.)</p>
+  </section>
+
+  <!-- 6 · 两列流水线 (Pipeline) — dark — the three forces, NAMED -->
+  <section class="slide dark" id="s6">
+    <div class="chrome"><b>06</b> / 09</div>
+    <div class="kicker">The three forces, named</div>
+    <hr class="rule">
+    <div class="pipe">
+      <div class="step"><div class="n">FORCE 01</div><div class="t">the demo-driven roadmap</div><div class="b">You build what shows well in a 30-second clip.</div></div>
+      <div class="step"><div class="n">FORCE 02</div><div class="t">the metric monoculture</div><div class="b">Only what is logged is treated as real.</div></div>
+      <div class="step"><div class="n">FORCE 03</div><div class="t">the novelty treadmill</div><div class="b">A redesign is easier to fund than a refinement.</div></div>
+    </div>
+  </section>
+
+  <!-- 7 · 并列对比 (Before / After) — light -->
+  <section class="slide light" id="s7">
+    <div class="chrome"><b>07</b> / 09</div>
+    <div class="kicker">The turn</div>
+    <hr class="rule">
+    <div class="vs">
+      <div class="side bad"><div class="lab">Not this</div><div class="txt">Nostalgia. “Software used to be better.”</div></div>
+      <div class="side good"><div class="lab">This</div><div class="txt">Subtraction under constraint — and it's fundable if you can price the surface you didn't cut.</div></div>
+    </div>
+  </section>
+
+  <!-- 8 · 左文右图 (Quote + Image) — dark — the ask -->
+  <section class="slide dark" id="s8">
+    <div class="chrome"><b>08</b> / 09</div>
+    <div class="cols">
+      <div>
+        <div class="kicker">The ask</div>
+        <hr class="rule">
+        <h2>Measure time-to-out-of-the-way.</h2>
+        <p class="body">Budget for refinement, not just features. Treat the interface a person didn't have to learn as the achievement — and put a number on it.</p>
+      </div>
+      <div class="ph r-4x3" aria-hidden="true"><span class="cap">FIGURE · stopwatch relabelled “time-to-out-of-the-way” &nbsp;·&nbsp; <span class="ratio">4:3</span></span></div>
+    </div>
+  </section>
+
+  <!-- 9 · 悬念收束 (Hero Question) — hero-dark — closing -->
+  <section class="slide hero hero-dark closing" id="s9">
+    <div class="chrome"><b>09</b> / 09</div>
+    <div class="q">What did your users not have to learn today?</div>
+    <div class="meta">The Quiet Architecture of Slow Software &nbsp;·&nbsp; Mara Vint &nbsp;·&nbsp; Cadence 2026</div>
+  </section>
+
+</main>
+
+<!-- OPTIONAL keyboard nav. The deck renders & reads fully with JS disabled (scroll-snap handles paging). -->
+<script>
+  (function(){
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    if(!slides.length) return;
+    function go(i){ i=Math.max(0,Math.min(slides.length-1,i)); slides[i].scrollIntoView({behavior:'smooth'}); cur=i; }
+    var cur=0;
+    document.addEventListener('keydown',function(e){
+      if(e.key==='ArrowDown'||e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); go(cur+1); }
+      else if(e.key==='ArrowUp'||e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); go(cur-1); }
+      else if(e.key==='Home'){ e.preventDefault(); go(0); }
+      else if(e.key==='End'){ e.preventDefault(); go(slides.length-1); }
+    });
+    var deck=document.querySelector('.deck');
+    deck.addEventListener('scroll',function(){
+      var y=deck.scrollTop, h=window.innerHeight;
+      cur=Math.round(y/h);
+    },{passive:true});
+  })();
+</script>
+</body>
+</html>

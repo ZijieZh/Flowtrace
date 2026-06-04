@@ -1,0 +1,18 @@
+{
+  "style_target_ref": "understand_project/project.json",
+  "review_ref": "section_review/section_review.json",
+  "decisions": [
+    { "edit_ref": "s1.line_edits[0]", "verdict": "accept", "rationale": "calibrated confidence ('largely' vs 'essentially') strengthens credibility with a skeptic and costs nothing in voice", "applied_text": "by 2026 it is largely complete." },
+    { "edit_ref": "s2.line_edits[0]", "verdict": "accept", "rationale": "completing the chain into the reliability section tightens the argument and stays in the writer's cadence", "applied_text": "margin migrates up the stack — toward whoever turns a raw model into a dependable workflow." },
+    { "edit_ref": "s3.line_edits[0]", "verdict": "soften", "rationale": "the intent (tie 'trustworthy' to the buyer's job) is right, but the reviewer's full clause is wordy; apply the intent in fewer words to keep the writer's punchy rhythm", "applied_text": "It is the system that makes an ordinary model trustworthy enough to hand it a real workflow." },
+    { "edit_ref": "s4.clarity.apocalypse", "verdict": "reject", "rationale": "the brief explicitly asks for 'a little contrarian' with opinions welcome; 'Underwrite the repricing, not the apocalypse' is exactly that voice — flattening it to neutral phrasing would obey the note while erasing the POV. Suggest, don't replace.", "applied_text": "Underwrite the repricing, not the apocalypse." }
+  ],
+  "voice_notes": [
+    "PROTECT: the staccato declaratives — 'That is not a demo. That is a P&L line.' and 'Underwrite the repricing, not the apocalypse.'",
+    "PROTECT: first-person contrarian asides ('I want to pressure-test the thesis rather than repeat it')",
+    "PROTECT: the sharp one-liners ('a bad place to be the fifth entrant')",
+    "the goal is persuade-an-investor; keep the confident, mildly contrarian register the brief set — do not sand it into a neutral research note"
+  ],
+  "sounds_like_you": true,
+  "source": "content-research-writer step 6 — Preserve Writer's Voice (suggest don't replace; one edit REJECTED to protect POV; tone matched to the brief's style target)"
+}

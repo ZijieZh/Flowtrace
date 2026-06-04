@@ -9,7 +9,9 @@ writes:
 
 # Extract Keywords
 
-The back half of the skill's **Job Analysis**. Turn the parsed JD into a **weighted keyword set** — the single artifact most of the pipeline scores and formats against.
+Source skill: **tailored-resume-generator** (Job Analysis — the keyword-extraction half).
+
+Turn the parsed JD into a **weighted keyword set** — the single artifact most of the pipeline scores and formats against.
 
 ## What this step does
 

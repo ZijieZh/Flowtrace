@@ -1,0 +1,32 @@
+{
+  "as_of": "2026-06-03",
+  "repo": "acme/payments-gateway",
+  "pr": 482,
+  "decision": "block",
+  "rule": "A finding blocks iff (triage severity >= High) AND (red_team confirmed_exploitable == true). Blue-team detection coverage is a compensating control: recorded, residual-risk-reducing, never sufficient to unblock a confirmed-exploitable High+.",
+  "inputs": { "red": "red_team/red_team.json", "blue": "blue_team/detections.json" },
+  "evaluated": [
+    { "finding": "T-001", "severity": "Critical", "high_plus": true, "confirmed_exploitable": true, "blocks": true },
+    { "finding": "T-002", "severity": "High", "high_plus": true, "confirmed_exploitable": true, "blocks": true },
+    { "finding": "T-003", "severity": "High", "high_plus": true, "confirmed_exploitable": false, "blocks": false, "why": "High and reachable per SCA, but red-team could not chain it (call site pins HS256). Not a blocker; tracked for upgrade." },
+    { "finding": "T-004", "severity": "Medium", "high_plus": false, "confirmed_exploitable": null, "blocks": false, "why": "availability-only, below High line; not emulated." },
+    { "finding": "T-005", "severity": "Low", "high_plus": false, "confirmed_exploitable": null, "blocks": false, "why": "Low; tracked debt." }
+  ],
+  "blocking_findings": [
+    { "finding": "T-001", "title": "SQL injection via Stripe-Event-Id", "severity": "Critical", "confirmed_exploitable": true, "technique": ["T1190"] },
+    { "finding": "T-002", "title": "Forgeable webhook signature (leaked secret + non-constant-time compare)", "severity": "High", "confirmed_exploitable": true, "technique": ["T1552.001", "T1212"] }
+  ],
+  "compensating_controls": [
+    { "finding": "T-001", "detection": "sigma:b3d9e7a1 (SQL tokens in event id)", "effect": "residual-risk-reduced-not-waived" },
+    { "finding": "T-002", "detection": "sigma:a7f1c0e2 (sig-verify failure spike) + yara:acme_leaked_stripe_webhook_secret", "effect": "residual-risk-reduced-not-waived" }
+  ],
+  "non_blocking": [
+    { "finding": "T-003", "why": "not reproduced by red-team", "sla_days": 7, "action": "upgrade golang-jwt to v4 >= 4.4.3" },
+    { "finding": "T-004", "why": "availability-only Medium", "sla_days": 30, "action": "bounds-check header parser" },
+    { "finding": "T-005", "why": "Low", "sla_days": 90, "action": "use crypto/rand for nonce" }
+  ],
+  "why_not_single_tool": "Six scanners independently would have blocked on raw 'High' severity from SCA (T-003) — which red-team showed is NOT exploitable as written — and might have under-weighted T-002, where neither the leaked secret nor the timing compare is independently scored High by its own tool. The combined red+blue decision blocks on the two findings that are genuinely High AND proven exploitable, and declines to block on the one that only looked dangerous.",
+  "check": { "label": "PR #482 merge gate", "passed": false, "expected": "0 confirmed-exploitable High+ findings", "actual": "2 confirmed-exploitable High+ findings (T-001, T-002)" },
+  "required_to_unblock": ["Fix T-001 (parameterize both sinks)", "Fix T-002 (rotate secret + ConstantTimeCompare)"],
+  "source": "implementing-devsecops-security-scanning (Security Gate job + branch protection) with combined red+blue decision logic"
+}

@@ -1,0 +1,15 @@
+{
+  "target_ref": "polish_citations/report.md",
+  "checks": [
+    { "item": "all_claims_sourced", "passed": true, "note": "every load-bearing figure ($13.8B, ~1/3 VC share, 280x cost drop, sub-50% task success, 700-agent equivalent, $2/conversation) carries an inline [n] tied to References" },
+    { "item": "citations_formatted", "passed": true, "note": "numbered inline [n] style with a complete ## References list; citation [7] flagged as synthesized commentary, not a primary stat" },
+    { "item": "examples_clear", "passed": true, "note": "Klarna (proof-point) and Salesforce Agentforce (repricing) are concrete, named and quantified" },
+    { "item": "transitions_smooth", "passed": true, "note": "'the money is not where the demos are' threads s1→s2; 'racing to zero → margin up the stack' threads s2→s3; the s4 hinge ('but the evidence qualifies it') is intact" },
+    { "item": "call_to_action_present", "passed": true, "note": "conclusion delivers the investor CTA from the brief: underwrite the orchestration/reliability layer; demand task-completion + rollback metrics" },
+    { "item": "proofread_typos", "passed": true, "note": "no typos; voice lines preserved verbatim from the voice_check pass" },
+    { "item": "voice_preserved", "passed": true, "note": "staccato declaratives and the rejected-edit line ('Underwrite the repricing, not the apocalypse') survived per voice_check.json" }
+  ],
+  "ready_to_publish": true,
+  "note": "All gates pass against the VC-investor framing fixed in understand_project. If that framing changed (e.g. audience → SaaS founders), all_claims_sourced and call_to_action_present would re-open, because the load-bearing claims and the CTA are audience-specific — which is exactly the steer this trace is built to show.",
+  "source": "content-research-writer step 8 — Final Review and Polish, Pre-Publish Checklist (claims sourced / citations formatted / examples clear / transitions smooth / CTA present / proofread)"
+}

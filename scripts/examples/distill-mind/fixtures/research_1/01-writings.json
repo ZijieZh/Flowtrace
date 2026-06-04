@@ -1,0 +1,54 @@
+{
+  "lane": "01-writings",
+  "subject": "Mira Tan (fictional)",
+  "corpus": "Notes on Friction — invented essay series, ~80 essays (does not exist)",
+  "disclaimer": "Fabricated for illustration. No real essays, no real person.",
+  "repeated_core_claims": [
+    {
+      "claim": "Friction is a feature you didn't choose",
+      "gloss": "Every extra tap, field, or confirm is a design decision — usually an unmade one. Audit a flow by counting the friction nobody decided to add.",
+      "recurrence_count": 11,
+      "domains_seen": ["onboarding flows", "checkout", "settings pages", "team-invite flows"],
+      "first_hand": true,
+      "evidence": ["essay 'The Tax You Forgot to Levy'", "essay 'Counting Taps'", "essay 'The Confirm Dialog Is an Apology'"]
+    },
+    {
+      "claim": "The second draft is the real first draft",
+      "gloss": "Nothing is right in v1; design the system so the cheap rewrite happens on purpose, not the expensive one later.",
+      "recurrence_count": 8,
+      "domains_seen": ["product copy", "navigation", "design process", "feature scoping"],
+      "first_hand": true,
+      "evidence": ["essay 'Ship the Embarrassing Version'", "essay 'Drafts All the Way Down'"]
+    },
+    {
+      "claim": "Subtract before you add",
+      "gloss": "The default move on any flow is removal; adding is the exception that has to argue for itself.",
+      "recurrence_count": 9,
+      "domains_seen": ["feature requests", "settings", "navigation", "form design"],
+      "first_hand": true,
+      "evidence": ["essay 'The Subtraction Bias We Don't Have'", "essay 'Every Setting Is a Lost Argument'"]
+    },
+    {
+      "claim": "Design the empty state first",
+      "gloss": "The empty/zero-data state is where a product is honest about its one job; design it before the happy path.",
+      "recurrence_count": 6,
+      "domains_seen": ["dashboards", "onboarding", "note apps"],
+      "first_hand": true,
+      "evidence": ["essay 'Start From Nothing'"]
+    }
+  ],
+  "coined_terms": [
+    {"term": "friction audit", "meaning": "walk a flow counting every unchosen point of resistance"},
+    {"term": "the one job", "meaning": "the single task a screen exists to get done; if you can't name it, the screen is wrong"},
+    {"term": "settings debt", "meaning": "every toggle added because the team couldn't agree, paid back as user confusion"}
+  ],
+  "reading_list_influences": [
+    "an austere industrial-design lineage — 'subtract until it hurts' (a fictional, invented influence)",
+    "early usability writing on think-aloud testing",
+    "restaurant kitchen mise-en-place writing (she cites cooking constantly)"
+  ],
+  "contradictions_noted": [
+    "Preaches 'subtract before you add', yet essay 'The Setting I Kept' defends one hard-won toggle — subtraction is a default, not an absolute."
+  ],
+  "source": "huashu-nuwa Phase 1 Agent 1 著作; bar = core claims repeated >=3x are true beliefs"
+}
