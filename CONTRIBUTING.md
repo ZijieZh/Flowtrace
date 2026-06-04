@@ -10,7 +10,7 @@ The web UI is embedded into the Rust binary at compile time (via `rust-embed`), 
 # one-shot: builds frontend + CLI and symlinks `flowtrace` onto your PATH
 ./scripts/install.sh          # override the symlink target with INSTALL_DIR=…
 
-# or build by hand while hacking:
+# or build by hand:
 cd frontend && npm install && npm run build && cd ..
 cargo build --release -p flowtrace-cli
 ```
