@@ -85,9 +85,10 @@ export function AppSidebarRecentProjects({
           <button
             key={id}
             type="button"
+            title={agent.name || id}
             className={cn(
               'h-9 px-3.5 rounded-md flex items-center text-left cursor-pointer transition-colors',
-              'text-sm tracking-[-0.005em] truncate',
+              'text-sm tracking-[-0.005em] min-w-0',
               isActive
                 ? 'bg-white text-slate-900 font-semibold shadow-[0_1px_2px_rgba(15,23,42,0.03),0_1px_3px_rgba(15,23,42,0.03)]'
                 : 'text-slate-600 font-normal hover:bg-slate-900/[0.04] hover:text-slate-900',
@@ -96,7 +97,7 @@ export function AppSidebarRecentProjects({
               router(`/traces/${id}`)
             }}
           >
-            {agent.name || id}
+            <span className="min-w-0 flex-1 truncate">{agent.name || id}</span>
           </button>
         )
       })}
