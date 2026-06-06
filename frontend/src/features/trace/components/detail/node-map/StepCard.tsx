@@ -1,11 +1,10 @@
-
-import { memo, useState, useRef, useEffect } from 'react'
-import { FileArrowDown, Pause, Info } from '@phosphor-icons/react'
+import { memo, useState, useRef, useEffect, useMemo } from 'react'
+import { CaretRight, Pause } from '@phosphor-icons/react'
 import { useTranslation } from 'react-i18next'
 
 import { cn } from '@/shared/lib/utils'
-import { Badge } from '@/shared/components/ui/badge'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/shared/components/ui/tooltip'
+import { useStepFiles, useStepFileContent } from '@/features/trace/api/trace-core'
 import type { NodeMapStep } from './types'
 import { LAYOUT, COLORS, STATUS_STYLES, STATUS_MESSAGE_PREFIX } from './types'
 import StatusBadge from './StatusBadge'
@@ -22,6 +21,29 @@ interface StepCardProps {
   onInterrupt?: () => void
 }
 
+/** First method line of a STEP.md, plain-text, for the on-card spec teaser.
+ *  Strips frontmatter, the leading H1, and any "Source skill:" line, then
+ *  takes the first paragraph and removes markdown markers. CSS truncates it. */
+function extractSpecTeaser(md: string | undefined): string | null {
+  if (!md) return null
+  let body = md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '') // frontmatter
+  body = body.replace(/^\s*#[^\n]*\r?\n/, '') // leading H1
+  // First paragraph that isn't the (possibly multi-line) "Source skill:" block.
+  const para = body
+    .split(/\n\s*\n/)
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .find((p) => !/^source(\s+skill)?\s*:/i.test(p))
+  if (!para) return null
+  const plain = para
+    .replace(/`([^`]*)`/g, '$1')
+    .replace(/\*\*([^*]*)\*\*/g, '$1')
+    .replace(/\*([^*]*)\*/g, '$1')
+    .replace(/^[->*\s]+/, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+  return plain || null
+}
 
 function StepCard({
   step,
@@ -32,7 +54,7 @@ function StepCard({
   onInterrupt,
 }: StepCardProps) {
   const { t } = useTranslation('trace')
-  const { id, name, description, status, message, assets, generatedAssets, assetTitle, fromInputs } = step
+  const { id, name, description, status, message, assets, generatedAssets, assetTitle } = step
   const stepAssets = assets || []
   const stepGenerated = generatedAssets || []
   const hasOutputs = stepGenerated.length > 0
@@ -59,61 +81,24 @@ function StepCard({
     .replace(/_/g, ' ')
     .replace(/\b\w/g, (l) => l.toUpperCase())
 
-  const visibleInputs = fromInputs ? fromInputs.slice(0, 8) : []
-  const hiddenInputsCount = Math.max(0, (fromInputs?.length || 0) - visibleInputs.length)
-
-  // Active tab for expanded view (memory tab removed; inputs only)
-  const [tabs, setTabs] = useState<{ expanded: boolean; tab: 'inputs' | null }>({
-    expanded: false,
-    tab: null,
-  })
-  const overlayRef = useRef<HTMLDivElement>(null)
   const [docsOpen, setDocsOpen] = useState(false)
-  const cardRef = useRef<HTMLDivElement>(null)
-  const previousNodeZIndex = useRef<string | null>(null)
 
-  // Close expanded overlay on canvas click
-  useEffect(() => {
-    if (!tabs.expanded) return
-
-    const handleCanvasClick = () => {
-      setTabs({ expanded: false, tab: null })
-    }
-
-    document.addEventListener('nodemap:pane-click', handleCanvasClick)
-    return () => document.removeEventListener('nodemap:pane-click', handleCanvasClick)
-  }, [tabs.expanded])
-
-  // Z-index boost when tabs are expanded
-  useEffect(() => {
-    const nodeElement = cardRef.current?.closest<HTMLElement>('.react-flow__node')
-    if (!nodeElement) return
-
-    const restoreZIndex = () => {
-      if (previousNodeZIndex.current !== null) {
-        nodeElement.style.zIndex = previousNodeZIndex.current
-        previousNodeZIndex.current = null
-      }
-    }
-
-    if (tabs.expanded) {
-      if (previousNodeZIndex.current === null) {
-        previousNodeZIndex.current = nodeElement.style.zIndex
-      }
-      nodeElement.style.zIndex = '1000'
-      return () => { restoreZIndex() }
-    }
-
-    restoreZIndex()
-  }, [tabs.expanded])
+  // Spec teaser — lazily fetch STEP.md only while the card is hovered.
+  const [hovered, setHovered] = useState(false)
+  const wantSpec = hovered && !isDeliverable && !!traceId
+  const { data: stepFiles } = useStepFiles(traceId, wantSpec ? id : undefined)
+  const stepMdPath = stepFiles?.find((f) => f.name.toLowerCase() === 'step.md')?.path
+  const { data: stepMdText } = useStepFileContent(wantSpec ? stepMdPath : undefined)
+  const specTeaser = useMemo(() => extractSpecTeaser(stepMdText), [stepMdText])
 
   const isRunning = status === 'running'
 
   return (
     <div
-      ref={cardRef}
       className={cn('relative group')}
       style={{ width: LAYOUT.NODE_WIDTH }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {/* Badge Row */}
       <div
@@ -121,22 +106,6 @@ function StepCard({
         style={{ marginBottom: 4, minHeight: LAYOUT.ACTION_BTN_SIZE }}
       >
         {showBadge ? <StatusBadge status={status} /> : <div />}
-        {!isDeliverable && traceId && (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                type="button"
-                aria-label="Step documentation"
-                onClick={(e) => { e.stopPropagation(); setDocsOpen(true) }}
-                className="opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center justify-center rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100 nodrag"
-                style={{ width: LAYOUT.ACTION_BTN_SIZE, height: LAYOUT.ACTION_BTN_SIZE }}
-              >
-                <Info size={16} weight="regular" />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side="top">Open step docs</TooltipContent>
-          </Tooltip>
-        )}
       </div>
 
       {/* Card (non-deliverable only — deliverable is a single merged card in output section) */}
@@ -271,79 +240,27 @@ function StepCard({
           {/* Hover bridge */}
           <div aria-hidden="true" className="absolute left-0 right-0 z-[9]" style={{ top: '100%', height: 4 }} />
 
-          {/* Memory + Inputs tabs (overlay on hover, stays when expanded) */}
-          {!isDeliverable && (
+          {/* Spec teaser — fills the slot the (empty) inputs placeholder used to
+              occupy. Reveals on card hover: a one-line method teaser from
+              STEP.md; click opens the full spec drawer. */}
+          {!isDeliverable && traceId && (
             <div
-              ref={overlayRef}
-              className={cn(
-                "absolute -top-2 left-0 right-0 z-40 border border-slate-200 bg-white rounded-[8px] shadow-sm",
-                tabs.expanded ? "block" : "hidden group-hover/card:block"
-              )}
-              style={{
-                top: '100%',
-                marginTop: 4,
-              }}
+              className="absolute left-0 right-0 z-40 hidden group-hover/card:block"
+              style={{ top: '100%', marginTop: 4 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="px-1.5 py-1">
-                <div
-                  className={cn('flex items-center w-full', tabs.expanded && 'mb-3')}
-                  style={{ gap: LAYOUT.TAB_GAP, flexShrink: 0 }}
-                >
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setTabs((s) => {
-                        const same = s.tab === 'inputs'
-                        if (s.expanded && same) return { expanded: false, tab: null }
-                        return { expanded: true, tab: 'inputs' }
-                      })
-                    }}
-                    className="flex-1 justify-center cursor-pointer flex items-center gap-0.5 transition-colors hover:!bg-slate-50"
-                    style={{
-                      padding: `${LAYOUT.TAB_PADDING_Y}px ${LAYOUT.TAB_PADDING_X}px`,
-                      borderRadius: LAYOUT.TAB_RADIUS,
-                      backgroundColor: tabs.tab === 'inputs' ? COLORS.tabActiveBg : 'transparent',
-                    }}
-                  >
-                    <FileArrowDown style={{ width: 12, height: 12, color: COLORS.tabText }} />
-                    <span style={{ fontSize: LAYOUT.TAB_FONT_SIZE, lineHeight: `${LAYOUT.DESC_LINE_HEIGHT}px`, color: COLORS.tabText }}>
-                      {t('nodeMap.stepCard.inputs')}
-                    </span>
-                  </button>
-                </div>
-                {tabs.expanded && tabs.tab === 'inputs' && (
-                  <div
-                    className="flex flex-col"
-                    style={{ maxHeight: 240, paddingRight: 4, paddingBottom: 6 }}
-                  >
-                    <div className="flex-1 overflow-y-auto">
-                      <div className="flex flex-col pl-1.5" style={{ gap: 8 }}>
-                        {fromInputs && fromInputs.length > 0 ? (
-                          <div className="flex flex-wrap gap-1">
-                            {visibleInputs.map((inputName) => (
-                              <Badge
-                                key={inputName}
-                                variant="outline"
-                                className="rounded-[4px] border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-normal leading-3 text-slate-600"
-                              >
-                                {inputName}
-                              </Badge>
-                            ))}
-                            {hiddenInputsCount > 0 && (
-                              <span className="inline-flex items-center px-1.5 py-0.5 text-[10px] leading-3 text-slate-400">
-                                +{hiddenInputsCount}
-                              </span>
-                            )}
-                          </div>
-                        ) : (
-                          <span className="text-[10px] text-slate-400 italic">{t('nodeMap.stepCard.noUserInputs')}</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+              <button
+                type="button"
+                aria-label="Open step spec"
+                onClick={(e) => { e.stopPropagation(); setDocsOpen(true) }}
+                className="nodrag flex w-full items-center gap-2 rounded-[8px] border border-slate-200 bg-white px-3 py-2 text-left shadow-sm transition-colors hover:border-slate-300 hover:bg-slate-50"
+              >
+                <span className="shrink-0 text-[9.5px] font-bold uppercase tracking-[0.1em] text-slate-400">Spec</span>
+                <span className="min-w-0 flex-1 truncate text-[12px] text-slate-600">
+                  {specTeaser ?? 'View step spec'}
+                </span>
+                <CaretRight size={12} weight="bold" className="shrink-0 text-slate-300" />
+              </button>
             </div>
           )}
         </div>

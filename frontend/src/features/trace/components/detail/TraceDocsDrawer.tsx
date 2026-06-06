@@ -26,6 +26,7 @@ export function TraceDocsDrawer({
   return (
     <FilesDrawerShell
       onClose={onClose}
+      eyebrow="Resources"
       title={traceTitle}
       subtitle={description}
       files={files}

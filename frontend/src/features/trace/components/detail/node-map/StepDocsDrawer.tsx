@@ -30,6 +30,7 @@ export function StepDocsDrawer({
   return (
     <FilesDrawerShell
       onClose={onClose}
+      eyebrow="Spec"
       title={stepName}
       subtitle={does}
       files={files}

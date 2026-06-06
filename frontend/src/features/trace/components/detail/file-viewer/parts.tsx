@@ -365,6 +365,8 @@ export function FileViewer({ file }: { file: StepFile }) {
 
 interface FilesDrawerShellProps {
   onClose: () => void
+  /** Small uppercase eyebrow in the header (e.g. "Spec", "Resources"). */
+  eyebrow?: string
   title: string
   subtitle?: string
   files: StepFile[] | undefined
@@ -376,13 +378,15 @@ interface FilesDrawerShellProps {
   errorMessage?: string
 }
 
-/** The drawer chrome: backdrop, slide-in aside, header, file list, viewer.
+/** The shell chrome: a centered modal (same footprint as the run-history /
+ *  commits panel) — backdrop, header, a left file rail, and the viewer pane.
  *
  *  `files` is coerced through `Array.isArray` before any list operation so a
  *  non-array (e.g. an older `trace serve` falling back to SPA HTML on an
  *  unknown route) cannot crash the drawer with `.find is not a function`. */
 export function FilesDrawerShell({
   onClose,
+  eyebrow,
   title,
   subtitle,
   files,
@@ -424,41 +428,51 @@ export function FilesDrawerShell({
   if (typeof document === 'undefined') return null
 
   return createPortal(
-    <>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 font-sans backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
+    >
       <div
-        onClick={onClose}
-        className="fixed inset-0 z-40 bg-black/50"
-        aria-hidden
-      />
-
-      <aside
         role="dialog"
         aria-label={title}
-        className="fixed inset-y-0 right-0 z-50 w-full sm:max-w-[560px] bg-white shadow-xl flex flex-col"
+        className="relative flex h-[min(800px,90vh)] w-[min(1100px,95vw)] flex-col overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-2xl ring-1 ring-foreground/[0.03]"
       >
-        <div className="px-6 pt-6 pb-3 border-b flex items-start gap-4">
-          <div className="flex-1 min-w-0">
-            <div className="text-lg font-semibold text-slate-900 truncate">{title}</div>
-            {subtitle && <div className="mt-1 text-sm text-slate-500">{subtitle}</div>}
+        <header className="flex shrink-0 items-center justify-between gap-3 border-b border-border bg-card px-6 py-4">
+          <div className="flex min-w-0 items-baseline gap-2.5">
+            {eyebrow && (
+              <span className="shrink-0 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                {eyebrow}
+              </span>
+            )}
+            <h2 className="truncate text-sm font-semibold text-foreground">{title}</h2>
+            {safeFiles && safeFiles.length > 0 && (
+              <span className="shrink-0 font-mono text-xs tabular-nums text-muted-foreground">· {safeFiles.length}</span>
+            )}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="shrink-0 -mr-1 -mt-1 inline-flex items-center justify-center rounded-md text-slate-400 hover:text-slate-700 hover:bg-slate-100"
-            style={{ width: 28, height: 28 }}
+            className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
           >
             <X size={18} />
           </button>
-        </div>
+        </header>
 
-        {safeFiles && safeFiles.length > 0 && (
-          <div className="border-b">
-            <div className="px-6 pt-3 pb-1 text-[11px] font-medium text-slate-500">
-              {fileListHeader} <span className="text-slate-400">· {safeFiles.length}</span>
-            </div>
-            <div className="pb-2">
-              {safeFiles.map((f) => (
+        <div className="flex min-h-0 flex-1">
+          <aside className="w-[300px] shrink-0 overflow-y-auto border-r border-border bg-background/30">
+            {safeFiles && safeFiles.length > 0 && (
+              <div className="px-5 pb-2 pt-4">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                  {fileListHeader}
+                </div>
+                {subtitle && (
+                  <p className="mt-1.5 line-clamp-3 text-[11px] leading-snug text-muted-foreground/80">{subtitle}</p>
+                )}
+              </div>
+            )}
+            <ol className="pb-3">
+              {safeFiles?.map((f) => (
                 <FileRow
                   key={f.path}
                   file={f}
@@ -466,23 +480,23 @@ export function FilesDrawerShell({
                   onClick={() => setSelectedName(f.name)}
                 />
               ))}
-            </div>
-          </div>
-        )}
+            </ol>
+          </aside>
 
-        <div className="flex-1 overflow-auto px-6 py-5">
-          {isLoading ? (
-            <div className="text-sm text-slate-400">Loading…</div>
-          ) : isError ? (
-            <div className="text-sm text-red-600">{errorMessage}</div>
-          ) : !safeFiles || safeFiles.length === 0 ? (
-            emptyState
-          ) : selectedFile ? (
-            <FileViewer file={selectedFile} />
-          ) : null}
+          <section className="relative flex min-h-0 flex-1 flex-col overflow-y-auto bg-gradient-to-br from-muted/20 via-card to-card px-7 py-6">
+            {isLoading ? (
+              <div className="text-sm text-muted-foreground">Loading…</div>
+            ) : isError ? (
+              <div className="text-sm text-red-600">{errorMessage}</div>
+            ) : !safeFiles || safeFiles.length === 0 ? (
+              emptyState
+            ) : selectedFile ? (
+              <FileViewer file={selectedFile} />
+            ) : null}
+          </section>
         </div>
-      </aside>
-    </>,
+      </div>
+    </div>,
     document.body,
   )
 }
