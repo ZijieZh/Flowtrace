@@ -31,8 +31,8 @@ Flowtrace runs that same work as a trace: a flow of steps the agent moves throug
 
 <div align="center">
 <table><tr>
-<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.png"><img src="docs/assets/examples/nvda-decision.png" height="260" alt="A trace shown as a flow: ingest lanes fan into a synthesized thesis, then position sizing and risk controls, then a research-note report"></a><br><sub>The flow · click to enlarge</sub></td>
-<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.pdf"><img src="docs/assets/examples/nvda-decision-pdf.png" height="340" alt="The deliverable, a fixed-format research-note PDF"></a><br><sub>The deliverable · click to open</sub></td>
+<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.png"><img src="docs/assets/cap/hero-flow.png" height="280" alt="A trace shown as a clean flow: frame the thesis, research four angles in parallel, fold them into a valuation, deliver a one-page brief"></a><br><sub>The flow · click to enlarge</sub></td>
+<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.pdf"><img src="docs/assets/cap/hero-deliverable.png" height="280" alt="The deliverable, a fixed-format research-note PDF: cover, rating and summary, embedded charts, and numbered references"></a><br><sub>The deliverable · click to open</sub></td>
 </tr></table>
 </div>
 
@@ -44,17 +44,51 @@ Same skills, same agent. Running that work as a trace is what changes:
 
 **Transparent.** The work is a flow of steps you take in at a glance, not a thread you scroll. Each step's output is a file you open, so the intermediate work is right there instead of buried in messages.
 
+<div align="center">
+<img src="docs/assets/transparent.gif" width="520" alt="A trace running: it moves through its steps one at a time, each leaving a file on disk">
+<br><sub>Each step runs in turn and writes its output to a file.</sub>
+</div>
+
 **Grounded.** Every result points back to the files it came from, so you verify instead of trust.
+
+<div align="center">
+<table><tr>
+<td align="center" valign="top"><a href="docs/assets/cap/grounded-finance.png"><img src="docs/assets/cap/grounded-finance.png" height="300" alt="A finance result card titled trend, momentum and risk line up: four research charts (price, RSI, MACD, drawdown), a passing trend-and-momentum check, and the files they came from"></a><br><sub>Finance</sub></td>
+<td align="center" valign="top"><a href="docs/assets/cap/grounded-clinical.png"><img src="docs/assets/cap/grounded-clinical.png" height="300" alt="A clinical result card: survival benefit HR 0.62, a Kaplan-Meier curve and passing checks, citing km_curve.png"></a><br><sub>Clinical</sub></td>
+</tr></table>
+<sub>Two high-stakes decisions, same shape: the finding, its charts, the checks that pass, and the files they came from.</sub>
+</div>
 
 **Steerable.** Fix one step and only what depends on it re-runs. The rest stays put.
 
 **Traceable.** The whole run is files and git, so it does not vanish when you close the tab. Stop and resume anytime, hand it to a teammate, read the full history.
 
+<div align="center">
+<img src="docs/assets/cap/traceable.png" width="720" alt="Three steps over the same run: pick any step in the node map, open its full version history, then travel back to an older commit to see its state then, v2 gradient-boost AUC 0.84 versus v1 logistic 0.78">
+<br><sub>Pick any step, open its history, travel to any past commit.</sub>
+</div>
+
 **Reusable.** A finished task becomes a trace you run again on new input. The method is reused, not rebuilt.
 
-**Evolving.** A fix made once carries forward, so the trace gets better the more it runs.
+**Evolving.** The trace gets better the more it runs. When a step misses its bar, the next version switches to a method that clears it, and the version that passes is the one that sticks.
 
-You do not throw anything away. Flowtrace runs the skills and the agent you already use. A skill you have becomes a trace, a long chat that worked becomes a trace, a finished session you do not want to rebuild becomes a trace. From then on it is something you can follow, steer, and run again.
+You do not start from scratch. A skill, a long session, a chat, a plan, a finished run you hand off: run any of them as a trace and you get the same steps you can follow, check, and run again. Open any one to read it full size.
+
+<div align="center">
+<table>
+<tr>
+<td align="center" valign="top"><a href="docs/assets/onramp/convert.png"><img src="docs/assets/onramp/convert.png" width="400" alt="Convert a skill into a trace: its written steps become a flow of real, checkable steps"></a></td>
+<td align="center" valign="top"><a href="docs/assets/onramp/distill.png"><img src="docs/assets/onramp/distill.png" width="400" alt="Distill a long session into a trace: the reasoning kept as steps, the back-and-forth dropped"></a></td>
+</tr>
+<tr>
+<td align="center" valign="top"><a href="docs/assets/onramp/in-loop.png"><img src="docs/assets/onramp/in-loop.png" width="400" alt="Navigate a chat as a trace: jump to any step instead of scrolling the transcript"></a></td>
+<td align="center" valign="top"><a href="docs/assets/onramp/plan.png"><img src="docs/assets/onramp/plan.png" width="400" alt="Turn a plan into a trace: the same plan, now something you can navigate, steer, and run"></a></td>
+</tr>
+<tr>
+<td align="center" valign="top" colspan="2"><a href="docs/assets/onramp/handoff.png"><img src="docs/assets/onramp/handoff.png" width="400" alt="Hand off a trace, not a chat log: whoever picks it up sees the whole job, its files and checks, and runs it again"></a></td>
+</tr>
+</table>
+</div>
 
 Not every task needs this. A quick one off, just chat. Flowtrace earns its place when the result matters enough to verify, or when you will run the task again.
 
