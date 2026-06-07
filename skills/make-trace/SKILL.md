@@ -79,6 +79,8 @@ A run's inputs are plain files. There is no `inputs` field. Drop the input files
 
 Each CLI write makes one git commit. For every step: mark it running, produce its asset on disk, mark it done with that asset, and emit a structured reply. Then close the deliverable.
 
+**The reply is how each step shows its work — write it rich, not bare.** A bare `{ "headline", "status" }` renders as a lonely title and wastes the step. Before you write replies, read the schema instead of writing from memory: `flowtrace explain reply` lists the top-level fields, and `flowtrace explain reply.evidence` lists the typed evidence blocks and each block's own options (e.g. a figure's caption). Use what they document and match the reply to what the step actually produced. Skipping this read is the single most common reason a reply lands as just a title with nothing under it.
+
 ```bash
 RUN=$(flowtrace run new --name "first run" | tail -1)
 
