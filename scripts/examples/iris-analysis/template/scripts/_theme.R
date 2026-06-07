@@ -22,14 +22,14 @@ RUNNING   <- "#1d4ed8"  # blue-700
 BLOCKED   <- "#b45309"  # amber-700
 ERROR     <- "#b91c1c"  # red-700
 
-species_colors <- c(setosa = INK, versicolor = INK_SOFT, virginica = INK_MUTED)
+species_colors <- c(setosa = "#0072B2", versicolor = "#E69F00", virginica = "#009E73")
 
 # Sequential palette used by the iris demo plots.
 trace_palette <- function(n, style = "slate") {
   base <- switch(style,
-                 ocean = c(INK, INK_SOFT, INK_MUTED),
-                 slate = c(INK, INK_SOFT, INK_MUTED),
-                 c(INK, INK_SOFT, INK_MUTED))
+                 ocean = c("#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00"),
+                 slate = c("#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00"),
+                 c("#0072B2", "#E69F00", "#009E73", "#CC79A7", "#56B4E9", "#D55E00"))
   if (n <= length(base)) base[seq_len(n)] else colorRampPalette(base)(n)
 }
 

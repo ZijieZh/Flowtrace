@@ -35,7 +35,8 @@ RUNNING   <- "#1d4ed8"  # blue-700
 BLOCKED   <- "#b45309"  # amber-700
 ERROR     <- "#b91c1c"  # red-700
 
-species_colors <- c(setosa = INK, versicolor = INK_SOFT, virginica = INK_MUTED)
+species_colors <- c(setosa = "#0072B2", versicolor = "#E69F00", virginica = "#009E73")
+cat_pal <- c("#0072B2", "#E69F00", "#009E73", "#CC79A7")
 
 theme_slate <- function(base_size = 11) {
   theme_minimal(base_size = base_size, base_family = "sans") +
@@ -276,8 +277,8 @@ tukey_df <- data.frame(
 )
 p <- ggplot(tukey_df, aes(diff, pair)) +
   geom_vline(xintercept = 0, color = ERROR, linetype = "dashed", linewidth = 0.5) +
-  geom_errorbarh(aes(xmin = lo, xmax = hi), height = 0.18, color = INK, linewidth = 0.6) +
-  geom_point(size = 2.6, color = INK) +
+  geom_errorbarh(aes(xmin = lo, xmax = hi, color = pair), height = 0.18, linewidth = 0.7) +
+  geom_point(aes(color = pair), size = 2.8) + scale_color_manual(values = cat_pal, guide = "none") +
   labs(title = "Tukey HSD", subtitle = "pairwise mean differences with 95% CI", x = NULL, y = NULL) +
   theme_slate()
 save_plot(p, "tukey_hsd_forest.png", w = 6, h = 3.5)
@@ -351,7 +352,7 @@ cv_df <- data.frame(
 )
 p <- ggplot(cv_df, aes(acc, model)) +
   geom_errorbarh(aes(xmin = acc - err, xmax = acc + err), height = 0.2, color = INK_MUTED, linewidth = 0.4) +
-  geom_col(fill = INK_SOFT, color = INK, width = 0.55, alpha = 0.85) +
+  geom_col(aes(fill = model), color = NA, width = 0.55, alpha = 0.9) + scale_fill_manual(values = cat_pal, guide = "none") +
   geom_text(aes(label = sprintf("%.3f", acc)), hjust = -0.3, color = INK, size = 3) +
   coord_cartesian(xlim = c(0.92, 1.0)) +
   labs(title = "model comparison", subtitle = "5-fold CV accuracy (mean ± std)",
