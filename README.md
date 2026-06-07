@@ -4,9 +4,9 @@
 
 # Flowtrace
 
-**Turn your agent's work into a transparent, reusable, evolving trace.**
+**Run your agent's work as steps you can follow, check, and reuse, instead of a stream of text that buries you and then disappears.**
 
-Structure the agent reasons through, and you can step in anywhere.
+Works with the agent you already use: Claude Code, Codex, Cursor.
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](./LICENSE) [![Homepage](https://img.shields.io/badge/Homepage-morphmind.ai-lightgrey?style=flat-square)](https://morphmind.ai) [![Discord](https://img.shields.io/badge/Discord-Join-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/x9mtbMEx) [![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/morphmind__ai?s=11)
 
@@ -18,14 +18,21 @@ Structure the agent reasons through, and you can step in anywhere.
 
 ---
 
-Flowtrace turns a task you run with your agent into a trace: a flow of steps the agent works through one at a time, instead of a single stream of text. Each step leaves its output on disk to open and check. It works with the agent and skills you already use, including Claude Code, Codex, and Cursor.
+Real work with an agent happens as a stream of text. You run a skill and it does the whole task in one pass, or you go back and forth in a chat that keeps growing. Either way it piles up faster than you can follow, and once it is done you are left with a wall of messages.
 
-One real example: a buy-or-sell decision that ends in a fixed-format, citable PDF.
+For a quick question that is fine. For a buy or sell call, a due diligence memo, a security gate, anything you would actually need to verify or run again, it is a problem:
+
+- It is too much to follow. The thread grows longer than you can hold, and you lose track of what was decided and why.
+- You cannot check it. A confident wrong answer looks exactly like a right one.
+- You cannot steer it. One bad assumption in the middle means redoing the whole thing and hoping the good parts survive.
+- It does not last. Every session is a cold start, and the good ones evaporate into scrollback.
+
+Flowtrace runs that same work as a trace: a flow of steps the agent moves through one at a time, each leaving its output on disk. Here is one, a buy or sell decision that ends in a fixed-format, citable PDF:
 
 <div align="center">
 <table><tr>
-<td align="center" valign="top"><img src="docs/assets/examples/nvda-decision.png" height="340" alt="A trace shown as a flow: ingest lanes fan into a synthesized thesis, then position sizing and risk controls, then a research-note report"><br><sub>The flow</sub></td>
-<td align="center" valign="top"><img src="docs/assets/examples/nvda-decision-pdf.png" height="340" alt="The deliverable, a fixed-format research-note PDF"><br><sub>The deliverable</sub></td>
+<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.png"><img src="docs/assets/examples/nvda-decision.png" height="260" alt="A trace shown as a flow: ingest lanes fan into a synthesized thesis, then position sizing and risk controls, then a research-note report"></a><br><sub>The flow · click to enlarge</sub></td>
+<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.pdf"><img src="docs/assets/examples/nvda-decision-pdf.png" height="340" alt="The deliverable, a fixed-format research-note PDF"></a><br><sub>The deliverable · click to open</sub></td>
 </tr></table>
 </div>
 
@@ -33,17 +40,23 @@ One real example: a buy-or-sell decision that ends in a fixed-format, citable PD
 
 ## What it does
 
-**Transparent.** The whole task is a visible flow of steps, and each one shows what it did.
+Same skills, same agent. Running that work as a trace is what changes:
 
-**Grounded.** Every result can be checked, because the agent works one step at a time and each step leaves real files on disk. A reported result points back to those files, not to a claim.
+**Transparent.** The work is a flow of steps you take in at a glance, not a thread you scroll. Each step's output is a file you open, so the intermediate work is right there instead of buried in messages.
 
-**Steerable.** The work is a structure to point at, not a conversation to scroll. A change applies to a single step, and whatever depends on it follows.
+**Grounded.** Every result points back to the files it came from, so you verify instead of trust.
 
-**Traceable.** Nothing is ever lost. Every change is a git commit, so each run keeps a full audit trail: a new approach never overwrites the one that worked, and any earlier version can be brought back.
+**Steerable.** Fix one step and only what depends on it re-runs. The rest stays put.
 
-**Reusable.** Once a trace exists, the next task of the same kind runs the same steps on new inputs. The method is reused, not rebuilt.
+**Traceable.** The whole run is files and git, so it does not vanish when you close the tab. Stop and resume anytime, hand it to a teammate, read the full history.
 
-**Evolving.** A step improved once carries into every later run. The trace gets better the more it runs.
+**Reusable.** A finished task becomes a trace you run again on new input. The method is reused, not rebuilt.
+
+**Evolving.** A fix made once carries forward, so the trace gets better the more it runs.
+
+You do not throw anything away. Flowtrace runs the skills and the agent you already use. A skill you have becomes a trace, a long chat that worked becomes a trace, a finished session you do not want to rebuild becomes a trace. From then on it is something you can follow, steer, and run again.
+
+Not every task needs this. A quick one off, just chat. Flowtrace earns its place when the result matters enough to verify, or when you will run the task again.
 
 ## Get started
 
@@ -81,7 +94,7 @@ Update with `git pull && ./scripts/install.sh`. Override the symlink target with
 
 ## Examples
 
-**Nine examples** built from popular open-source skills, spanning different domains — open any one for its flow and a one-command demo in the [examples gallery](docs/EXAMPLES.md):
+**Nine examples** built from popular open-source skills, spanning different domains. Open any one for its flow and a one-command demo in the [examples gallery](docs/EXAMPLES.md):
 
 <div align="center">
 <table><tr>
@@ -93,12 +106,12 @@ Update with `git pull && ./scripts/install.sh`. Override the symlink target with
 
 Plus six more:
 
-- 📄 Career — [Tailored Résumé Generator](docs/EXAMPLES.md#tailored-resume)
-- 💰 Investing — [Comprehensive Stock Analysis](docs/EXAMPLES.md#nvda-decision)
-- ✍️ Research / writing — [Industry Deep-Dive Report](docs/EXAMPLES.md#research-writer)
-- 🐛 Software engineering — [Bug-Fix Learning Loop](docs/EXAMPLES.md#swe-bugfix)
-- 📈 Growth / marketing — [Weekly Paid-Ads Optimization](docs/EXAMPLES.md#paid-ads)
-- 🖼 Design / decks — [Talk → Magazine Slide Deck](docs/EXAMPLES.md#talk-to-deck)
+- Career: [Tailored Résumé Generator](docs/EXAMPLES.md#tailored-resume)
+- Investing: [Comprehensive Stock Analysis](docs/EXAMPLES.md#nvda-decision)
+- Research / writing: [Industry Deep-Dive Report](docs/EXAMPLES.md#research-writer)
+- Software engineering: [Bug-Fix Learning Loop](docs/EXAMPLES.md#swe-bugfix)
+- Growth / marketing: [Weekly Paid-Ads Optimization](docs/EXAMPLES.md#paid-ads)
+- Design / decks: [Talk → Magazine Slide Deck](docs/EXAMPLES.md#talk-to-deck)
 
 ## Documentation
 

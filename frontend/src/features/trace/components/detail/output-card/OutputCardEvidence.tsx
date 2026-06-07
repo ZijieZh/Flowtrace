@@ -96,7 +96,6 @@ function FigureBlock({
   compact?: boolean
   columns?: number
 }) {
-  const compactHeight = columns >= 3 ? 'h-[180px]' : 'h-[240px]'
   const compactMaxH = columns >= 3 ? 'max-h-[160px]' : 'max-h-[220px]'
   const imagePath = path ? normalizeAssetPath(path) : undefined
   const displayFile = basename(imagePath)
@@ -148,8 +147,8 @@ function FigureBlock({
   }
 
   const containerClass = compact
-    ? 'bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer'
-    : 'w-3/4 mx-auto bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow cursor-pointer'
+    ? 'bg-slate-500/[0.05] rounded-lg cursor-pointer h-full flex flex-col'
+    : 'w-3/4 mx-auto bg-slate-500/[0.05] rounded-lg cursor-pointer'
 
   if (!imagePath) {
     return (
@@ -182,7 +181,7 @@ function FigureBlock({
           </p>
         </figcaption>
       )}
-      <div className={cn("px-3 pb-3 pt-1 flex justify-center overflow-hidden", compact && `items-center ${compactHeight}`)}>
+      <div className="px-3 pb-3 pt-1 flex-1 flex items-center justify-center overflow-hidden">
         {isSvg ? (
           <SvgImage
             filename={imagePath}
@@ -617,7 +616,7 @@ export function CheckGroup({ checks }: { checks: CheckEvidence[] }) {
 
 export function FigureGroup({ figures, traceId, runId, onFileClick, callId }: { figures: FigureEvidence[]; traceId?: string; runId?: string; onFileClick?: (path: string, name?: string, version?: number) => void; callId?: string }) {
   const columns = figures.length === 3 ? 3 : 2
-  const gridClass = figures.length === 2 ? 'grid grid-cols-2 gap-4 items-start' : figures.length === 3 ? 'grid grid-cols-3 gap-3 items-start' : 'grid grid-cols-2 gap-4 items-start'
+  const gridClass = figures.length === 2 ? 'grid grid-cols-2 gap-4 items-stretch' : figures.length === 3 ? 'grid grid-cols-3 gap-3 items-stretch' : 'grid grid-cols-2 gap-4 items-stretch'
 
   return (
     <div className={gridClass}>

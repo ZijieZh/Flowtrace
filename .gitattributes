@@ -1,0 +1,12 @@
+# Shell and R scripts must stay LF. With core.autocrlf=true these get checked
+# out as CRLF on Windows/WSL, and a CRLF shebang breaks the script on Linux:
+#   /usr/bin/env: 'bash\r': No such file or directory
+# Forcing eol=lf here overrides autocrlf for these files so they always run.
+*.sh text eol=lf
+*.R  text eol=lf
+
+# Binary assets — never line-ending-normalize.
+*.png      binary
+*.pdf      binary
+*.parquet  binary
+*.gif      binary

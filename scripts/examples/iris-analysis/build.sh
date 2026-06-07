@@ -159,7 +159,7 @@ quick_step descriptive_stats "stats computed" \
 
 # ── 5. feature_distributions ──────────────────────────────────────────────
 quick_step feature_distributions "distributions rendered" \
-  '{"headline":"feature distributions","status":"complete","support":["per-feature KDE shows clear species separation","per-feature boxplot confirms petal features as the strongest discriminators"],"findings":[{"title":"setosa stands apart","detail":"setosa is linearly separable from versicolor + virginica on petal length alone"},{"title":"versicolor↔virginica overlap","detail":"the two non-setosa species overlap on sepal features but separate on petal features"}],"evidence":[{"type":"figure","path":"feature_distributions/dist_kde.png","caption":"per-feature KDE by species"},{"type":"figure","path":"feature_distributions/dist_box.png","caption":"boxplot by species"},{"type":"check","label":"setosa separable on petal length","passed":true,"actual":"yes"}]}' \
+  '{"headline":"Petals separate the species","status":"complete","support":["per-feature KDE shows clear species separation","per-feature boxplot confirms petal features as the strongest discriminators"],"findings":[{"title":"setosa stands apart","detail":"setosa is linearly separable from versicolor + virginica on petal length alone"},{"title":"versicolor↔virginica overlap","detail":"the two non-setosa species overlap on sepal features but separate on petal features"}],"evidence":[{"type":"figure","path":"feature_distributions/dist_kde.png","caption":"per-feature KDE by species"},{"type":"figure","path":"feature_distributions/dist_box.png","caption":"boxplot by species"},{"type":"check","label":"setosa separable on petal length","passed":true,"actual":"yes"}]}' \
   dist_kde.png dist_box.png
 
 # ── 6. species_distributions ──────────────────────────────────────────────
@@ -227,7 +227,7 @@ quick_step outlier_mahalanobis "mahalanobis at 97th pctile" \
   outlier_mahalanobis.png
 
 quick_step outlier_consensus "consensus = 5 rows" \
-  '{"headline":"consensus voting","status":"complete","support":["2 rows flagged by all 3 methods","2 rows flagged by 2 of 3","1 row flagged by 1 method only"],"evidence":[{"type":"figure","path":"outlier_consensus/outlier_consensus_venn.png","caption":"agreement Venn across the 3 methods"},{"type":"table","title":"consensus","columns":["row","methods_flagging"],"rows":[["7","3"],["87","3"],["63","2"],["17","2"],["132","1"]],"source_file":"outlier_consensus/outlier_consensus.csv"},{"type":"check","label":"unanimous outliers exist","passed":true,"expected":">=1","actual":"2"}],"suggestions":["drop unanimously flagged rows for sensitivity analysis","keep them for the main analysis (they look like real measurements)"]}' \
+  '{"headline":"Three detectors agree on 2 outliers","status":"complete","support":["2 rows flagged by all 3 methods","2 rows flagged by 2 of 3","1 row flagged by 1 method only"],"evidence":[{"type":"figure","path":"outlier_consensus/outlier_consensus_venn.png","caption":"agreement Venn across the 3 methods"},{"type":"table","title":"consensus","columns":["row","methods_flagging"],"rows":[["7","3"],["87","3"],["63","2"],["17","2"],["132","1"]],"source_file":"outlier_consensus/outlier_consensus.csv"},{"type":"check","label":"unanimous outliers exist","passed":true,"expected":">=1","actual":"2"}],"suggestions":["drop unanimously flagged rows for sensitivity analysis","keep them for the main analysis (they look like real measurements)"]}' \
   outlier_consensus.csv outlier_consensus_venn.png
 
 # ── 11. method_select — review checkpoint ─────────────────────────────────
@@ -304,7 +304,7 @@ EOF
 
 # ── 13. tukey_hsd ─────────────────────────────────────────────────────────
 quick_step tukey_hsd "all pairs significant" \
-  '{"headline":"Tukey HSD","status":"complete","support":["setosa↔versicolor: large difference","setosa↔virginica: largest difference","versicolor↔virginica: moderate but significant"],"findings":[{"title":"all 3 pairs differ","detail":"all 95% CIs exclude 0"},{"title":"setosa most distant","detail":"largest pairwise distance from both versicolor and virginica"}],"evidence":[{"type":"figure","path":"tukey_hsd/tukey_hsd_forest.png","caption":"pairwise mean differences with 95% CI"},{"type":"check","label":"all pairs reject H0","passed":true,"expected":"3/3","actual":"3/3"}],"takeaway":"all three pairs differ significantly"}' \
+  '{"headline":"All three species differ","status":"complete","support":["setosa↔versicolor: large difference","setosa↔virginica: largest difference","versicolor↔virginica: moderate but significant"],"findings":[{"title":"all 3 pairs differ","detail":"all 95% CIs exclude 0"},{"title":"setosa most distant","detail":"largest pairwise distance from both versicolor and virginica"}],"evidence":[{"type":"figure","path":"tukey_hsd/tukey_hsd_forest.png","caption":"pairwise mean differences with 95% CI"},{"type":"check","label":"all pairs reject H0","passed":true,"expected":"3/3","actual":"3/3"}],"takeaway":"all three pairs differ significantly"}' \
   tukey_hsd_forest.png
 
 # ── 14. kruskal_wallis ────────────────────────────────────────────────────
@@ -405,7 +405,7 @@ EOF
 
 # ── 20. cv_compare ────────────────────────────────────────────────────────
 quick_step cv_compare "5-fold CV across 4 models" \
-  '{"headline":"5-fold CV","status":"complete","support":["logistic + LDA tie at the top","RF close behind","all 4 models >95% accuracy"],"findings":[{"title":"top performers","detail":"logistic and LDA both at 0.973"},{"title":"variance across folds","detail":"all models show <1% fold-to-fold variance"}],"evidence":[{"type":"figure","path":"cv_compare/model_cv_compare.png","caption":"5-fold CV accuracy"},{"type":"check","label":"all models > 0.95","passed":true,"actual":"min 0.953"},{"type":"check","label":"low fold variance","passed":true,"expected":"<2%","actual":"<1%"}]}' \
+  '{"headline":"Logistic and LDA tie at 97.3%","status":"complete","support":["logistic + LDA tie at the top","RF close behind","all 4 models >95% accuracy"],"findings":[{"title":"top performers","detail":"logistic and LDA both at 0.973"},{"title":"variance across folds","detail":"all models show <1% fold-to-fold variance"}],"evidence":[{"type":"figure","path":"cv_compare/model_cv_compare.png","caption":"5-fold CV accuracy"},{"type":"check","label":"all models > 0.95","passed":true,"actual":"min 0.953"},{"type":"check","label":"low fold variance","passed":true,"expected":"<2%","actual":"<1%"}]}' \
   model_cv_compare.png
 
 # ── 21. rerun_cleaned ─────────────────────────────────────────────────────

@@ -1,3 +1,6 @@
+# Internal (not for public repo)
+internal/
+
 # macOS
 **/.DS_Store
 
