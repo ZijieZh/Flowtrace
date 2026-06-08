@@ -210,4 +210,4 @@ echo "=== final state ==="
 echo
 echo "Deck: runs/$RUN/assemble_deck/deck.html"
 echo "Done. Trace folder: $TARGET"
-echo "View: trace serve  →  http://localhost:3000/traces/$(basename "$TARGET")"
+echo "View: flowtrace serve  →  http://localhost:3000/traces/$(basename "$TARGET")"

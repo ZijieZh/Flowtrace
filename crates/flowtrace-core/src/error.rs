@@ -8,7 +8,7 @@ pub enum TraceError {
     NotInTrace,
     #[error("run not found: {0}")]
     RunNotFound(String),
-    #[error("no runs yet — create one with `trace run new`")]
+    #[error("no runs yet — create one with `flowtrace run new`")]
     NoRuns,
     #[error("validation: {0}")]
     Validation(String),

@@ -64,7 +64,7 @@ export function AppSidebarRunList({
         <div className="px-3.5 py-2 text-[12.5px] text-slate-400 leading-relaxed">
           no runs yet — try{' '}
           <code className="font-mono text-[11.5px] bg-slate-900/[0.04] text-slate-500 px-1.5 py-0.5 rounded">
-            trace run new
+            flowtrace run new
           </code>
         </div>
       ) : (

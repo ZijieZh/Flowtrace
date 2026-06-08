@@ -191,4 +191,4 @@ echo
 echo "=== final state ==="
 "$BIN" run show --run "$RUN"
 echo
-echo "Done. View: trace serve  →  http://localhost:3000/traces/paid-ads"
+echo "Done. View: flowtrace serve  →  http://localhost:3000/traces/paid-ads"

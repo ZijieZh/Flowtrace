@@ -49,7 +49,7 @@ function TraceReplyScroll({ traceId, runId }: { traceId: string; runId: string |
     return (
       <div className="h-full flex items-center justify-center text-sm text-slate-500 px-6 text-center">
         No runs yet — start one with{' '}
-        <code className="mx-1 rounded bg-slate-100 px-1.5 py-0.5 text-xs">trace run new</code>.
+        <code className="mx-1 rounded bg-slate-100 px-1.5 py-0.5 text-xs">flowtrace run new</code>.
       </div>
     )
   }

@@ -236,5 +236,5 @@ pub fn read_stdin_to_string() -> Result<String> {
 /// fields are tolerated for forward-compatibility.
 pub fn parse_payload(s: &str) -> Result<StructuredOutput> {
     serde_json::from_str::<StructuredOutput>(s)
-        .context("reply payload must be valid JSON (StructuredOutput shape — see `trace explain reply`)")
+        .context("reply payload must be valid JSON (StructuredOutput shape — see `flowtrace explain reply`)")
 }

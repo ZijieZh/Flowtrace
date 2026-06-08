@@ -235,4 +235,4 @@ echo "=== final state ==="
 "$BIN" run show --run "$RUN"
 echo
 echo "Done. Trace folder: $TARGET"
-echo "View: trace serve  ->  http://localhost:3000/traces/$(basename "$TARGET")"
+echo "View: flowtrace serve  ->  http://localhost:3000/traces/$(basename "$TARGET")"

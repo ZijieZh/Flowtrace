@@ -80,7 +80,7 @@ out=$("$BIN" show --fmt mermaid | head -c 40); assert "show --fmt mermaid render
 out=$("$BIN" show --fmt dot | head -c 30); assert "show --fmt dot renders" "$out" "digraph"
 
 echo "=== completion ==="
-out=$("$BIN" completion bash | head -c 30); assert "completion bash" "$out" "_trace"
+out=$("$BIN" completion bash | head -c 30); assert "completion bash" "$out" "_flowtrace"
 
 echo "=== run new / list / show / pause / resume / rename ==="
 RUN=$("$BIN" run new --name "T1" | tail -1)

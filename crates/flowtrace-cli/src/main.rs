@@ -39,18 +39,18 @@ enum Cmd {
     #[command(after_help = "\
 EXAMPLES:
   # Mark a step running with an activity hint
-  trace step gather_context running --message \"reading 14 prior journals\"
+  flowtrace step gather_context running --message \"reading 14 prior journals\"
 
   # Mark a step done with two declared assets
-  trace step analyze_dream done \\
+  flowtrace step analyze_dream done \\
       --asset jung-shadow-anima.png --asset freud-displacement.png \\
       --message \"convergent reading across frameworks\"
 
   # Mark a step blocked (message required)
-  trace step generate_dream_image blocked --message \"awaiting reviewer pick\"
+  flowtrace step generate_dream_image blocked --message \"awaiting reviewer pick\"
 
   # Schema for a step's state entry:
-  #   trace explain state.steps")]
+  #   flowtrace explain state.steps")]
     Step {
         /// Step id (key in `trace.steps`). Must exist in `trace.json`.
         step_id: String,
@@ -71,16 +71,16 @@ EXAMPLES:
     #[command(after_help = "\
 EXAMPLES:
   # Mark deliverable as running
-  trace deliverable running --message \"assembling final\"
+  flowtrace deliverable running --message \"assembling final\"
 
   # Ship the deliverable with declared assets
-  trace deliverable done \\
+  flowtrace deliverable done \\
       --asset generate_report/dream_report.pdf \\
       --asset analyze_dream/jung-shadow-anima.png \\
       --message \"dream analysis complete\"
 
   # Schema for the deliverable's state entry:
-  #   trace explain state.deliverable")]
+  #   flowtrace explain state.deliverable")]
     Deliverable {
         /// Target status.
         status: StatusArg,
@@ -106,12 +106,12 @@ EXAMPLES:
     /// Print `trace.json` (default), or render as ASCII / Mermaid / DOT.
     #[command(after_help = "\
 EXAMPLES:
-  trace show                           # JSON (default)
-  trace show --fmt mermaid             # Mermaid graph definition
-  trace show --fmt dot                 # GraphViz DOT
-  trace show --fmt ascii               # ASCII tree
-  trace show --fmt json | jq .steps    # programmatic consumption
-  trace show --downstream gather       # steps to re-run after changing `gather`")]
+  flowtrace show                           # JSON (default)
+  flowtrace show --fmt mermaid             # Mermaid graph definition
+  flowtrace show --fmt dot                 # GraphViz DOT
+  flowtrace show --fmt ascii               # ASCII tree
+  flowtrace show --fmt json | jq .steps    # programmatic consumption
+  flowtrace show --downstream gather       # steps to re-run after changing `gather`")]
     Show {
         /// Render format: `json` (default), `ascii`, `mermaid`, `dot`.
         #[arg(long, default_value = "json")]
@@ -133,19 +133,19 @@ EXAMPLES:
     #[command(after_help = "\
 EXAMPLES:
   # Pipe a payload file:
-  trace reply < reply.json
+  flowtrace reply < reply.json
 
   # Heredoc:
-  trace reply <<EOF
+  flowtrace reply <<EOF
   { \"headline\": \"three-framework synthesis\", \"status\": \"complete\",
     \"checkpoint\": { \"step_id\": \"analyze_dream\" },
     \"evidence\": [ { \"type\": \"figure\", \"path\": \"analyze_dream/x.png\" } ] }
   EOF
 
   # Inspect the payload schema first:
-  trace explain reply
-  trace explain reply.evidence.figure
-  trace explain reply --output example > skeleton.json")]
+  flowtrace explain reply
+  flowtrace explain reply.evidence.figure
+  flowtrace explain reply --output example > skeleton.json")]
     Reply {
         /// Run id; defaults to the latest run.
         #[arg(long)]
@@ -159,19 +159,19 @@ EXAMPLES:
     #[command(after_help = "\
 EXAMPLES:
   # Top-level shape:
-  trace explain reply
-  trace explain state
-  trace explain trace
+  flowtrace explain reply
+  flowtrace explain state
+  flowtrace explain trace
 
   # Drill into a field:
-  trace explain reply.evidence
-  trace explain reply.evidence.figure
-  trace explain state.steps.status
-  trace explain trace.steps
+  flowtrace explain reply.evidence
+  flowtrace explain reply.evidence.figure
+  flowtrace explain state.steps.status
+  flowtrace explain trace.steps
 
   # Other output formats:
-  trace explain reply --output example     # minimal valid JSON
-  trace explain reply --output jsonschema  # raw JSON Schema")]
+  flowtrace explain reply --output example     # minimal valid JSON
+  flowtrace explain reply --output jsonschema  # raw JSON Schema")]
     Explain {
         /// Dotted path (e.g. `reply`, `reply.evidence.figure`, `state.steps.assets`).
         path: String,
@@ -206,8 +206,8 @@ EXAMPLES:
     /// `[a-z][a-z0-9-]{0,62}` (the trace-id rule).
     #[command(after_help = "\
 EXAMPLES:
-  trace init iris-analysis
-  cd iris-analysis && trace validate
+  flowtrace init iris-analysis
+  cd iris-analysis && flowtrace validate
 ")]
     Init {
         /// Folder name and trace id (same string).
@@ -411,7 +411,7 @@ fn cmd_reply(run: Option<String>) -> Result<()> {
         let abs = flowtrace_core::state::run_dir(&root, &run_id).join(p);
         if !abs.exists() {
             anyhow::bail!(
-                "evidence path `{}` not found on disk (resolved to {}) — write the file before calling `trace reply`",
+                "evidence path `{}` not found on disk (resolved to {}) — write the file before calling `flowtrace reply`",
                 p,
                 abs.display()
             );

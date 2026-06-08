@@ -31,7 +31,7 @@ pub async fn run(scope: &Path, port: u16, open: bool) -> Result<()> {
         .with_context(|| format!("binding to {}", addr))?;
     let bound = listener.local_addr()?;
     let url = format!("http://{}", bound);
-    eprintln!("trace serve listening at {}", url);
+    eprintln!("flowtrace serve listening at {}", url);
     eprintln!("scope: {}", state.user_scope_root.display());
 
     if open {
