@@ -72,7 +72,9 @@ Same skills, same agent. Running that work as a trace is what changes:
 
 **Evolving.** The trace gets better the more it runs. When a step misses its bar, the next version switches to a method that clears it, and the version that passes is the one that sticks.
 
-You do not start from scratch. A skill, a long session, a chat, a plan, a finished run you hand off: run any of them as a trace and you get the same steps you can follow, check, and run again. Open any one to read it full size.
+**Structured reading.** A trace exposes the work as a graph of files, not a linear transcript. The agent reads it by structure and on demand, loading a step's contract, inputs, and outputs only while working on it and following explicit dependencies rather than carrying the whole history. This bounds working context, reduces drift, and yields a representation people and agents can both inspect and extend.
+
+You do not start from scratch. A skill, a long session, a plan, a finished run: run any of them as a trace and you get the same steps you can follow, check, and run again. Open any one to read it full size.
 
 <div align="center">
 <table>
@@ -81,11 +83,8 @@ You do not start from scratch. A skill, a long session, a chat, a plan, a finish
 <td align="center" valign="top"><a href="docs/assets/onramp/distill.png"><img src="docs/assets/onramp/distill.png" width="400" alt="Distill a long session into a trace: the reasoning kept as steps, the back-and-forth dropped"></a></td>
 </tr>
 <tr>
-<td align="center" valign="top"><a href="docs/assets/onramp/in-loop.png"><img src="docs/assets/onramp/in-loop.png" width="400" alt="Navigate a chat as a trace: jump to any step instead of scrolling the transcript"></a></td>
-<td align="center" valign="top"><a href="docs/assets/onramp/plan.png"><img src="docs/assets/onramp/plan.png" width="400" alt="Turn a plan into a trace: the same plan, now something you can navigate, steer, and run"></a></td>
-</tr>
-<tr>
-<td align="center" valign="top" colspan="2"><a href="docs/assets/onramp/handoff.png"><img src="docs/assets/onramp/handoff.png" width="400" alt="Hand off a trace, not a chat log: whoever picks it up sees the whole job, its files and checks, and runs it again"></a></td>
+<td align="center" valign="top"><a href="docs/assets/onramp/plan.png"><img src="docs/assets/onramp/plan.png" width="400" alt="Turn a plan into a trace: the same plan, now something you can steer and run"></a></td>
+<td align="center" valign="top"><a href="docs/assets/onramp/handoff.png"><img src="docs/assets/onramp/handoff.png" width="400" alt="Keep a successful run as a trace, not a chat log: re-open the whole job, every step's files and checks, and run it again"></a></td>
 </tr>
 </table>
 </div>
