@@ -36,5 +36,9 @@ fs2 = "0.4"
 schemars = { version = "0.8", features = ["chrono", "preserve_order"] }
 lru = "0.18.0"
 
+# SIGPIPE handling in main.rs is Unix-only (Windows has no SIGPIPE).
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
 [dev-dependencies]
 tempfile = "3"

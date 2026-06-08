@@ -263,7 +263,40 @@ enum RunCmd {
     },
 }
 
+/// Exit quietly on SIGPIPE (a downstream pipe closing) instead of letting the
+/// next stdout write panic with "failed printing to stdout: Broken pipe". Rust
+/// ignores SIGPIPE by default; this restores the normal Unix CLI behavior.
+/// No-op on non-Unix targets, which have no SIGPIPE.
+#[cfg(unix)]
+fn restore_default_sigpipe() {
+    // SAFETY: setting a signal disposition before any thread is spawned is sound.
+    unsafe {
+        libc::signal(libc::SIGPIPE, libc::SIG_DFL);
+    }
+}
+
+#[cfg(not(unix))]
+fn restore_default_sigpipe() {}
+
+/// Ignore SIGPIPE so a long-lived server is not killed when a client disconnects
+/// mid-response — the broken connection surfaces as an ordinary I/O error
+/// instead. No-op on non-Unix targets.
+#[cfg(unix)]
+fn ignore_sigpipe() {
+    // SAFETY: setting a signal disposition before the tokio runtime starts is sound.
+    unsafe {
+        libc::signal(libc::SIGPIPE, libc::SIG_IGN);
+    }
+}
+
+#[cfg(not(unix))]
+fn ignore_sigpipe() {}
+
 fn main() -> Result<()> {
+    // A normal Unix CLI exits quietly when a downstream consumer closes the pipe
+    // early (a pager quitting, `head`, `| grep -q`); `serve` overrides this below.
+    restore_default_sigpipe();
+
     let cli = Cli::parse();
     match cli.cmd {
         Cmd::DebugWatch { path, debounce_ms } => debug_watch::run(&path, debounce_ms),
@@ -272,6 +305,9 @@ fn main() -> Result<()> {
         Cmd::Show { fmt, downstream } => cmd_show(&fmt, downstream.as_deref()),
         Cmd::Reply { run } => cmd_reply(run),
         Cmd::Serve { scope, port, open } => {
+            // Unlike the one-shot CLI commands, the server must survive a client
+            // disconnecting mid-response, so keep SIGPIPE ignored.
+            ignore_sigpipe();
             let runtime = tokio::runtime::Builder::new_multi_thread()
                 .enable_all()
                 .build()?;
