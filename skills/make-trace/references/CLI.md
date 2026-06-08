@@ -1,3 +1,7 @@
+<!-- Vendored copy of docs/trace/CLI.md, bundled so the make-trace skill is
+     self-contained when copied out of the repo. Keep in sync with the source;
+     it intentionally differs only in repo-relative pointers (no `./` doc links). -->
+
 # Trace CLI Reference
 
 The single document an agent (human or AI) needs to use the `flowtrace` CLI correctly. Read it once and you have the full system surface. After this, `flowtrace <cmd> --help` and `flowtrace explain <type>` give you the same information piecewise from the binary itself, useful when you don't have this file in context.
@@ -382,7 +386,7 @@ flowtrace run show --run "$RUN"
 git log --oneline                                   # five commits, one per CLI write
 ```
 
-The four reference trace builders in `scripts/examples/` exercise the same surface at varying scale: `minimal` is one step; `iris-analysis` is twenty-four with blocks, errors, retries, and reruns. Each `bash scripts/examples/<id>/build.sh` materializes a full trace folder + one demo run at `~/traces/<id>/`. See [REFERENCE-TRACES.md](./REFERENCE-TRACES.md).
+The Flowtrace repo ships reference trace builders under `scripts/examples/` that exercise the same surface at varying scale: `minimal` is one step; `iris-analysis` is twenty-four with blocks, errors, retries, and reruns. Each `bash scripts/examples/<id>/build.sh` materializes a full trace folder + one demo run at `~/traces/<id>/`. (For the full write-up, see `docs/trace/REFERENCE-TRACES.md` in the Flowtrace repo.)
 
 ---
 
