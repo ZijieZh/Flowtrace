@@ -4,126 +4,126 @@
 
 # Flowtrace
 
-**Run your agent's work as steps you can follow, check, and reuse, instead of a stream of text that buries you and then disappears.**
+**把 agent 的工作跑成一串你能看懂、能核验、能复用的 step，而不是一段把你淹没、转头就消失的文字。**
 
-Works with the agent you already use: Claude Code, Codex, Cursor.
+兼容你已经在用的 agent：Claude Code、Codex、Cursor。
 
-[![GitHub stars](https://img.shields.io/github/stars/AIScientists-Dev/flowtrace?style=flat-square&logo=github)](https://github.com/AIScientists-Dev/flowtrace/stargazers) [![MIT License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](./LICENSE) [![Homepage](https://img.shields.io/badge/Homepage-morphmind.ai-lightgrey?style=flat-square)](https://morphmind.ai) [![Discord](https://img.shields.io/badge/Discord-Join-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/x9mtbMEx) [![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/morphmind__ai?s=11)
+[![GitHub stars](https://img.shields.io/github/stars/AIScientists-Dev/flowtrace?style=flat-square&logo=github)](https://github.com/AIScientists-Dev/flowtrace/stargazers) [![MIT License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE) [![Homepage](https://img.shields.io/badge/Homepage-morphmind.ai-lightgrey?style=flat-square)](https://morphmind.ai) [![Discord](https://img.shields.io/badge/Discord-Join-5865F2?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/x9mtbMEx) [![X](https://img.shields.io/badge/X-Follow-000000?style=flat-square&logo=x&logoColor=white)](https://x.com/morphmind__ai?s=11)
 
-[**What it does**](#what-it-does) · [**Get started**](#get-started) · [**Examples**](#examples) · [**Docs**](docs/trace/README.md)
+[**它能做什么**](#它能做什么) · [**快速开始**](#快速开始) · [**示例**](#示例) · [**文档**](docs/trace/README.md)
 
-**English** · [简体中文](docs/README.zh-CN.md)
+[English](docs/README.en.md) · **简体中文**
 
-⭐ **If Flowtrace looks useful, star it** *(button's top-right)* — it's how we decide what to keep building in the open.
+⭐ **觉得 Flowtrace 有用，就给个 star** *(按钮在右上角)* —— 这是我们判断要不要继续公开打磨它的依据。
 
 </div>
 
 ---
 
-Real work with an agent happens as a stream of text. You run a skill and it does the whole task in one pass, or you go back and forth in a chat that keeps growing. Either way it piles up faster than you can follow, and once it is done you are left with a wall of messages.
+与 agent 的实际工作，呈现为一段文字流。你运行一个 skill，它一次性完成整个任务；或在一段不断变长的 chat 中反复往返。无论哪种，信息累积的速度都快于你能跟进的速度；任务结束时，留给你的是一整面墙的消息。
 
-For a quick question that is fine. For a buy or sell call, a due diligence memo, a security gate, anything you would actually need to verify or run again, it is a problem:
+对于一次随手的提问，这样没问题。但对于一个买入或卖出的判断、一份尽职调查备忘、一道安全门禁，以及任何你真正需要核验、或需要重复运行的工作，这就成了问题：
 
-- It is too much to follow. The thread grows longer than you can hold, and you lose track of what was decided and why.
-- You cannot check it. A confident wrong answer looks exactly like a right one.
-- You cannot steer it. One bad assumption in the middle means redoing the whole thing and hoping the good parts survive.
-- It does not last. Every session is a cold start, and the good ones evaporate into scrollback.
+- **信息过载。** 对话不断变长，超出你能掌握的范围，当初做了哪些决策、依据为何，逐渐无从追溯。
+- **无法核验。** 一个自信的错误结论，与正确结论在外观上无从区分。
+- **无法干预。** 中途一处前提有误，往往意味着整体重做，且只能寄望其中有效的部分得以保留。
+- **难以留存。** 每次 session 都是冷启动，有价值的成果消散在历史记录之中。
 
-Flowtrace runs that same work as a trace: a flow of steps the agent moves through one at a time, each leaving its output on disk. Here is one, a buy or sell decision that ends in a fixed-format, citable PDF:
-
-<div align="center">
-<table><tr>
-<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.png"><img src="docs/assets/cap/hero-flow.png" height="280" alt="A trace shown as a clean flow: frame the thesis, research four angles in parallel, fold them into a valuation, deliver a one-page brief"></a><br><sub>The flow · click to enlarge</sub></td>
-<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.pdf"><img src="docs/assets/cap/hero-deliverable.png" height="280" alt="The deliverable, a fixed-format research-note PDF: cover, rating and summary, embedded charts, and numbered references"></a><br><sub>The deliverable · click to open</sub></td>
-</tr></table>
-</div>
-
-<p align="center"><a href="docs/assets/examples/nvda-decision.pdf"><strong>Read the full research-note PDF</strong></a></p>
-
-## What it does
-
-Same skills, same agent. Running that work as a trace is what changes:
-
-**Transparent.** The work is a flow of steps you take in at a glance, not a thread you scroll. Each step's output is a file you open, so the intermediate work is right there instead of buried in messages.
-
-<div align="center">
-<img src="docs/assets/transparent.gif" width="520" alt="A trace running: it moves through its steps one at a time, each leaving a file on disk">
-<br><sub>Each step runs in turn and writes its output to a file.</sub>
-</div>
-
-**Grounded.** Every result points back to the files it came from, so you verify instead of trust.
+Flowtrace 把同样的工作跑成一条 trace：一串 step 组成的流程，agent 一次只走一步，每一步都把产出写进一个文件。下面就是这样一条 trace，一个买入或卖出的判断，最终落成一份格式固定、可引用的 PDF：
 
 <div align="center">
 <table><tr>
-<td align="center" valign="top"><a href="docs/assets/cap/grounded-finance.png"><img src="docs/assets/cap/grounded-finance.png" height="300" alt="A finance result card titled trend, momentum and risk line up: four research charts (price, RSI, MACD, drawdown), a passing trend-and-momentum check, and the files they came from"></a><br><sub>Finance</sub></td>
-<td align="center" valign="top"><a href="docs/assets/cap/grounded-clinical.png"><img src="docs/assets/cap/grounded-clinical.png" height="300" alt="A clinical result card: survival benefit HR 0.62, a Kaplan-Meier curve and passing checks, citing km_curve.png"></a><br><sub>Clinical</sub></td>
+<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.png"><img src="docs/assets/zh/cap/hero-flow.png" height="280" alt="把一条 trace 呈现为清晰的流程：确立论点、并行研究四个角度、汇总成估值、交付一页简报"></a><br><sub>流程 · 点击放大</sub></td>
+<td align="center" valign="top"><a href="docs/assets/examples/nvda-decision.pdf"><img src="docs/assets/cap/hero-deliverable.png" height="280" alt="最终交付物，一份格式固定的研究报告 PDF：封面、评级与摘要、内嵌图表、带编号的引用"></a><br><sub>交付物 · 点击打开</sub></td>
 </tr></table>
-<sub>Two high-stakes decisions, same shape: the finding, its charts, the checks that pass, and the files they came from.</sub>
 </div>
 
-**Steerable.** Fix one step and only what depends on it re-runs. The rest stays put.
+<p align="center"><a href="docs/assets/examples/nvda-decision.pdf"><strong>阅读完整研究报告 PDF</strong></a></p>
 
-**Traceable.** The whole run is files and git, so it does not vanish when you close the tab. Stop and resume anytime, hand it to a teammate, read the full history.
+## 它能做什么
+
+同样的 skill，同样的 agent。变的是：把这份工作跑成一条 trace。
+
+**透明（Transparent）。** 工作是一串一眼就能看清的 step，而不是一段需要滚动的线程。每一步的产出都是一个能打开的文件，中间过程就摆在那里，而不是埋在消息里。
 
 <div align="center">
-<img src="docs/assets/cap/traceable.png" width="720" alt="Three steps over the same run: pick any step in the node map, open its full version history, then travel back to an older commit to see its state then, v2 gradient-boost AUC 0.84 versus v1 logistic 0.78">
-<br><sub>Pick any step, open its history, travel to any past commit.</sub>
+<img src="docs/assets/zh/transparent.gif" width="520" alt="一条 trace 在运行：它一次走一步，每一步都把产出写到磁盘上的文件里">
+<br><sub>每一步依次运行，并把产出写进一个文件。</sub>
 </div>
 
-**Reusable.** A finished task becomes a trace you run again on new input. The method is reused, not rebuilt.
+**有据可查（Grounded）。** 每个结论都能指回它来自的文件，所以你是核验，而不是盲信。
 
-**Evolving.** The trace gets better the more it runs. When a step misses its bar, the next version switches to a method that clears it, and the version that passes is the one that sticks.
+<div align="center">
+<table><tr>
+<td align="center" valign="top"><a href="docs/assets/zh/cap/grounded-finance.png"><img src="docs/assets/zh/cap/grounded-finance.png" height="300" alt="一张金融结论卡片，标题为「趋势、动量与风险都对齐」：四张研究图表(价格、RSI、MACD、回撤)、一项通过的趋势与动量检查，以及它们来自的文件"></a><br><sub>金融</sub></td>
+<td align="center" valign="top"><a href="docs/assets/zh/cap/grounded-clinical.png"><img src="docs/assets/zh/cap/grounded-clinical.png" height="300" alt="一张临床结论卡片：生存获益 HR 0.62、一条 Kaplan-Meier 曲线与通过的检查，引用 km_curve.png"></a><br><sub>临床</sub></td>
+</tr></table>
+<sub>两个高风险决策，形状相同：结论、它的图表、通过的检查，以及它们来自的文件。</sub>
+</div>
 
-**Structured reading.** A trace exposes the work as a graph of files, not a linear transcript. The agent reads it by structure and on demand, loading a step's contract, inputs, and outputs only while working on it and following explicit dependencies rather than carrying the whole history. This bounds working context, reduces drift, and yields a representation people and agents can both inspect and extend.
+**可介入（Steerable）。** 改其中一步，只有依赖它的部分会重跑，其余的原地不动。
 
-You do not start from scratch. A skill, a long session, a plan, a finished run: run any of them as a trace and you get the same steps you can follow, check, and run again. Open any one to read it full size.
+**可追溯（Traceable）。** 整次 run 都是文件加 git，关掉标签页也不会消失。随时停下、随时继续，交给同事，翻看完整历史。
+
+<div align="center">
+<img src="docs/assets/zh/cap/traceable.png" width="720" alt="同一次 run 的三步:在 node map 里选中任意一步、打开它完整的版本历史、回到更早的 commit 看它当时的状态,v2 gradient-boost AUC 0.84 对比 v1 logistic 0.78">
+<br><sub>选中任意一步，打开它的历史，回到任意一个历史 commit。</sub>
+</div>
+
+**可复用（Reusable）。** 一件做完的任务，变成一条你能在新输入上再跑一遍的 trace。方法是被复用，而不是被重建。
+
+**会进化（Evolving）。** trace 运行得越多，就越完善。当某一步未达到其标准，下一个版本会改用一种能达标的方法，而通过的那个版本会被保留下来。
+
+**结构化阅读。** 一条 trace 把工作呈现为一张由文件组成的图，而不是一条线性记录。agent 按结构、按需来读：只在处理某一步时载入它的契约、输入与输出，并沿显式声明的依赖前进，而不是把整段历史一直带在上下文里。这把工作上下文限定在小范围、降低跑偏，得到的表示也能被人与 agent 共同审查、扩展。
+
+你不必从零开始。一个 skill、一段很长的 session、一份 plan、一次做完的 run：把它们中的任何一个作为 trace 来运行，你都会得到同样一串可跟进、可核验、可重复运行的 step。点开任意一张可看大图。
 
 <div align="center">
 <table>
 <tr>
-<td align="center" valign="top"><a href="docs/assets/onramp/convert.png"><img src="docs/assets/onramp/convert.png" width="400" alt="Convert a skill into a trace: its written steps become a flow of real, checkable steps"></a></td>
-<td align="center" valign="top"><a href="docs/assets/onramp/distill.png"><img src="docs/assets/onramp/distill.png" width="400" alt="Distill a long session into a trace: the reasoning kept as steps, the back-and-forth dropped"></a></td>
+<td align="center" valign="top"><a href="docs/assets/zh/onramp/convert.png"><img src="docs/assets/zh/onramp/convert.png" width="400" alt="把一个 skill 转成一条 trace：它写下的步骤变成一串真实、可核验的 step"></a></td>
+<td align="center" valign="top"><a href="docs/assets/zh/onramp/distill.png"><img src="docs/assets/zh/onramp/distill.png" width="400" alt="把一段长 session 蒸馏成一条 trace：推理作为 step 留下，来回拉扯丢掉"></a></td>
 </tr>
 <tr>
-<td align="center" valign="top"><a href="docs/assets/onramp/plan.png"><img src="docs/assets/onramp/plan.png" width="400" alt="Turn a plan into a trace: the same plan, now something you can steer and run"></a></td>
-<td align="center" valign="top"><a href="docs/assets/onramp/handoff.png"><img src="docs/assets/onramp/handoff.png" width="400" alt="Keep a successful run as a trace, not a chat log: re-open the whole job, every step's files and checks, and run it again"></a></td>
+<td align="center" valign="top"><a href="docs/assets/zh/onramp/plan.png"><img src="docs/assets/zh/onramp/plan.png" width="400" alt="把一份 plan 变成一条 trace：还是那份 plan，现在可运行、可核验、可随时介入"></a></td>
+<td align="center" valign="top"><a href="docs/assets/zh/onramp/handoff.png"><img src="docs/assets/zh/onramp/handoff.png" width="400" alt="把一次成功的运行存成 trace，不是一段聊天记录：整个任务、每一步的文件与 check 都在，随时能重新打开、重新运行"></a></td>
 </tr>
 </table>
 </div>
 
-Not every task needs this. A quick one off, just chat. Flowtrace earns its place when the result matters enough to verify, or when you will run the task again.
+不是每件事都需要这样。随手一次性的小事，聊聊就好。当结果重要到值得核验，或者你会把这件任务再跑一遍时，Flowtrace 才真正派上用场。
 
-## Get started
+## 快速开始
 
-The fast path is to hand the repo to an agent. Point a coding agent (Claude Code, Codex, Cursor) at this folder and say:
+最快的路径是把这个 repo 交给一个 agent。把一个 coding agent（Claude Code、Codex、Cursor）指向这个文件夹，然后说：
 
-> _"Install Flowtrace and run the tailored-resume example."_
+> _「安装 Flowtrace，并跑一下 tailored-resume 这个示例。」_
 
-It installs the CLI, builds a real trace at `~/traces/tailored-resume/`, and opens the web view at `http://localhost:3000`, where the flow lights up step by step.
+它会装好 CLI，在 `~/traces/tailored-resume/` 下构建一条真实的 trace，并在 `http://localhost:3000` 打开网页视图，流程会在那里一步步亮起来。
 
-Two ways to get a trace:
+拿到一条 trace 的两种方式：
 
-- **Try a reference.** Each example ships as a builder that creates a real trace folder and walks one full run.
+- **试一个参考示例。** 每个示例都附带一个 builder，它会创建一个真实的 trace 文件夹，并完整走一次 run。
 
   ```bash
   bash scripts/examples/tailored-resume/build.sh   # → ~/traces/tailored-resume/
   flowtrace serve                                  # → http://localhost:3000
   ```
 
-- **Make your own.** The `make-trace` skill turns any source (a `SKILL.md`, a runbook, a chat log, a finished task) into a trace. Copy `skills/make-trace/` into the agent's skills directory and run `/make-trace`.
+- **做你自己的。** `make-trace` 这个 skill 会把任意来源(一个 `SKILL.md`、一份操作手册、一段 chat 记录、一件做完的任务)变成一条 trace。把 `skills/make-trace/` 复制到 agent 的 skills 目录，然后运行 `/make-trace`。
 
-A run is steerable: stop at any step, change it, and the steps that depend on it re-run while the rest stay put.
+一次 run 是可以中途介入的：在任意一步停下、改它，依赖它的那些步会重跑，其余的原地不动。
 
 <details>
-<summary>Install by hand</summary>
+<summary>手动安装</summary>
 
 ```bash
 git clone https://github.com/AIScientists-Dev/flowtrace.git
 cd flowtrace
-./scripts/install.sh        # builds + symlinks flowtrace to ~/.local/bin/
+./scripts/install.sh        # 构建 + 把 flowtrace 软链到 ~/.local/bin/
 ```
 
-On Windows, prefer running the install script from WSL:
+Windows 上建议从 WSL 运行安装脚本：
 
 ```powershell
 wsl
@@ -138,78 +138,78 @@ export PATH="$HOME/.local/bin:$PATH"
 flowtrace --version
 ```
 
-For Windows-specific `make-trace` guidance, including PowerShell vs WSL paths and common Cargo/MSVC setup errors, see [`skills/make-trace/references/WINDOWS.md`](skills/make-trace/references/WINDOWS.md).
+如果你要在 Windows 上使用 `make-trace`，包括 PowerShell 与 WSL 路径转换、Cargo/MSVC 常见问题，见 [`skills/make-trace/references/WINDOWS.md`](skills/make-trace/references/WINDOWS.md)。
 
-Update with `git pull && ./scripts/install.sh`. Override the symlink target with `INSTALL_DIR=…`. Building from source or contributing? See [CONTRIBUTING.md](./CONTRIBUTING.md).
+用 `git pull && ./scripts/install.sh` 更新。用 `INSTALL_DIR=…` 覆盖软链目标。要从源码构建或参与贡献？见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 </details>
 
-## Examples
+## 示例
 
-**Nine examples** built from popular open-source skills, spanning different domains. Open any one for its flow and a one-command demo in the [examples gallery](docs/EXAMPLES.md):
+**九个示例**，基于流行的开源 skill 构建，覆盖不同领域。在[示例画廊](docs/EXAMPLES.zh-CN.md)里打开任意一个，看它的流程和一行命令的演示：
 
 <div align="center">
 <table><tr>
-<td align="center" valign="top"><a href="docs/EXAMPLES.md#saas-dd"><img src="docs/assets/examples/feat-saas-dd.png" height="240" alt="SaaS acquisition due diligence flow"></a><br><sub><a href="docs/EXAMPLES.md#saas-dd">SaaS due diligence</a></sub></td>
-<td align="center" valign="top"><a href="docs/EXAMPLES.md#security-cicd"><img src="docs/assets/examples/feat-security-cicd.png" height="240" alt="security CI/CD pipeline flow"></a><br><sub><a href="docs/EXAMPLES.md#security-cicd">Security CI/CD gate</a></sub></td>
-<td align="center" valign="top"><a href="docs/EXAMPLES.md#distill-mind"><img src="docs/assets/examples/feat-distill-mind.png" height="240" alt="distill a mind into a skill flow"></a><br><sub><a href="docs/EXAMPLES.md#distill-mind">Distill a mind into a skill</a></sub></td>
+<td align="center" valign="top"><a href="docs/EXAMPLES.zh-CN.md#saas-dd"><img src="docs/assets/examples/feat-saas-dd.png" height="240" alt="SaaS 收购尽调流程"></a><br><sub><a href="docs/EXAMPLES.zh-CN.md#saas-dd">SaaS 尽调</a></sub></td>
+<td align="center" valign="top"><a href="docs/EXAMPLES.zh-CN.md#security-cicd"><img src="docs/assets/examples/feat-security-cicd.png" height="240" alt="安全 CI/CD 流水线流程"></a><br><sub><a href="docs/EXAMPLES.zh-CN.md#security-cicd">安全 CI/CD 闸门</a></sub></td>
+<td align="center" valign="top"><a href="docs/EXAMPLES.zh-CN.md#distill-mind"><img src="docs/assets/examples/feat-distill-mind.png" height="240" alt="把一种思维蒸馏成一个 skill 的流程"></a><br><sub><a href="docs/EXAMPLES.zh-CN.md#distill-mind">把一种思维蒸馏成 skill</a></sub></td>
 </tr></table>
 </div>
 
-Plus six more:
+另外还有六个：
 
-- Career: [Tailored Résumé Generator](docs/EXAMPLES.md#tailored-resume)
-- Investing: [Comprehensive Stock Analysis](docs/EXAMPLES.md#nvda-decision)
-- Research / writing: [Industry Deep-Dive Report](docs/EXAMPLES.md#research-writer)
-- Software engineering: [Bug-Fix Learning Loop](docs/EXAMPLES.md#swe-bugfix)
-- Growth / marketing: [Weekly Paid-Ads Optimization](docs/EXAMPLES.md#paid-ads)
-- Design / decks: [Talk → Magazine Slide Deck](docs/EXAMPLES.md#talk-to-deck)
+- 求职：[定制简历生成器](docs/EXAMPLES.zh-CN.md#tailored-resume)
+- 投资：[全面股票分析](docs/EXAMPLES.zh-CN.md#nvda-decision)
+- 研究 / 写作：[行业深度报告](docs/EXAMPLES.zh-CN.md#research-writer)
+- 软件工程：[Bug 修复学习闭环](docs/EXAMPLES.zh-CN.md#swe-bugfix)
+- 增长 / 营销：[每周付费广告优化](docs/EXAMPLES.zh-CN.md#paid-ads)
+- 设计 / 演示：[演讲 → 杂志风格幻灯片](docs/EXAMPLES.zh-CN.md#talk-to-deck)
 
-## Documentation
+## 文档
 
-A trace is one git repository. `trace.json` declares the steps, their dependencies, and the final deliverable. Each run lives under `runs/<run_id>/`:
+一条 trace 就是一个 git 仓库。`trace.json` 声明这些 step、它们的依赖，以及最终交付物。每次 run 落在 `runs/<run_id>/` 下：
 
 ```
 <trace_root>/
-├─ .git/                                    standard git repo, the audit trail
-├─ trace.json                              the static plan (steps + deliverable)
-├─ scripts/                                 shared code used by 2+ steps
-├─ resources/                               shared static material (refs, papers, master data)
+├─ .git/                                    标准 git 仓库，审计轨迹
+├─ trace.json                              静态计划(steps + 交付物)
+├─ scripts/                                 被 2 步以上共享的代码
+├─ resources/                               共享的静态素材(参考、论文、主数据)
 ├─ steps/<step_id>/
-│  ├─ STEP.md                               per-step contract + impl hints
-│  ├─ scripts/                              step-local code
-│  └─ resources/                            step-local material (figures, PDFs, fixtures)
+│  ├─ STEP.md                               每一步的契约 + 实现提示
+│  ├─ scripts/                              步内代码
+│  └─ resources/                            步内素材(图表、PDF、夹具)
 └─ runs/<run_id>/
-   ├─ state.json                            run status (sole source of truth)
-   ├─ replies/NNNN.json                     append-only structured-output stream
-   └─ <step_id>/                            run-time files (assets + scratch)
+   ├─ state.json                            run 状态(唯一事实来源)
+   ├─ replies/NNNN.json                     仅追加的结构化输出流
+   └─ <step_id>/                            运行期文件(产物 + 草稿)
 ```
 
-The same two-name convention (`scripts/` for code that runs, `resources/` for static material that doesn't) appears at both the trace root and inside each step. Anything reused across 2+ steps belongs at the trace root; single-step material stays inside the step folder. `STEP.md` references either with relative paths.
+同一套两名约定(`scripts/` 放会运行的代码，`resources/` 放不运行的静态素材)在 trace 根和每个 step 内部都成立。任何被 2 步以上复用的东西放在 trace 根；单步专用的素材留在该 step 文件夹里。`STEP.md` 用相对路径引用二者。
 
-Every CLI write makes one git commit, scoped to exactly the paths it declares: `state.json` plus any `--asset` paths, or the new reply file plus its cited evidence paths. Scratch files stay untracked. The git history is the audit trail, and the UI can time-travel through it.
+每次 CLI 写入都会产生一个 git commit，精确限定在它声明的路径上：`state.json` 加上任意 `--asset` 路径，或者新的 reply 文件加上它引用的 evidence 路径。草稿文件保持未跟踪。git 历史就是审计轨迹，UI 可以在它之间时间旅行。
 
-Steps pass data through files, not parameters: each step writes its output, and a downstream step reads it.
+step 之间通过文件传递数据，而不是参数：每一步写出自己的产出，下游的步去读它。
 
-| To learn | Read |
+| 想了解 | 阅读 |
 |---|---|
-| The idea, in depth | [PHILOSOPHY.md](docs/trace/PHILOSOPHY.md) |
-| Driving a trace as an agent | [docs/trace/CLI.md](docs/trace/CLI.md) |
-| Making a trace | [skills/make-trace/SKILL.md](skills/make-trace/SKILL.md), or run `/make-trace` |
-| The format spec | [SCHEMA.md](docs/trace/SCHEMA.md) and [FIELDS.md](docs/trace/FIELDS.md) |
-| All examples | [docs/EXAMPLES.md](docs/EXAMPLES.md) |
+| 深入理念 | [PHILOSOPHY.md](docs/trace/PHILOSOPHY.md) |
+| 作为 agent 驱动一条 trace | [docs/trace/CLI.md](docs/trace/CLI.md) |
+| 做一条 trace | [skills/make-trace/SKILL.md](skills/make-trace/SKILL.md)，或运行 `/make-trace` |
+| 格式规范 | [SCHEMA.md](docs/trace/SCHEMA.md) 和 [FIELDS.md](docs/trace/FIELDS.md) |
+| 全部示例 | [EXAMPLES.zh-CN.md](docs/EXAMPLES.zh-CN.md) |
 
 ---
 
-## Community
+## 社区
 
-**If Flowtrace is useful to you, consider starring the repo. It helps others find it.**
+**如果 Flowtrace 对你有用，欢迎给 repo 点个 star，这能帮到更多人找到它。**
 
-- **Contributing**: see [CONTRIBUTING.md](./CONTRIBUTING.md), and look for [good first issues](https://github.com/AIScientists-Dev/Flowtrace/labels/good%20first%20issue).
-- **GitHub Issues**: [report bugs / propose changes](https://github.com/AIScientists-Dev/flowtrace/issues)
-- **Discord**: [discord.gg/x9mtbMEx](https://discord.gg/x9mtbMEx)
-- **X**: [@morphmind__ai](https://x.com/morphmind__ai?s=11)
+- **参与贡献**：见 [CONTRIBUTING.md](CONTRIBUTING.md)，也可以看看 [good first issues](https://github.com/AIScientists-Dev/Flowtrace/labels/good%20first%20issue)。
+- **GitHub Issues**：[报告 bug / 提出改动](https://github.com/AIScientists-Dev/flowtrace/issues)
+- **Discord**：[discord.gg/x9mtbMEx](https://discord.gg/x9mtbMEx)
+- **X**：[@morphmind__ai](https://x.com/morphmind__ai?s=11)
 
 ---
 
-MIT. See [`LICENSE`](./LICENSE).
+MIT 许可证。见 [`LICENSE`](LICENSE)。
