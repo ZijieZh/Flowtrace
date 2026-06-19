@@ -12,9 +12,20 @@ You turn a **source** (anything that describes how a kind of task gets done) int
 Two reads give you the full surface. Do them once:
 
 1. `references/CLI.md` (bundled next to this file) is the system contract: every command, the `trace.json` schema, the reply payload schema, the path rules, the state machine.
-2. The source itself. Read it closely; the steps you need are usually hiding in its prose. For a large or multi-file source, read the spine in full (the main document and any workflow section) and only sample the rest to confirm a step exists, rather than reading every file to the same depth.
+2. If you are on Windows, or if any path looks like `C:\...`, read `references/WINDOWS.md` before running install/build/serve commands. It explains PowerShell vs WSL execution, path conversion, Cargo/MSVC setup, and the Windows-specific traps.
+3. The source itself. Read it closely; the steps you need are usually hiding in its prose. For a large or multi-file source, read the spine in full (the main document and any workflow section) and only sample the rest to confirm a step exists, rather than reading every file to the same depth.
 
-The `flowtrace` binary drives everything. Get it in this order: honor `$TRACE_BIN` if it is set; else use it if it is on your `PATH`; else, inside a flowtrace checkout, use the build under `target/` (`target/release/flowtrace`, else `target/debug/flowtrace`) or build one with `./scripts/install.sh` from the repo root; else clone the repo first (`git clone https://github.com/AIScientists-Dev/Flowtrace.git`) and run its `./scripts/install.sh`. Building needs Node and Rust and takes a few minutes the first time — it builds the web UI and the CLI and symlinks `flowtrace` to `~/.local/bin`. When you forget a shape mid-task, the binary self-documents: `flowtrace <cmd> --help`, and `flowtrace explain <type>` (e.g. `flowtrace explain trace`, `flowtrace explain reply`).
+The `flowtrace` binary drives everything. Get it in this order: honor `$TRACE_BIN` if it is set; else use it if it is on your `PATH`; else, inside a flowtrace checkout, use the build under `target/` (`target/release/flowtrace`, `target/release/flowtrace.exe`, `target/debug/flowtrace`, else `target/debug/flowtrace.exe`) or build one with `./scripts/install.sh` from the repo root; else clone the repo first (`git clone https://github.com/AIScientists-Dev/Flowtrace.git`) and run its install path. On Unix-like shells, use `./scripts/install.sh`. On Windows, prefer the WSL-first path in `references/WINDOWS.md`; a Windows-native Rust build additionally needs Visual Studio Build Tools with the C++ workload. Building needs Node and Rust and takes a few minutes the first time — it builds the web UI and the CLI and symlinks or exposes `flowtrace`. When you forget a shape mid-task, the binary self-documents: `flowtrace <cmd> --help`, and `flowtrace explain <type>` (e.g. `flowtrace explain trace`, `flowtrace explain reply`).
+
+### Windows operating rule
+
+If the user is on Windows, decide where the command is running before writing it:
+
+- **PowerShell**: use Windows paths such as `C:\tmp\Flowtrace`, but do not run Bash snippets directly.
+- **WSL Bash**: use WSL paths such as `/mnt/c/tmp/Flowtrace`, source Cargo with `source "$HOME/.cargo/env"`, and prepend `~/.local/bin` before calling `flowtrace`.
+- **Flowtrace asset paths**: always use POSIX-style relative paths (`step/out.md`), even on Windows. Never put `C:\...`, backslashes, drive letters, or absolute paths in `--asset`, `reads:`, `writes:`, or `evidence[].path`.
+
+When converting an existing Windows workflow into a trace, normalize only the trace-facing paths to forward slashes. Keep user-facing filesystem instructions in the shell's native path style.
 
 ## The cycle
 
@@ -99,6 +110,14 @@ flowtrace run show          # confirm every step is done and the deliverable is 
 ```bash
 flowtrace serve             # opens the DAG at http://localhost:3000
 ```
+
+On Windows/WSL, prefer an explicit scope and port:
+
+```bash
+flowtrace serve --scope "$HOME/traces" --port 3320
+```
+
+Open `http://127.0.0.1:3320` in the Windows browser.
 
 ## Reuse a trace on new input
 

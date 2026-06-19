@@ -123,6 +123,23 @@ cd flowtrace
 ./scripts/install.sh        # 构建 + 把 flowtrace 软链到 ~/.local/bin/
 ```
 
+Windows 上建议从 WSL 运行安装脚本：
+
+```powershell
+wsl
+```
+
+```bash
+cd /mnt/c/tmp
+git clone https://github.com/AIScientists-Dev/flowtrace.git
+cd flowtrace
+./scripts/install.sh
+export PATH="$HOME/.local/bin:$PATH"
+flowtrace --version
+```
+
+如果你要在 Windows 上使用 `make-trace`，包括 PowerShell 与 WSL 路径转换、Cargo/MSVC 常见问题，见 [`skills/make-trace/references/WINDOWS.md`](../skills/make-trace/references/WINDOWS.md)。
+
 用 `git pull && ./scripts/install.sh` 更新。用 `INSTALL_DIR=…` 覆盖软链目标。要从源码构建或参与贡献？见 [CONTRIBUTING.md](../CONTRIBUTING.md)。
 
 </details>

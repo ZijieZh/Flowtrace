@@ -123,6 +123,23 @@ cd flowtrace
 ./scripts/install.sh        # builds + symlinks flowtrace to ~/.local/bin/
 ```
 
+On Windows, prefer running the install script from WSL:
+
+```powershell
+wsl
+```
+
+```bash
+cd /mnt/c/tmp
+git clone https://github.com/AIScientists-Dev/flowtrace.git
+cd flowtrace
+./scripts/install.sh
+export PATH="$HOME/.local/bin:$PATH"
+flowtrace --version
+```
+
+For Windows-specific `make-trace` guidance, including PowerShell vs WSL paths and common Cargo/MSVC setup errors, see [`skills/make-trace/references/WINDOWS.md`](skills/make-trace/references/WINDOWS.md).
+
 Update with `git pull && ./scripts/install.sh`. Override the symlink target with `INSTALL_DIR=…`. Building from source or contributing? See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 </details>
